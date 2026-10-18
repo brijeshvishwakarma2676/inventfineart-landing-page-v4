@@ -116,5 +116,36 @@ export const finishes = [
   { name: 'Custom colour', tone: 'line' },
 ];
 
+// Typology tiles on each product page (SITE-V4-PLAN.md §3.2). Names and text use only the brief's own words;
+// each image is a real photo from that line.
+export const typologies = {
+  sculptures: [
+    { name: 'Decorative sculptures', text: 'Sculptural creations that bring character, elegance, and artistic expression to your surroundings.', image: 'gallery/sculptures/84' },
+    { name: 'Custom statement pieces', text: 'Custom-designed statement pieces that bring creative concepts to life.', image: 'gallery/sculptures/80' },
+  ],
+  'designer-planters': [
+    { name: 'Contemporary', text: 'Planters designed to complement contemporary environments.', image: 'gallery/planters/1' },
+    { name: 'Traditional', text: 'Planters designed to complement traditional environments.', image: 'gallery/planters/3' },
+    { name: 'Custom sizes & finishes', text: 'Different styles, shapes, sizes, and customization options.', image: 'gallery/planters/4' },
+  ],
+  'grc-products': [
+    { name: 'Façade elements', text: 'Façade elements that add character, detail, and visual appeal.', image: 'gallery/grc_products/1' },
+    { name: 'Ornamental features', text: 'Ornamental features for decorative applications.', image: 'gallery/grc_products/13' },
+    { name: 'Cornices, columns & mouldings', text: 'Cornices, columns and mouldings for architectural spaces.', image: 'gallery/grc_products/11' },
+    { name: 'Cladding & custom components', text: 'Cladding elements and customized architectural components.', image: 'gallery/grc_products/7' },
+  ],
+  'grc-grilles': [
+    { name: 'Traditional ornamental', text: 'Traditional ornamental patterns.', image: 'gallery/wall_murals/13' },
+    { name: 'Contemporary geometric', text: 'Contemporary geometric styles.', image: 'gallery/grc_products/5' },
+  ],
+  'frp-products': [
+    { name: 'Decorative', text: 'FRP for decorative applications.', image: 'gallery/other_products/3' },
+    { name: 'Architectural', text: 'FRP for architectural applications.', image: 'gallery/other_products/11' },
+    { name: 'Project-specific', text: 'Solutions based on the intended use, design, dimensions, and finish.', image: 'gallery/other_products/6' },
+  ],
+};
+
 export const lineBySlug = Object.fromEntries(lines.map((l) => [l.slug, l]));
+/** A line name inside a sentence: lower case, but acronyms stay ("GRC products", "designer planters"). */
+export const inSentence = (name) => name.split(' ').map((w) => (/^[A-Z]{2,}$/.test(w) ? w : w.toLowerCase())).join(' ');
 export const lineSlugs = lines.map((l) => l.slug);

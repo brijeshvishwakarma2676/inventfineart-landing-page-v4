@@ -47,6 +47,7 @@ The default Tailwind palette is switched off. Tailwind ignores a missing token s
    - Use only `docs/new-design.md`, `../old data/raw_html`, `../old data/media`, or a value in `CONTENT-GAPS.md`.
    - Each provisional value lives in one data file, marked `// PROVISIONAL – confirm with client`, and is listed in `CONTENT-GAPS.md` with file:line.
    - `npm run check:claims` fails on the claims removed in plan §4.3. Don't weaken it to make a build pass.
+   - Design codes (`IFA-SC-012`…) are enquiry references and never change: each photo has an explicit code in `app/data/designs.js`, identical to v3's. A new photo gets the next free number; a removed one leaves a gap. `npm run check:codes` compares against `test/designs.snapshot.json`.
 3. Every route renders `<Seo>` with a unique title and description, plus JSON-LD where the plan says.
 4. Images only through `<Img id="…">` / `imageSrc()`; file names come from the manifest. Never use a source under 1,600 px wide full-bleed.
 5. Browser APIs (`window`, `document`) only inside effects. Read search params and `location.state` only after hydration (`useHydrated()`), or React throws #418. Viewport-dependent counts use CSS, not JS.
@@ -60,7 +61,7 @@ The default Tailwind palette is switched off. Tailwind ignores a missing token s
 
 ## Commands
 - `npm run dev`: dev server (http://localhost:5173)
-- `npm run check`: lint (oxlint) + claims check + contrast check + build + class check
+- `npm run check`: lint (oxlint) + claims + codes + contrast checks, build, then the class check
 - `npm run build`: prerendered static build into `build/client` (+ `404.html`, `sitemap.xml`)
 - `npm run preview`: serve the build (http://localhost:4173); unknown URLs answer 404 as on Vercel
 - `npm run shots`: Playwright screenshots of every built page at 4 widths into `shots/`; fails on horizontal scroll or console errors (needs `npm run preview` running)

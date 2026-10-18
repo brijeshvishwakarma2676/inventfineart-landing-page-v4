@@ -8,9 +8,10 @@
     "preview": "sirv build/client --dev --port 4173",
     "lint": "oxlint app scripts api",
     "check:claims": "node scripts/check-claims.mjs",
+    "check:codes": "node scripts/check-codes.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:classes": "node scripts/check-classes.mjs",
-    "check": "npm run lint && npm run check:claims && npm run check:contrast && npm run build && npm run check:classes",
+    "check": "npm run lint && npm run check:claims && npm run check:codes && npm run check:contrast && npm run build && npm run check:classes",
     "images": "node scripts/images.mjs",
     "shots": "node scripts/shots.mjs"
   },

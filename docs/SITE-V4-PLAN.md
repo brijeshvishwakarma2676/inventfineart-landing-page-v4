@@ -652,3 +652,8 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | 0 | The attribution check in §7 matches `co-authored-by`, `generated with` and `noreply@anthropic` | The earlier pattern also matched the file name `CLAUDE.md` |
 | 1 | v3's `motion/gsap.js` and `LenisProvider.jsx` are replaced by `motion/motion.js` (idle loader) + `MotionProvider.jsx`; `@gsap/react` is removed | Any static import of GSAP would put it back in the first download (§2.4) |
 | 1 | Two more build checks: `check:contrast` (every allowed pair in `app/styles/contrast.js` against the tokens) and `check:classes` (every class in the prerendered HTML must generate CSS) | Turn the Phase 1 exit checks into checks that run on every build |
+| 2 | No client sector groups on /clients (CONTENT-GAPS row 22 becomes a question) | Half the 34 names don't say what the business is, so grouping them would be guesswork; the names show as one list |
+| 2 | All 76 sculptures get a descriptive title (v3 left 67 as "Sculpture design") and one of 5 filter groups | A catalogue needs readable plates; titles describe only what each photo shows, and are flagged for the client to name |
+| 2 | "Browse by application" links each space only to the lines whose brief copy names it; the 6th tile is "Large-scale & project-specific" (was "Public & large-scale") | The brief never mentions public projects; v3 had linked FRP to hotels and commercial spaces without a source |
+| 2 | Related projects re-picked from photos ≥ 1,300 px wide | Some of v3's picks were 504–900 px |
+| 2 | Line FAQs are 4 per line: 2 specific to the line + "Do you deliver and install?" + "How do I get a quote?" | Plan said 4–5; every extra answer would need a source |

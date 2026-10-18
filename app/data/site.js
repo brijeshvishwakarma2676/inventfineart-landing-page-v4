@@ -46,6 +46,14 @@ export const site = {
     // PROVISIONAL – confirm with client (headline; the alternative is v3's "Art that gives your space an identity.")
     title: 'Sculptures, designer planters, GRC and FRP, made to your design.',
     video: null, // PROVISIONAL – confirm with client (no hero video yet; the slider is used)
+    // One slide per product line, photos ≥ 2,400 px. Candidates; final picks and phone crops are made by eye in Phase 4.
+    slides: [
+      { line: 'sculptures', image: 'gallery/sculptures/20', caption: 'Giant garden chess set', position: '50% 60%' },
+      { line: 'designer-planters', image: 'gallery/planters/3', caption: 'Elephant planter', position: '50% 45%' },
+      { line: 'grc-products', image: 'gallery/grc_products/1', caption: 'GRC 3D façade panels', position: '50% 55%' },
+      { line: 'grc-grilles', image: 'gallery/wall_murals/13', caption: 'Jali boundary screen', position: '50% 50%' },
+      { line: 'frp-products', image: 'gallery/other_products/11', caption: 'Curved interior installation', position: '50% 50%' },
+    ],
   },
 
   // PROVISIONAL – confirm with client. Years is computed from foundedYear.

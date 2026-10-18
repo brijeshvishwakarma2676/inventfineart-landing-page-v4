@@ -6,7 +6,10 @@ import { Button } from '../components/ui/Button';
 import { Img } from '../components/ui/Img';
 import { Plate } from '../components/ui/Plate';
 import { dots } from '../components/ui/format';
-import { lineBySlug, finishes } from '../data/lines';
+import { lines, lineBySlug, finishes } from '../data/lines';
+import { designs, designsFor, designByCode, sculptureGroups } from '../data/designs';
+import { projects, projectGroups } from '../data/projects';
+import { clientLogos, clientNames } from '../data/clients';
 import { PAIRS, BANNED_PAIRS, contrast } from '../styles/contrast';
 
 // Read from global.css at build time, so this page can't drift from the real tokens.
@@ -26,12 +29,8 @@ const SWATCH = {
 };
 const FINISH = { 'surface-2': 'bg-surface-2', surface: 'bg-surface', 'ink-muted': 'bg-ink-muted', bronze: 'bg-bronze', line: 'bg-line' };
 
-// Real designs; codes and titles match site-v3 (SITE-V4-PLAN.md §5.3).
-const PLATES = [
-  { image: 'gallery/sculptures/15', code: 'IFA-SC-012', title: 'Seated Buddha', detail: 'Gold finish', alt: 'Seated Buddha sculpture with a gold finish, in a garden' },
-  { image: 'gallery/planters/3', code: 'IFA-PL-003', title: 'Elephant planter', alt: 'Cream elephant planter holding a spiky plant on a stone plinth' },
-  { image: 'gallery/grc_products/5', code: 'IFA-GRL-002', title: 'Geometric jali cladding', detail: 'GRC', alt: 'Geometric GRC jali panels cladding a wall' },
-];
+// Real designs from the catalogue (codes match site-v3, SITE-V4-PLAN.md §5.3).
+const PLATES = ['IFA-SC-012', 'IFA-PL-003', 'IFA-GRL-002'].map((code) => designByCode[code]);
 
 const TYPE = [
   ['text-display', 'Display 44→84', 'Made to your design.'],
@@ -158,6 +157,23 @@ export default function Styleguide() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Content inventory (app/data)</Eyebrow>
+            <dl className="max-w-3xl border-t border-line-strong">
+              {[
+                ['Designs', `${designs.length}: ${dots(lines.map((l) => `${l.num}\u00a0${l.name} ${designsFor(l.slug).length}`))}`],
+                ['Sculpture groups', dots(sculptureGroups.map((g) => `${g.name} ${designs.filter((d) => d.group === g.slug).length}`))],
+                ['Projects', `${projects.length}: ${dots(projectGroups.map((g) => `${g.name} ${projects.filter((p) => p.group === g.slug).length}`))}`],
+                ['Clients', `${clientLogos.length} logo brands · ${clientNames.length} names from the old site`],
+              ].map(([k, v]) => (
+                <div key={k} className="grid gap-1 border-b border-line py-3 sm:grid-cols-[11rem_1fr] sm:gap-6">
+                  <dt className="caps-label text-ink-muted">{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           <div className="flex flex-col gap-6">
