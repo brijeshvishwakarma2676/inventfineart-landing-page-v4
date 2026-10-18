@@ -3,8 +3,6 @@ import { PageStub } from '../components/sections/PageStub';
 import { breadcrumbs } from '../data/seo';
 import { site } from '../data/site';
 
-export const handle = { inlineEnquiry: true };
-
 export default function Contact() {
   return (
     <>
@@ -27,7 +25,7 @@ export default function Contact() {
         <div className="mt-10 grid gap-8 sm:grid-cols-2">
           {[site.office, site.factory].map((a) => (
             <address key={a.label} className="not-italic">
-              <span className="caps-label text-bronze-deep">{a.label}</span>
+              <span className="caps-label text-oxide-deep">{a.label}</span>
               {a.lines.map((line) => (
                 <span key={line} className="block">
                   {line}

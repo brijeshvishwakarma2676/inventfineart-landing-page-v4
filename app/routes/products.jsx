@@ -26,8 +26,8 @@ export default function Products() {
           {lines.map((l) => (
             <li key={l.slug}>
               <Link to={`/${l.slug}`} className="hover:underline">
-                <span className="caps-label mr-3 text-bronze-deep">{l.num}</span>
-                {l.name} <em className="font-display text-ink-muted">{l.tagline}</em>
+                <span className="caps-label mr-3 text-oxide-deep">{l.num}</span>
+                {l.name} <span className="text-ink-muted">· {l.tagline}</span>
               </Link>
             </li>
           ))}

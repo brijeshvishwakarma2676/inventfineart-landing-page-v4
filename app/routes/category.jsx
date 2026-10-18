@@ -5,8 +5,6 @@ import { lineBySlug } from '../data/lines';
 import { breadcrumbs } from '../data/seo';
 import { SITE_URL } from '../data/site';
 
-export const handle = { heroHeader: true, inlineEnquiry: true };
-
 // One template for all five product lines (SITE-V4-PLAN.md §3.2).
 export default function Category() {
   const { pathname } = useLocation();

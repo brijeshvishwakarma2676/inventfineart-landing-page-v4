@@ -23,6 +23,21 @@
       "rules": {
         "no-console": "off"
       }
+    },
+    {
+      "files": [
+        "api/**"
+      ],
+      "rules": {
+        "no-console": [
+          "error",
+          {
+            "allow": [
+              "error"
+            ]
+          }
+        ]
+      }
     }
   ]
 }

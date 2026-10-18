@@ -3,8 +3,6 @@ import { PageStub } from '../components/sections/PageStub';
 import { organization } from '../data/seo';
 import { site } from '../data/site';
 
-export const handle = { heroHeader: true, inlineEnquiry: true };
-
 export default function Home() {
   return (
     <>

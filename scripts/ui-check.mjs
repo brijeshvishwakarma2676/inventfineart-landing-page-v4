@@ -1,0 +1,161 @@
+// Interaction checks in a real browser (Playwright): mega menu, mobile menu, enquiry panel and form.
+// Needs the site running: `npm run preview` (default http://localhost:4173) or pass BASE=http://…
+// Saves screenshots of each open state into shots/ui-*.png. Exit 1 if any check fails.
+// Usage: node scripts/ui-check.mjs
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { chromium } from 'playwright';
+
+const BASE = process.env.BASE ?? 'http://localhost:4173';
+const OUT = path.resolve(import.meta.dirname, '../shots');
+await fs.mkdir(OUT, { recursive: true });
+const results = [];
+const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail });
+const shot = (page, name) => page.screenshot({ path: path.join(OUT, `ui-${name}.png`) });
+
+const browser = await chromium.launch();
+const panel = '[role="dialog"][aria-labelledby="enquiry-title"]';
+const panelOpen = (page) => page.$eval(panel, (el) => !el.inert && getComputedStyle(el).visibility === 'visible');
+const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?.contains(document.activeElement), sel);
+
+// ---------- Desktop, mouse ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto(`${BASE}/styleguide`, { waitUntil: 'networkidle' });
+
+  const trigger = page.locator('button[aria-controls="mega-menu"]');
+  await trigger.hover();
+  await page.waitForTimeout(250);
+  check('mega menu opens on mouse hover', (await trigger.getAttribute('aria-expanded')) === 'true');
+  await page.locator('#mega-menu a').first().hover();
+  await page.waitForTimeout(250);
+  check('mega menu stays open moving into the panel', (await trigger.getAttribute('aria-expanded')) === 'true');
+  await shot(page, 'mega-1440');
+  await page.mouse.move(700, 850);
+  await page.waitForTimeout(400);
+  check('mega menu closes when the mouse leaves', (await trigger.getAttribute('aria-expanded')) === 'false');
+
+  // Keyboard: open with Enter, Tab into the panel, Esc closes and returns focus to the trigger.
+  await trigger.focus();
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(150);
+  check('mega menu opens with Enter', (await trigger.getAttribute('aria-expanded')) === 'true');
+  await page.keyboard.press('Tab');
+  check('Tab moves into the mega menu', await focusIn(page, '#mega-menu'));
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(150);
+  check('Esc closes the mega menu', (await trigger.getAttribute('aria-expanded')) === 'false');
+  check('focus returns to the Products button', await page.evaluate(() => document.activeElement?.getAttribute('aria-controls') === 'mega-menu'));
+
+  // Header Get a Quote → panel; focus inside; Tab stays inside; Esc closes and restores focus.
+  const quote = page.locator('header button', { hasText: 'Get a Quote' });
+  await quote.click();
+  await page.waitForTimeout(200);
+  check('header Get a Quote opens the panel', await panelOpen(page));
+  check('focus moves into the panel', await focusIn(page, panel));
+  for (let i = 0; i < 40; i++) await page.keyboard.press('Tab');
+  check('Tab stays inside the panel', await focusIn(page, panel));
+  check('general enquiry: heading', (await page.textContent('#enquiry-title'))?.trim() === 'Tell us about your space');
+  await shot(page, 'panel-1440');
+
+  // Empty submit → validation messages.
+  await page.locator(`${panel} button[type="submit"]`).click();
+  await page.waitForTimeout(150);
+  const alerts = await page.locator(`${panel} [role="alert"]`).allTextContents();
+  check('empty submit shows name, phone and consent errors', alerts.length >= 3, alerts.join(' | '));
+
+  // Valid submit against a server with no API → error, input kept, WhatsApp fallback filled in.
+  await page.fill(`${panel} input[autocomplete="name"]`, 'Asha Rao');
+  await page.fill(`${panel} input[type="tel"]`, '+91 98765 43210');
+  await page.locator(`${panel} input[type="checkbox"][aria-invalid]`).check();
+  await page.locator(`${panel} button[type="submit"]`).click();
+  await page.waitForSelector(`${panel} a:has-text("Send on WhatsApp instead")`, { timeout: 5000 }).catch(() => {});
+  const fallback = await page.locator(`${panel} a:has-text("Send on WhatsApp instead")`).getAttribute('href').catch(() => null);
+  check('failed send shows the WhatsApp fallback', !!fallback);
+  check('fallback message carries the details', fallback && decodeURIComponent(fallback).includes('Name: Asha Rao'));
+  check('input is kept after a failed send', (await page.inputValue(`${panel} input[autocomplete="name"]`)) === 'Asha Rao');
+  await shot(page, 'panel-error-1440');
+
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(600);
+  check('Esc closes the panel', !(await panelOpen(page)));
+  check('focus returns to Get a Quote', await page.evaluate(() => document.activeElement?.textContent?.trim() === 'Get a Quote'));
+
+  // Line and design pre-fill.
+  await page.click('[data-test="enquire-line"]');
+  await page.waitForTimeout(200);
+  check('line enquiry: heading is the line', (await page.textContent('#enquiry-title'))?.trim() === 'Sculptures');
+  check('line enquiry: line is ticked', await page.isChecked(`${panel} input[value="sculptures"]`));
+  check('line enquiry: no design code field', (await page.locator(`${panel} input[readonly]`).count()) === 0);
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(600);
+  await page.click('[data-test="enquire-design"]');
+  await page.waitForTimeout(200);
+  check('design enquiry: heading is the design', (await page.textContent('#enquiry-title'))?.trim() === 'Seated Buddha');
+  check('design enquiry: code is filled in', (await page.inputValue(`${panel} input[readonly]`)) === 'IFA-SC-012');
+  check('design enquiry: line is ticked', await page.isChecked(`${panel} input[value="sculptures"]`));
+  await shot(page, 'panel-design-1440');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(600);
+
+  // Footer CTA band → panel.
+  await page.locator('footer button', { hasText: 'Get a Quote' }).click();
+  await page.waitForTimeout(200);
+  check('footer Get a Quote opens the panel', await panelOpen(page));
+  await page.keyboard.press('Escape');
+  check('no page errors (desktop)', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+}
+
+// ---------- Desktop, motion on: initial focus must also work with transitions running ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/styleguide`, { waitUntil: 'networkidle' });
+  await page.locator('header button', { hasText: 'Get a Quote' }).click();
+  await page.waitForTimeout(200);
+  check('motion on: focus moves into the panel', await focusIn(page, panel));
+  await page.keyboard.press('Escape');
+  await ctx.close();
+}
+
+// ---------- Phone, touch ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true, reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  const menu = '[role="dialog"][aria-label="Menu"]';
+  await page.tap('button[aria-label="Open menu"]');
+  await page.waitForTimeout(200);
+  check('mobile menu opens', await page.$eval(menu, (el) => !el.inert && getComputedStyle(el).visibility === 'visible'));
+  check('focus moves into the mobile menu', await focusIn(page, menu));
+  await shot(page, 'menu-360');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(600);
+  check('Esc closes the mobile menu', await page.$eval(menu, (el) => el.inert));
+  check('focus returns to the menu button', await page.evaluate(() => document.activeElement?.getAttribute('aria-label') === 'Open menu'));
+
+  await page.tap('button[aria-label="Open menu"]');
+  await page.waitForTimeout(200);
+  await page.locator(`${menu} button`, { hasText: 'Get a Quote' }).tap();
+  await page.waitForTimeout(300);
+  check('menu Get a Quote closes the menu', await page.$eval(menu, (el) => el.inert));
+  check('menu Get a Quote opens the panel', await panelOpen(page));
+  const { sw, iw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: window.innerWidth }));
+  check('no horizontal scroll with the panel open', sw <= iw, `${sw} > ${iw}`);
+  await shot(page, 'panel-360');
+  check('call link in the phone header', (await page.locator('header a[href^="tel:"]').count()) > 0);
+  check('no page errors (phone)', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+}
+
+await browser.close();
+for (const r of results) console.log(`${r.ok ? 'ok  ' : 'FAIL'} ${r.name}${r.ok || !r.detail ? '' : `  (${r.detail})`}`);
+const failed = results.filter((r) => !r.ok);
+console.log(`\nui-check: ${results.length - failed.length}/${results.length} passed`);
+if (failed.length) process.exit(1);
