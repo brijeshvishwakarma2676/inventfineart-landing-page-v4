@@ -154,6 +154,16 @@ html.lenis body {
   text-transform: uppercase;
 }
 
+/* Client marquee: the track holds two copies of the logos and moves by one copy */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Hero slide progress bar */
 @keyframes progress {
   from {
