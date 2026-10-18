@@ -99,6 +99,7 @@ PHASE 5
 - `npm run check`: lint (oxlint) + claims + codes + contrast checks, build, then the class check
 - `npm run build`: prerendered static build into `build/client` (+ `404.html`, `sitemap.xml`)
 - `npm run preview`: serve the build (http://localhost:4173); unknown URLs answer 404 as on Vercel
+- `npm run test:api`: 16 offline checks of `api/enquiry.js` (validation, honeypot, file limits, Turnstile, the email payload and auto-reply); Resend is intercepted, nothing is sent
 - `npm run shots`: Playwright screenshots of every built page at 4 widths into `shots/`; fails on horizontal scroll or console errors (needs `npm run preview` running)
 - `npm run images`: rebuild images after adding photos to `media-src/` (`-- --force` rebuilds all)
 

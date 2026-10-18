@@ -631,3 +631,4 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | 3 | `npm run test:ui` (`scripts/ui-check.mjs`): 35 browser checks of the menus, the panel and the form | Phase 3's keyboard and pre-fill exit checks, kept for later phases |
 | 4 | Phone hero order: photo, then the 01–05 strip and a one-line caption, then the headline (desktop keeps headline beside the photo) | On a phone the first screen was all text |
 | 4 | Product lines are numbered rows with a sticky preview, not v2's card grid | The new theme's "numbered rows that reveal a photo" layout |
+| 8 | Phase 8 is split: `npm run test:api` (16 offline checks, Resend and Turnstile intercepted) now; the live tests with the real inbox wait for the Vercel project and its environment variables | The Vercel project isn't set up yet |

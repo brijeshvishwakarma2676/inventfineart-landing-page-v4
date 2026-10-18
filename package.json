@@ -13,6 +13,7 @@
     "check:classes": "node scripts/check-classes.mjs",
     "check": "npm run lint && npm run check:claims && npm run check:codes && npm run check:contrast && npm run build && npm run check:classes",
     "test:ui": "node scripts/ui-check.mjs",
+    "test:api": "node scripts/api-check.mjs",
     "images": "node scripts/images.mjs",
     "shots": "node scripts/shots.mjs"
   },
