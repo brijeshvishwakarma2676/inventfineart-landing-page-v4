@@ -39,9 +39,18 @@ const TITLES = {
   'gallery/other_products/17': 'Lattice pergola',
 };
 
+// Two photos of the same project (judged from the photos); each shows the other on hover.
+const SAME_PROJECT = [
+  ['gallery/wall_murals/32', 'gallery/wall_murals/34'],
+  ['gallery/water_fountains/3', 'gallery/water_fountains/5'],
+  ['gallery/water_fountains/12', 'gallery/water_fountains/13'],
+  ['gallery/water_fountains/16', 'gallery/water_fountains/17'],
+];
+const otherView = Object.fromEntries(SAME_PROJECT.flatMap(([a, b]) => [[a, b], [b, a]]));
+
 const make = (group) => (image) => {
   const title = TITLES[image] ?? groupName[group];
-  return { image, group, groupName: groupName[group], title, alt: `${title} by Invent Fine Art` };
+  return { image, group, groupName: groupName[group], title, alt: `${title} by Invent Fine Art`, next: otherView[image] ?? null };
 };
 
 export const projects = [

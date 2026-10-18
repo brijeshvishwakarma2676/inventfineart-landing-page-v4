@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router';
 import { Seo } from '../components/ui/Seo';
 import { Section, Container } from '../components/ui/Section';
 import { Img } from '../components/ui/Img';
+import { HoverView, HoverHint, useHoverView } from '../components/sections/HoverView';
 import { useLightbox } from '../components/ui/useLightbox';
 import { SplitHeader } from '../components/sections/PageHeader';
 import { projects, projectGroups } from '../data/projects';
@@ -79,12 +80,7 @@ export default function Projects() {
           {/* Masonry via CSS columns; each photo opens the lightbox */}
           <ul key={active} className={`columns-2 gap-4 md:columns-3 lg:gap-6 ${expanded ? '' : '[&>li:nth-child(n+19)]:hidden'}`}>
             {shown.map((p, i) => (
-              <li key={p.image} className="mb-4 break-inside-avoid lg:mb-6">
-                <button type="button" onClick={() => open(i)} className="group block w-full cursor-zoom-in overflow-hidden bg-surface-2" aria-label={`View larger: ${p.title}`}>
-                  <Img id={p.image} alt={p.alt} sizes="(min-width: 768px) 33vw, 50vw" className="w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
-                </button>
-                <p className="caps-label mt-2 text-oxide-deep">{p.groupName}</p>
-              </li>
+              <ProjectPhoto key={p.image} p={p} onOpen={() => open(i)} />
             ))}
           </ul>
           {!expanded && shown.length > 18 && (
@@ -102,5 +98,24 @@ export default function Projects() {
         </Container>
       </Section>
     </>
+  );
+}
+
+const PHOTO_SIZES = '(min-width: 768px) 33vw, 50vw';
+
+/** One photo in the masonry; a project with a second photo shows it on hover. */
+function ProjectPhoto({ p, onOpen }) {
+  const [armed, hoverHandlers] = useHoverView();
+  return (
+    <li className="group sketch-trigger mb-4 break-inside-avoid lg:mb-6" {...hoverHandlers}>
+      <button type="button" onClick={onOpen} className="relative block w-full cursor-zoom-in overflow-hidden bg-surface-2" aria-label={`View larger: ${p.title}`}>
+        <Img id={p.image} alt={p.alt} sizes={PHOTO_SIZES} className="w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
+        <HoverView item={p} armed={armed} sizes={PHOTO_SIZES} />
+      </button>
+      <p className="caps-label mt-2 flex flex-wrap justify-between gap-x-3 text-oxide-deep">
+        {p.groupName}
+        <HoverHint item={p} />
+      </p>
+    </li>
   );
 }

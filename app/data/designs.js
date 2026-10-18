@@ -124,9 +124,35 @@ const RAW = [
   { code: 'IFA-FRP-008', line: 'frp-products', image: 'gallery/other_products/14', title: 'Anchor and eagle landmark', provisional: true },
 ];
 
+// Photos of the same piece, from the titles ("…, side view", "…, on display", "…, in the workshop"). A card shows the
+// next photo of its group on hover (or the piece's line drawing, where sections/sketches.js has one).
+const SAME_PIECE = [
+  ['IFA-SC-010', 'IFA-SC-011'],
+  ['IFA-SC-016', 'IFA-SC-017'],
+  ['IFA-SC-025', 'IFA-SC-026'],
+  ['IFA-SC-027', 'IFA-SC-028'],
+  ['IFA-SC-029', 'IFA-SC-031'],
+  ['IFA-SC-032', 'IFA-SC-033', 'IFA-SC-045'],
+  ['IFA-SC-035', 'IFA-SC-036'],
+  ['IFA-SC-037', 'IFA-SC-038', 'IFA-SC-039', 'IFA-SC-040'],
+  ['IFA-SC-048', 'IFA-SC-049', 'IFA-SC-050'],
+  ['IFA-SC-054', 'IFA-SC-055'],
+  ['IFA-SC-058', 'IFA-SC-059', 'IFA-SC-060'],
+  ['IFA-SC-061', 'IFA-SC-062'],
+  ['IFA-SC-067', 'IFA-SC-068'],
+  ['IFA-GRC-001', 'IFA-GRC-002', 'IFA-GRC-003'],
+  ['IFA-GRC-004', 'IFA-GRC-005', 'IFA-GRC-006'],
+  ['IFA-GRL-005', 'IFA-GRL-006'],
+  ['IFA-FRP-003', 'IFA-FRP-004'],
+  ['IFA-FRP-005', 'IFA-FRP-006', 'IFA-FRP-007'],
+];
+const imageOf = Object.fromEntries(RAW.map((d) => [d.code, d.image]));
+const nextView = Object.fromEntries(SAME_PIECE.flatMap((g) => g.map((code, i) => [code, imageOf[g[(i + 1) % g.length]]])));
+
 export const designs = RAW.map((d) => ({
   ...d,
   alt: `${d.title}, ${inSentence(lineBySlug[d.line].name)} by Invent Fine Art (${d.code})`,
+  next: nextView[d.code] ?? null,
 }));
 
 export const designsFor = (slug) => designs.filter((d) => d.line === slug);

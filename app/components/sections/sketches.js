@@ -319,6 +319,11 @@ const sphere = {
   d: [ellipse(0, -44, 44), 'M -30 -66 C -22 -78 -10 -84 4 -84', 'M -44 -44 C -30 -36 30 -36 44 -44'],
 };
 
+const pyramid = pyramidWall(240, 220, 6, 5);
+const jali = triangleJali(150, 250, 9, 7);
+const boundary = boundaryScreen(220, 120);
+const curved = curvedWall(110, 200);
+
 export const sketches = [
   {
     line: 'sculptures',
@@ -333,16 +338,46 @@ export const sketches = [
   {
     line: 'grc-products',
     codes: ['IFA-GRC-002', 'IFA-GRC-007', 'IFA-GRC-011'],
-    objects: [at(40, pyramidWall(240, 220, 6, 5)), at(392, heritage), at(566, lotus), at(706, person)],
+    objects: [at(40, pyramid), at(392, heritage), at(566, lotus), at(706, person)],
   },
   {
     line: 'grc-grilles',
     codes: ['IFA-GRL-003', 'IFA-GRL-006'],
-    objects: [at(140, triangleJali(150, 250, 9, 7)), at(420, boundaryScreen(220, 120)), at(680, person)],
+    objects: [at(140, jali), at(420, boundary), at(680, person)],
   },
   {
     line: 'frp-products',
     codes: ['IFA-FRP-002', 'IFA-FRP-007'],
-    objects: [at(190, spires), at(470, curvedWall(110, 200)), at(632, sphere), at(718, person)],
+    objects: [at(190, spires), at(470, curved), at(632, sphere), at(718, person)],
   },
 ];
+
+// One drawing per design code, for the hover view on catalogue cards (HoverView.jsx). Every photo of the same piece
+// (designs.js SAME_PIECE) gets the piece's drawing. `box` is the drawing's extent [x0, y0, x1, y1], ground at y = 0.
+const drawing = (box, ...objects) => ({ box, objects: objects.map(([x, o]) => at(x, o)) });
+const chess = drawing([-40, -172, 96, 0], [0, chessKing], [74, chessPawn]);
+const facade = drawing([0, -220, 240, 0], [0, pyramid]);
+const screen = drawing([-141, -193, 141, 0], [0, boundary]);
+const interior = drawing([-110, -232, 206, 0], [0, curved], [162, sphere]);
+export const drawings = {
+  'IFA-SC-016': chess,
+  'IFA-SC-017': chess,
+  'IFA-SC-012': drawing([-88, -222, 88, 0], [0, buddha]),
+  'IFA-SC-070': drawing([-48, -226, 48, 0], [0, ribbon]),
+  'IFA-PL-001': drawing([-60, -136, 55, 0], [0, faceted]),
+  'IFA-PL-002': drawing([-52, -150, 52, 0], [0, urn]),
+  'IFA-PL-003': drawing([-76, -184, 76, 0], [0, elephant]),
+  'IFA-PL-004': drawing([-56, -130, 56, 0], [0, facePot]),
+  'IFA-GRC-001': facade,
+  'IFA-GRC-002': facade,
+  'IFA-GRC-003': facade,
+  'IFA-GRC-007': drawing([-92, -258, 92, 0], [0, heritage]),
+  'IFA-GRC-011': drawing([-66, -124, 66, 0], [0, lotus]),
+  'IFA-GRL-003': drawing([-75, -250, 75, 0], [0, jali]),
+  'IFA-GRL-005': screen,
+  'IFA-GRL-006': screen,
+  'IFA-FRP-002': drawing([-132, -280, 132, 0], [0, spires]),
+  'IFA-FRP-005': interior,
+  'IFA-FRP-006': interior,
+  'IFA-FRP-007': interior,
+};
