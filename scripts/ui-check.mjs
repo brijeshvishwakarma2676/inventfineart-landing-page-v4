@@ -163,6 +163,45 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
   await ctx.close();
 }
 
+// ---------- Other pages: query strings, state and sticky nav survive a reload ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+
+  await page.goto(`${BASE}/projects?type=water-features`, { waitUntil: 'networkidle' });
+  check('projects: ?type= selects the tab', (await page.getAttribute('button[aria-pressed="true"]', 'aria-pressed').catch(() => null)) && (await page.textContent('button[aria-pressed="true"]'))?.includes('Water features'));
+  const shownProjects = await page.$$eval('main ul.columns-2 > li', (els) => els.filter((el) => el.offsetParent !== null).length);
+  check('projects: the filter shows only that group', shownProjects === 18, String(shownProjects));
+  await page.goto(`${BASE}/projects?img=wall_murals-9`, { waitUntil: 'networkidle' });
+  await page.waitForSelector('.yarl__root', { timeout: 5000 }).catch(() => {});
+  check('projects: ?img= opens that photo', (await page.locator('.yarl__root').count()) > 0);
+
+  await page.goto(`${BASE}/contact?service=grc-grilles`, { waitUntil: 'networkidle' });
+  check('contact: ?service= ticks the line', await page.isChecked('main input[value="grc-grilles"]').catch(() => false));
+  await page.goto(`${BASE}/contact?code=IFA-SC-012`, { waitUntil: 'networkidle' });
+  check('contact: ?code= fills in the design', (await page.inputValue('main input[readonly]').catch(() => '')) === 'IFA-SC-012');
+  await page.click('main button:has-text("Show office on the map")');
+  check('contact: the map loads only on click', (await page.locator('main iframe[title^="Map"]').count()) === 1);
+
+  await page.goto(`${BASE}/thank-you`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => history.replaceState({ usr: { name: 'Asha' }, key: 'test', idx: 0 }, ''));
+  await page.reload({ waitUntil: 'networkidle' });
+  check('thank-you: the name from navigation state shows after a reload', (await page.textContent('h1'))?.includes('Asha'));
+
+  await page.goto(`${BASE}/about`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => window.scrollTo(0, 1600));
+  await page.waitForTimeout(300);
+  const navTop = await page.$eval('nav[aria-label="On this page"]', (el) => Math.round(el.getBoundingClientRect().top));
+  const headerH = await page.$eval('header', (el) => Math.round(el.getBoundingClientRect().height));
+  check('about: the sub-nav sticks right under the header (no gap)', navTop === headerH, `${navTop} vs ${headerH}`);
+
+  check('no page or console errors on these pages (incl. #418)', errors.length === 0, errors.join(' | ').slice(0, 300));
+  await ctx.close();
+}
+
 // ---------- Phone, touch ----------
 {
   const ctx = await browser.newContext({ viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true, reducedMotion: 'reduce' });

@@ -1,6 +1,6 @@
 # Content gaps and provisional values
 
-As of 2026-10-18 (Phase 2). This is the **master list**: it supersedes `site-v3/CONTENT-GAPS.md`. Every value below is a stand-in. It can be built and shown, but the client must confirm or replace it before launch.
+As of 2026-10-18 (Phase 7). This is the **master list**: it supersedes `site-v3/CONTENT-GAPS.md`. Every value below is a stand-in. It can be built and shown, but the client must confirm or replace it before launch.
 
 - Find them all with `grep -rn PROVISIONAL app`. Launch is blocked until that command shows nothing (SITE-V4-PLAN.md §7).
 - Sources of truth are `../old data/raw_html/*.html`, `../old data/media/` and `../new-design.md`. The archive's own notes (`old data/pages/*.md`, `README.md`, `site_data.json`) are **not** a source. Anything found only there is provisional.
@@ -24,7 +24,7 @@ As of 2026-10-18 (Phase 2). This is the **master list**: it supersedes `site-v3/
 | 12 | GRC Grilles split | `grc_products` 4, 5, 6, 10 = grilles; plus `wall_murals` 12, 13 (jali gates) | `app/data/lines.js:80`; `app/data/designs.js:17` |
 | 13 | Testimonials | none (section hidden) | `app/data/testimonials.js:2` |
 | 14 | Architect logos | none (section hidden) | `app/data/clients.js:54` |
-| 15 | Logo | wordmark only; the vector logo is needed | Phase 3 (`app/components/ui/Logo.jsx`) |
+| 15 | Logo | wordmark only; the vector logo is needed | `app/components/ui/Logo.jsx:4` |
 | 16 | FAQ answers | built only from the old site, the brief and how the enquiry works | `app/data/faqs.js:1` |
 | 17 | **Factory address wording** | "Opp. Jag Mata Mandir, Wagholi Road, Nalasopara West, Thane 401203" (old contact page; "Nalasopra" spelling fixed). Nalasopara is now in Palghar district: should it say Palghar? v2 and v3 wrongly said "Vasai/Virar" | `app/data/site.js:37` |
 | 18 | **Second email** | inventfineart@gmail.com (old contact page only). Is it still in use? | `app/data/site.js:22` |

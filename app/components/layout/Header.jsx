@@ -75,11 +75,11 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-chalk/10 bg-dark text-chalk transition-transform duration-500 ease-out-soft ${
+        className={`fixed inset-x-0 top-0 z-50 h-(--header-h) border-b border-chalk/10 bg-dark text-chalk transition-transform duration-500 ease-out-soft ${
           hidden && !mobileOpen ? '-translate-y-full' : 'translate-y-0'
         }`}
       >
-        <div className="container-site flex h-(--header-h) items-stretch justify-between gap-6">
+        <div className="container-site flex h-full items-stretch justify-between gap-6">
           <Link to="/" className="flex shrink-0 items-center" aria-label="Invent Fine Art, home">
             <Logo />
           </Link>
