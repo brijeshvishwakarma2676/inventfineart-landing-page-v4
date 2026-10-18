@@ -24,7 +24,7 @@ export function PageStub({ eyebrow, title, lead, crumbs, sections = [], children
           ))}
         </nav>
       )}
-      {eyebrow && <p className="caps-label text-bronze-deep">{eyebrow}</p>}
+      {eyebrow && <p className="caps-label text-oxide-deep">{eyebrow}</p>}
       <h1 className="mt-4 max-w-4xl text-h1">{title}</h1>
       {lead && <p className="mt-6 max-w-[68ch] text-lead text-ink-muted">{lead}</p>}
       {children}
@@ -32,7 +32,7 @@ export function PageStub({ eyebrow, title, lead, crumbs, sections = [], children
         <ol className="mt-14 border-t border-line-strong">
           {sections.map(([name, note, phase], i) => (
             <li key={name} className="grid gap-1 border-b border-line py-4 sm:grid-cols-[4rem_1fr_auto] sm:gap-6">
-              <span className="caps-label text-bronze-deep">{String(i + 1).padStart(2, '0')}</span>
+              <span className="caps-label text-oxide-deep">{String(i + 1).padStart(2, '0')}</span>
               <span>
                 <span className="font-semibold">{name}</span>
                 {note && <span className="block text-small text-ink-muted">{note}</span>}

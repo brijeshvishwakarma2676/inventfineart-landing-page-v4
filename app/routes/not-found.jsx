@@ -14,7 +14,7 @@ export default function NotFound() {
           {lines.map((l) => (
             <li key={l.slug}>
               <Link to={`/${l.slug}`} className="hover:underline">
-                <span className="caps-label mr-3 text-bronze-deep">{l.num}</span>
+                <span className="caps-label mr-3 text-oxide-deep">{l.num}</span>
                 {l.name}
               </Link>
             </li>

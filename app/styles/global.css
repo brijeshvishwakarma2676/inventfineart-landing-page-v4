@@ -1,48 +1,48 @@
 @import 'tailwindcss';
 
-/* Design tokens (SITE-V4-PLAN.md §2). The only place colours, fonts, sizes and radii are defined.
-   Names follow v3 where the meaning matches (dark, cream, h1…, micro, rounded-image…), so files
-   copied from site-v3 keep working. Tailwind ignores missing tokens silently: add new ones here. */
+/* Design tokens: "Concrete & Oxide" (SITE-V4-PLAN.md §2). The only place colours, fonts, sizes and radii
+   are defined. The default palette is off, and Tailwind ignores a missing token silently: add new ones here
+   and run `npm run check` (check:contrast tests the allowed pairs, check:classes every rendered class). */
 @theme {
   --color-*: initial;
-  --color-bg: #faf8f5; /* travertine (v2) */
-  --color-surface: #f3efe8; /* alternate sections (v2 bg-alt) */
-  --color-surface-2: #e9e2d7; /* placeholders, swatches; text on it uses ink */
-  --color-line: #e6e0d5; /* hairlines */
-  --color-line-strong: #d5ccbe; /* table and list rules */
-  --color-field: #8c8478; /* form field borders (≥3:1) */
-  --color-ink: #191715;
-  --color-ink-muted: #6e675f; /* 5.2:1 on bg */
-  --color-bronze: #9e6432; /* button fill with white text; text only ≥18px on light */
-  --color-bronze-deep: #824f24; /* hover; all small bronze text on light (6.4:1) */
-  --color-dark: #141312; /* charcoal bands and footer, ≤3 per page */
-  --color-dark-2: #1d1b19;
-  --color-cream: #f8f5f0; /* text on dark and on photos */
-  --color-cream-muted: #a8a095; /* secondary text, eyebrows and links on dark (7.2:1) */
+  --color-bg: #e4e2de; /* concrete: the page */
+  --color-surface: #cfcbc4; /* cement: alternate bands */
+  --color-surface-2: #d9d6d0; /* image placeholders */
+  --color-paper: #f4f3f0; /* forms, panel, tables: the lightest surface */
+  --color-line: #b9b5ad; /* visible 1px grid lines */
+  --color-line-strong: #1a1a1a; /* black rules: spec tables, plates */
+  --color-field: #6f6b64; /* form field borders (≥3:1) */
+  --color-ink: #1a1a1a; /* graphite text */
+  --color-ink-muted: #55524c; /* secondary text */
+  --color-oxide: #c24a1c; /* the accent: fills (white text), large text ≥24px, numbers */
+  --color-oxide-deep: #8c3010; /* small accent text on light: links, eyebrows, codes; button hover */
+  --color-oxide-bright: #e0612e; /* the accent on graphite: numbers, eyebrows, links */
+  --color-dark: #1a1a1a; /* graphite: header, footer, dark bands */
+  --color-dark-2: #262624; /* raised on graphite */
+  --color-chalk: #f2f1ee; /* text on graphite and on oxide */
+  --color-chalk-muted: #a3a09a; /* secondary text on graphite */
   --color-white: #ffffff;
   --color-whatsapp: #25d366; /* floating button only */
-  --color-error: #a23b2a; /* form errors only */
+  --color-error: #9b2c1f; /* form errors only */
   --color-transparent: transparent;
   --color-current: currentColor;
 
   --font-*: initial;
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
-  --font-sans: 'Archivo Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Archivo Variable', 'Archivo', 'Arial Narrow', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Type scale: 360px → 1440px */
-  --text-display: clamp(2.75rem, 1.917rem + 3.704vw, 5.25rem);
-  --text-display--line-height: 1.04;
-  --text-display--letter-spacing: -0.02em;
-  --text-h1: clamp(2.5rem, 1.917rem + 2.593vw, 4.25rem);
-  --text-h1--line-height: 1.04;
-  --text-h1--letter-spacing: -0.015em;
-  --text-h2: clamp(2rem, 1.667rem + 1.481vw, 3rem);
-  --text-h2--line-height: 1.12;
-  --text-h2--letter-spacing: -0.01em;
-  --text-h3: clamp(1.375rem, 1.25rem + 0.556vw, 1.75rem);
-  --text-h3--line-height: 1.12;
+  /* Type scale: 360px → 1440px. Display, h1 and h2 are condensed 800 capitals (see base styles). */
+  --text-display: clamp(3rem, 1.333rem + 7.407vw, 8rem);
+  --text-display--line-height: 0.88;
+  --text-h1: clamp(2.75rem, 1.5rem + 5.556vw, 6.5rem);
+  --text-h1--line-height: 0.9;
+  --text-h2: clamp(2.25rem, 1.5rem + 3.333vw, 4.5rem);
+  --text-h2--line-height: 0.92;
+  --text-h3: clamp(1.375rem, 1.208rem + 0.741vw, 1.875rem);
+  --text-h3--line-height: 1.05;
+  --text-number: clamp(4rem, 2.333rem + 7.407vw, 9rem); /* the oversized 01–05 */
+  --text-number--line-height: 0.8;
   --text-lead: clamp(1.125rem, 1.083rem + 0.185vw, 1.25rem);
-  --text-lead--line-height: 1.6;
+  --text-lead--line-height: 1.55;
   --text-body: clamp(1rem, 0.979rem + 0.093vw, 1.0625rem);
   --text-body--line-height: 1.6;
   --text-small: 0.875rem;
@@ -50,21 +50,23 @@
   --text-micro: clamp(0.75rem, 0.729rem + 0.093vw, 0.8125rem);
   --text-micro--line-height: 1.4;
 
-  --tracking-label: 0.12em;
-  --tracking-eyebrow: 0.12em;
+  --tracking-label: 0.08em;
+  --tracking-eyebrow: 0.08em;
 
-  --radius-image: 2px;
-  --radius-button: 2px;
+  --radius-image: 0;
+  --radius-button: 0;
 
   --spacing-section: clamp(4.5rem, 3.333rem + 5.185vw, 8rem);
-  --container-site: 80rem; /* 1280px (v2) */
+  --container-site: 82.5rem; /* 1320px */
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
   :root {
-    --header-h: 4.5rem; /* updated by the header; used by sticky sub-navs and anchor offsets */
+    /* The graphite header bar: sticky sub-navs, anchor offsets, and the space above content */
+    --header-h: 4.5rem;
+    --header-offset: var(--header-h);
   }
   html {
     -webkit-text-size-adjust: 100%;
@@ -74,13 +76,24 @@
   body {
     @apply bg-bg font-sans text-body text-ink;
   }
+  /* Headlines: Archivo condensed, extra bold, capitals. h3 stays normal width for readability. */
   h1,
-  h2,
-  h3 {
-    @apply font-display text-ink;
-    font-weight: 440;
-    font-optical-sizing: auto;
+  h2 {
+    font-stretch: 68%;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
     text-wrap: balance;
+  }
+  h3 {
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  /* Emphasis inside a headline is the accent, not italics (large text only: oxide is 3.8:1 on concrete). */
+  h1 em,
+  h2 em {
+    font-style: normal;
+    color: var(--color-oxide);
   }
   p {
     text-wrap: pretty;
@@ -89,11 +102,11 @@
     @apply text-current no-underline;
   }
   :focus-visible {
-    outline: 2px solid var(--color-bronze-deep);
+    outline: 2px solid var(--color-oxide-deep);
     outline-offset: 3px;
   }
   ::selection {
-    background: var(--color-bronze);
+    background: var(--color-oxide);
     color: var(--color-white);
   }
   img {
@@ -123,16 +136,22 @@ html.lenis body {
   }
 }
 
-/* The catalogue label voice: design codes, line numbers, eyebrows (Archivo, wide, caps). */
+/* The label voice: design codes, eyebrows, table heads (Archivo bold capitals, tabular figures). */
 @utility caps-label {
   font-family: var(--font-sans);
   font-size: var(--text-micro);
   line-height: var(--text-micro--line-height);
-  font-stretch: 118%;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
+}
+
+/* Condensed capitals at any size (headline voice outside h1/h2: numbers, nav, card titles). */
+@utility condensed {
+  font-stretch: 68%;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 /* Hero slide progress bar */
@@ -145,13 +164,17 @@ html.lenis body {
   }
 }
 
+/* Transitions become instant (0s), not "0.01ms": a non-zero duration on every element would make each one
+   transition its inherited `visibility` too, so a dialog's controls would still be hidden in the frame it opens
+   and focus could not move in. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }

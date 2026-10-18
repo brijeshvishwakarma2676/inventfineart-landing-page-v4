@@ -2,8 +2,6 @@ import { Seo } from '../components/ui/Seo';
 import { PageStub } from '../components/sections/PageStub';
 import { breadcrumbs } from '../data/seo';
 
-export const handle = { heroHeader: true };
-
 export default function About() {
   return (
     <>

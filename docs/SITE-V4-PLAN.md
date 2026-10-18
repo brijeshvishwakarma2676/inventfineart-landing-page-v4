@@ -8,20 +8,20 @@ v4 inherits every rule in `SITE-V3-SPEC.md` and `SITE-V3-STACK-AND-PLUGINS.md` u
 
 ## 0. Context
 
-**What v4 is.** v2 (`frontend-demo/`) has the look and the depth of content the owner wants to keep: the warm travertine-and-bronze palette, the five numbered product lines, and applications, typologies, materials, process, trust strip, FAQ and the client marquee. But v2 also:
+**What v4 is.** v2 (`frontend-demo/`) has the depth of content and the section design the owner wants to keep: the five numbered product lines, and applications, typologies, materials, process, trust strip, FAQ and the client marquee. But v2 also:
 - states specs, clients and awards that exist nowhere in the sources;
 - uses wrong or tiny photos;
 - has a hero that is almost black;
 - shows a cookie notice that covers 41% of a phone screen;
 - runs as a browser-rendered SPA that indexes poorly.
 
-v3 (`site-v3/`) solved the engineering: prerendering, the enquiry system, the image pipeline and the menu. **v4 = v2's identity and section design, refined + v3's machinery + only sourced facts.**
+v3 (`site-v3/`) solved the engineering: prerendering, the enquiry system, the image pipeline and the menu. **v4 = v2's section design and content depth, in a new industrial look of its own (§2, clearly different from v3) + v3's machinery + only sourced facts.**
 
 **Decisions made in this chat (2026-10-18):**
 
 | Question | Decision |
 |---|---|
-| Visual base | **Refined v2.** Keep v2's palette and its numbered 01–05 product lines. Fraunces becomes the headline font and Archivo the UI font. Shapes are sharp; there are no pills, chips or card shadows. Motion follows v3's rules (§2). |
+| Visual base | **Concrete & Oxide** (changed later the same day from "Refined v2", which was too close to v3). Concrete and cement greys, graphite, one oxide accent, Archivo condensed capitals, square corners, visible ruled lines (§2). |
 | AI chatbot | **Dropped.** The 3D gallery, intro overlay, newsletter, mock awards and cookie notice are dropped too. |
 | Code location | **A new Git repo**, checked out at `site-v4/`. `frontend-demo/` and `site-v3/` stay untouched. |
 
@@ -79,7 +79,7 @@ v3 (`site-v3/`) solved the engineering: prerendering, the enquiry system, the im
 |---|---|---|
 | `main.jsx`, `routes.jsx`, `layouts/RootLayout.jsx`, `index.css` | **Go → v3 equivalents** | v3's `root.jsx` (providers, skip link, ScrollToTop, header/footer) + `routes.js` + `global.css`. The route progress bar and page fade are dropped. |
 | `components/Nav.jsx` | **Change** | v3's `Header` + `MegaMenu` + `MobileMenu`, restyled. Menu: **Products ▾ · Projects · About · Clients · Contact · [Get a Quote]**. FAQ moves to the footer and mobile menu. The top bar is transparent over the hero, with no black fill. |
-| `components/Hero.jsx` | **Change** | Keep v2's idea of **one slide per product line**. Use one gradient instead of three overlays, 6.5 s per slide, photos at least 2,400 px wide, a static H1 and one set of controls (the duplicate bottom ribbon goes). No pulsing badge. Built on v3's `Hero.jsx`. |
+| `components/Hero.jsx` | **Change** | Keep v2's idea of **one slide per product line**. The layout becomes split (headline block beside the photo), so there is no overlay at all; 6.5 s per slide, photos at least 2,400 px wide, a static H1 and one set of controls (the duplicate bottom ribbon goes). No pulsing badge. Built on v3's `Hero.jsx`. |
 | `components/PillarsShowcase.jsx` | **Change** | Keep the 5 numbered cards (the first spans 2 columns). Correct photos. No counts, chips or shadows. Only sourced materials. |
 | `components/FactoryTrustStrip.jsx` | **Change (copy rewritten)** | A dark trust band: the 4 facility units from the old About page, provisional stats and ISO. Lodha/Oberoi/Godrej, the foundry and the CAD/crane claims are deleted. |
 | `components/MaterialSpecBar.jsx` | **Change** | Two materials only, GRC and FRP, using the brief's own text, plus provisional finish swatches. The Metals tab and the spec table are deleted. |
@@ -118,104 +118,71 @@ v3 (`site-v3/`) solved the engineering: prerendering, the enquiry system, the im
 
 ---
 
-## 2. Visual direction: "Refined v2"
+## 2. Visual direction: "Concrete & Oxide"
 
-**In one line:** v2's warm travertine-and-bronze identity, laid out like a maker's printed catalogue. That means numbered product lines, ruled spec lists, real photographs with plate captions, an editorial serif and a wide uppercase label voice.
+Chosen on 2026-10-18, replacing "Refined v2". v2 and v3 share a warm-cream, bronze and serif look, so a clearly different v4 leaves that palette behind.
+
+**In one line:** an industrial-architectural identity built from the material Invent Fine Art makes. That means concrete and cement greys, graphite, one oxide accent, huge condensed capitals, square corners and visible ruled lines. It is bold like Ferrocon, and still a light site like the three reference sites.
 
 ### 2.1 Colour (Tailwind `@theme`, with the default palette switched off)
 
-Token names follow v3's where the meaning matches (`dark`, `cream`), so v3 files that use them keep working.
-
 | Token | Hex | Use |
 |---|---|---|
-| `bg` | `#FAF8F5` | Page (v2 travertine) |
-| `surface` | `#F3EFE8` | Alternate sections (v2 `bg-alt`) |
-| `surface-2` | `#E9E2D7` | Image placeholders, swatch tiles. Text on it uses `ink` (`ink-muted` is only 4.3:1 there) |
-| `line` | `#E6E0D5` | Hairlines (v2) |
-| `line-strong` | `#D5CCBE` | Table and list rules |
-| `field` | `#8C8478` | Form field borders (3.5:1 on `bg`, 3.2:1 on `surface`; the WCAG minimum is 3:1) |
-| `ink` | `#191715` | Headings and body text (v2) |
-| `ink-muted` | `#6E675F` | Secondary text (5.2:1 on `bg`, 4.8:1 on `surface`) |
-| `bronze` | `#9E6432` | Primary button fill (always with `white` text, 4.9:1); text only at 18 px or larger, and only on light backgrounds; active states |
-| `bronze-deep` | `#824F24` | Button hover; **all small bronze text on light backgrounds** (links, eyebrows, codes): 6.4:1 |
-| `dark` | `#141312` | Charcoal: dark bands and footer, **at most 3 per page** (v2 `bg-dark`) |
-| `dark-2` | `#1D1B19` | Raised surfaces on dark |
-| `cream` | `#F8F5F0` | Text on dark and on photos |
-| `cream-muted` | `#A8A095` | Secondary text, eyebrows and links **on dark** (7.2:1). Bronze on dark is only 3.8:1 |
-| `white` | `#FFFFFF` | Text on bronze buttons, logo tiles |
-| `whatsapp` | `#25D366` | The floating button only (white brand glyph; it carries an `aria-label`) |
-| `error` | `#A23B2A` | Form errors only |
+| `bg` | `#E4E2DE` | Concrete: the page |
+| `surface` | `#CFCBC4` | Cement: alternate bands |
+| `surface-2` | `#D9D6D0` | Image placeholders |
+| `paper` | `#F4F3F0` | Forms, the enquiry panel, tables: the lightest surface |
+| `line` | `#B9B5AD` | Visible 1 px grid lines |
+| `line-strong` | `#1A1A1A` | Black rules: spec tables, spec tags |
+| `field` | `#6F6B64` | Form field borders (5.3:1 on white) |
+| `ink` / `ink-muted` | `#1A1A1A` / `#55524C` | Graphite text / secondary text (6.0:1 on concrete, 4.8:1 on cement) |
+| `oxide` | `#C24A1C` | The one accent: button fills (always **white** text, 4.9:1), headline emphasis and big numbers (large text only, 3.8:1) |
+| `oxide-deep` | `#8C3010` | Small accent text on light (links, eyebrows, codes: 6.4:1); button hover |
+| `oxide-bright` | `#E0612E` | The accent on graphite: numbers, eyebrows, links (4.9:1). Never on light |
+| `dark` / `dark-2` | `#1A1A1A` / `#262624` | Graphite: header, footer, at most 2 more bands per page / raised on graphite |
+| `chalk` / `chalk-muted` | `#F2F1EE` / `#A3A09A` | Text on graphite / secondary text on graphite (6.7:1) |
+| `white` | `#FFFFFF` | Text on oxide, form fields |
+| `whatsapp` | `#25D366` | The floating button only |
+| `error` | `#9B2C1F` | Form errors only |
 
-**Banned:**
-- v2's `accent-light` #c88950 and `accent-2` #b87a3e as text;
-- dark text on bronze (v2's 3.7:1 buttons);
-- bronze text on dark bands;
-- any hex value written directly in a class.
+Every allowed pair is listed in `app/styles/contrast.js` and tested by `npm run check:contrast` (29 pairs). **Banned:** oxide-bright on light, oxide-deep on graphite, any text but white on oxide (chalk is 4.3:1), and hex values in classes.
 
-### 2.2 Type (Fontsource, checked on npm: both packages version 5.3.0)
+### 2.2 Type: Archivo only (`@fontsource-variable/archivo`, `wdth.css`: one 90 KB Latin file with weight and width axes)
 
-- **Display:** `@fontsource-variable/fraunces`, loading `full.css` + `full-italic.css`. Family name: "Fraunces Variable".
-  - Optical sizing on, weight 380–520, SOFT 50.
-  - Italic for the brief's taglines (v2's signature, now systematic).
-- **UI and body:** `@fontsource-variable/archivo`, loading `wdth.css`. Family name: "Archivo Variable".
-  - Body 400; UI 500/600.
-  - **Labels, design codes and line numbers** use Archivo with the width axis at 115–125, weight 600, UPPERCASE, tracking 0.12em and tabular figures. This gives the Ferrocon punch without a second family.
-- **Scale** (mobile → desktop via `clamp()`), under v3's token names plus three new ones:
-
-  | Token | Size (px) | Line height |
-  |---|---|---|
-  | `text-display` (new) | 44 → 84 | 1.04 |
-  | `text-h1` | 40 → 68 | 1.04 |
-  | `text-h2` | 32 → 48 | 1.12 |
-  | `text-h3` | 22 → 28 | 1.12 |
-  | `text-lead` (new) | 18 → 20 | 1.6 |
-  | `text-body` | 16 → 17 | 1.6 |
-  | `text-small` | 14 | |
-  | `text-micro` / `text-label` (new) | 12 → 13 | |
-
-  Body text is capped at 68 characters per line.
-- **Kept v3 token names:** `--tracking-label` and `--tracking-eyebrow` (both 0.12em), `--ease-out-soft`, `--font-display`, `--font-sans`.
-- **Font budget:** Latin subset only. The fonts used above the fold are preloaded. File sizes are checked in Phase 1.
+- **Headlines (h1, h2, display):** width 68% (condensed), weight 800, UPPERCASE, line height 0.88–0.92. `<em>` inside a headline is oxide, not italic.
+- **h3:** normal width, weight 700, sentence case, for readability.
+- **Body and UI:** normal width, 400; UI 500–700. Buttons and nav are 700 capitals, tracking 0.08em.
+- **Labels, design codes, eyebrows:** the `caps-label` utility (700 capitals, tabular figures). Eyebrows carry a short oxide rule in front.
+- **Numbers 01–05:** oversized condensed numerals (`text-number`, 64 → 144 px) in oxide.
+- **Taglines** (the brief's own words) are set as a medium-weight lead, not italic: there is no serif and no italic file.
+- **Scale** (mobile → desktop via `clamp()`): display 48 → 128 · h1 44 → 104 · h2 36 → 72 · h3 22 → 30 · lead 18 → 20 · body 16 → 17 · small 14 · micro/label 12 → 13. Body text is capped at about 68 characters per line.
 
 ### 2.3 Layout and shape
 
-- **Grid:** container 1280 px (v2), gutter 16 → 32 px, a 12-column grid with 24 px gaps.
-- **Section spacing:** padding `clamp(72px, …, 128px)` (`--spacing-section`). Sections are separated by **hairline rules** rather than boxes. v3's `container-site` utility is kept.
-- **Radius:** **2 px everywhere** (`--radius-image`, `--radius-button`): buttons, fields, images, the panel. Full-bleed photos have none. The only circle is the WhatsApp button.
-- **No card shadows, no chips, no pills.**
-  - Lists (applications, materials) are dot-separated text or ruled lists.
-  - Shadows appear only on the enquiry panel and the WhatsApp button.
-- **Photography:**
-  - A photo goes full-bleed only if it is at least 1,600 px wide.
-  - A hero or banner photo has **one** gradient behind the text: at most 0.72 behind the text, and at most 0.35 over the top 60% of the image.
-  - No stacked or multiply overlays (v3's `PageHeader` uses 0.85, so it is adapted).
-  - Catalogue photos are 4:5. Project photos keep their natural ratio.
+- **Grid:** container 1320 px, gutter 16 → 32 px. Sections are separated by tone or a visible ruled line; `Container frame` draws vertical grid lines at the container edges from 1024 px.
+- **Radius: 0 everywhere.** The only circle is the WhatsApp button.
+- **No card shadows, no chips, no pills.** Lists are ruled rows or dot-separated text (`dots()`). Shadows appear only on the enquiry panel and the WhatsApp button.
+- **Header:** a solid graphite bar on every page: logo · nav in capitals · phone · **GET A QUOTE** as an oxide block the full height of the bar. No photo runs under it, so it is never transparent.
+- **Photography:** a photo goes full-bleed only if it is at least 1,600 px wide. **Text is never set on a photo and photos get no dark overlay:** the hero is split, a headline block next to the photo. Catalogue photos are 4:5; project photos keep their natural ratio.
 
 ### 2.4 Motion (GSAP + ScrollTrigger + Lenis, through `app/motion/`)
 
 - **Allowed:**
-  - v3 spec §3.5 exactly: Lenis; fade-up 24 px over 0.8 s with `power3.out`; stagger 0.08 s; clip-path image wipe with scale 1.08 → 1; Ken Burns at most 1.06.
-  - Header transparent → solid at 80 px, hidden on scroll down.
-  - **Plus** v2's client marquee: a CSS loop of 40–60 s that pauses on hover and focus.
-  - **Plus** the hero crossfade every 6.5 s, with a pause button.
+  - v3 spec §3.5: Lenis; fade-up 24 px over 0.8 s with `power3.out`; stagger 0.08 s; clip-path image wipe with scale 1.08 → 1; Ken Burns at most 1.06.
+  - Header hidden on scroll down, back on scroll up.
+  - v2's client marquee (40–60 s, pauses on hover and focus) and the hero crossfade every 6.5 s with a pause button.
 - **Not allowed:** intro or loading screens, pulse, bounce, spin, cursor effects, gradient text, 3D, page-wide fades, autoplay audio.
-- **Reduced motion:** with `prefers-reduced-motion`, nothing animates, the marquee becomes a static grid and the hero doesn't auto-advance.
-- **Motion loader.** GSAP and Lenis load with a dynamic `import()` once the browser is idle after hydration (v3 bundled them up front, about 112 KB). Concretely:
-  - Elements already in the viewport when motion starts are **not** animated, so nothing that has already painted disappears.
-  - The hero H1 has no JS entrance.
-  - `useScrollLock` and ScrollToTop work without Lenis (they fall back to `html { overflow: hidden }` and `window.scrollTo`).
-  - Lenis's anchor offset reads the real header height from a CSS variable.
+- **Reduced motion:** nothing animates and transitions are instant (`0s`, which keeps dialogs focusable as they open). The marquee becomes a static grid and the hero doesn't auto-advance.
+- **Motion loader:** GSAP and Lenis load with a dynamic `import()` once the browser is idle after hydration, never under reduced motion. Elements already on screen are not animated.
 
-### 2.5 What makes it not look like a template
+### 2.5 What makes it not look like a template (or like v3)
 
-1. **Catalogue plates.** Every product photo carries a museum-style label: `IFA-SC-012 · Seated Buddha · Gold finish`.
-   - The code is in wide Archivo caps and the title in Fraunces.
-   - The codes are the brand's visual signature and are also the enquiry reference.
-2. **One numbering system.** The product lines are numbered 01–05 the same way in the hero, the mega menu, Home, `/products`, the product pages and the footer.
-3. **Editorial type contrast.** An optical-size serif with italic taglines against wide uppercase labels. Nothing is set in Inter.
-4. **Ruled, spec-sheet information.** Ruled lists and tables instead of rounded cards and chip clouds.
-5. **Real photos, shown bright.** Honest captions, no stock, no dark overlays.
-6. **Restraint.** One accent colour and at most 3 dark bands per page.
+1. **The material is the theme.** Concrete and cement greys, graphite and an oxide accent: the colours of a GRC and FRP workshop, not a lifestyle brand.
+2. **One loud voice.** Huge condensed capitals for headlines, oversized 01–05 numbers, bold capital labels. No serif and no italics anywhere.
+3. **Spec tags.** Every product photo carries a tag under a black rule: `IFA-SC-012` in oxide capitals, the title, then a detail. The codes are the visual signature and the enquiry reference.
+4. **Visible structure.** Ruled grids, square corners and black spec tables instead of rounded cards, chips and shadows.
+5. **Photos stay clean.** No text and no dark overlay on photos; the split hero puts the headline beside the picture.
+6. **One accent.** Oxide only, used for action (Get a Quote, the CTA band) and for numbers.
 
 ---
 
@@ -244,7 +211,7 @@ Token names follow v3's where the meaning matches (`dark`, `cream`), so v3 files
 - Top bar (desktop only): phones · email · WhatsApp · "ISO 9001 Certified" (PROVISIONAL).
 - Main row: logo · **Products ▾** (mega menu: 5 numbered thumbnails with taglines) · Projects · About · Clients · Contact · **[Get a Quote]**.
 - Mobile: a full-screen menu with FAQ, and **Get a Quote** and **Call** pinned at the bottom.
-- Pages with a photo banner export `handle = { heroHeader: true }`, as in v3.
+- The header is the same solid graphite bar on every page (no transparent state).
 
 **Footer:**
 - The CTA band ("We can turn your ideas and imagination into reality." [Get a Quote] [WhatsApp]). It is hidden on routes that export `handle.inlineEnquiry` (Home, Contact, and product pages, which end in the enquiry section).
@@ -259,7 +226,8 @@ Token names follow v3's where the meaning matches (`dark`, `cream`), so v3 files
    - The final picks and the phone crops (`object-position` per slide) are chosen by eye in Phase 4. Slide 1 is preloaded.
    - These are amateur site photos, so the client's new photos and video (CONTENT-GAPS) remain the biggest single improvement.
    - Static H1 (PROVISIONAL, gap 6, open question 5): *"Sculptures, designer planters, GRC and FRP, made to your design."*
-   - Per slide: `0N / 05 · LINE NAME`, the line's tagline in Fraunces italic, and *Explore →*.
+   - Layout: split. The headline block (static H1, buttons) sits beside the photo; no text and no overlay on the photo.
+   - Per slide: `0N / 05 · LINE NAME`, the line's tagline, and *Explore →*.
    - Buttons: [Explore products] [Get a Quote].
 2. **Product lines** (v2 pillars, refined).
    - Five numbered entries; the first spans 2 columns.
@@ -533,7 +501,7 @@ site-v4/
 | Treatment | Files |
 |---|---|
 | **Copied as-is** | `vite.config.js`, `jsconfig.json`, `.oxlintrc.json`, `.gitignore` · `app/components/ui/useFocusTrap.js`, `app/components/ui/Section.jsx` · `app/motion/gsap.js`, `app/motion/useReducedMotion.js` · `app/enquiry/EnquiryContext.jsx` · `app/components/sections/Testimonials.jsx`, `ClientsWall.jsx` · `app/data/testimonials.js` (`[]`) · `media-src/**`. These work unchanged because v4 `global.css` defines every token they use: `bg`, `surface`, `surface-2`, `ink`, `ink-muted`, `line`, `dark`, `cream`, `white`, `text-h1/h2/h3/small/micro`, `tracking-label/eyebrow`, `ease-out-soft`, `font-display/sans`, `rounded-image/button`, `py-section`, `container-site`. Tailwind silently ignores missing tokens, so Phase 1 greps every copied file's classes against the theme. |
-| **Copied, then adapted** | `package.json`: name; fonts swapped for Fraunces/Archivo; `check:claims`, `check:codes`; preview without `--single`; build tools stay in `dependencies`; `engines.node` `24.x`. · `react-router.config.js`: `/404`. · `vercel.json`: no catch-all; `statusCode: 301` redirects incl. v2's URLs; image cache header kept. · `.env.example`. · `app/root.jsx`: fonts, theme-color, branded ErrorBoundary, motion loader. · `app/routes.js`. · `app/styles/global.css`: v4 tokens + the aliases above. · `ui/Img.jsx`, `ui/useLightbox.jsx`: hashed file names. · `ui/LightboxImpl.jsx`: backdrop colour = `dark`; caption with code + Enquire; controlled index for deep links. · `ui/SectionHeading.jsx`: eyebrow is `bronze-deep`, Archivo wide at 600 (v3 uses olive, bold, 0.18em). · `ui/useScrollLock.js`, `motion/LenisProvider.jsx`, `motion/useReveal.js`: the motion loader rules in §2.4. · `ui/Button.jsx`. · `ui/Logo.jsx`: the PROVISIONAL wordmark, restyled. · `ui/Seo.jsx`, `data/seo.js`: two addresses. · `data/site.js`: §4.2. · `data/categories.js` → `data/lines.js`: it already holds the brief's copy word for word, plus SEO titles, banners and finishes; add numbering, typologies, prev/next. · `sections/PageHeader.jsx`: overlay ≤ 0.72; top padding from the header-height variable. · `sections/ProjectGrid.jsx`: controlled lightbox index for `?img=`, Show more. · `sections/DesignCard.jsx`: plate caption. · `sections/Hero.jsx`: one slide per line, static H1, no JS entrance on the H1. · `sections/StatsBand.jsx` → `StatsStrip`. · `sections/{Process, EnquirySection, Applications}.jsx`. · `layout/{Header, MegaMenu, MobileMenu, Footer, FloatingWhatsApp}.jsx`: numbering, FAQ in mobile, CTA band + `handle.inlineEnquiry`, both emails. · `enquiry/{EnquiryPanel, EnquiryForm}.jsx`: **reset the Turnstile token after a failed send**; pre-fill from `?service=`/`?code=`. · `api/enquiry.js`: import the product list from `app/data/lines.js`; with `TURNSTILE_SECRET` but no site key, log a clear error rather than reject every enquiry. · `routes/category.jsx`: typologies, catalogue, `?design=`, prev/next. · `routes/projects.jsx`: keeps the hydration-gated filter; adds `?img=`. · `routes/contact.jsx`: map on click, pre-fill. · `routes/thank-you.jsx`: name read after hydration. · `routes/{privacy, not-found, styleguide}.jsx`. · `scripts/images.mjs`: hashing. · `scripts/shots.mjs`: all routes; turns off smooth scroll and Lenis before capture; asserts no horizontal scroll. · `scripts/sitemap.mjs` → `postbuild.mjs`. · `public/robots.txt`. · `CLAUDE.md`: v4 tokens and rules. |
+| **Copied, then adapted** | `package.json`: name; fonts swapped for Archivo only; `check:claims`, `check:codes`; preview without `--single`; build tools stay in `dependencies`; `engines.node` `24.x`. · `react-router.config.js`: `/404`. · `vercel.json`: no catch-all; `statusCode: 301` redirects incl. v2's URLs; image cache header kept. · `.env.example`. · `app/root.jsx`: fonts, theme-color, branded ErrorBoundary, motion loader. · `app/routes.js`. · `app/styles/global.css`: v4 tokens + the aliases above. · `ui/Img.jsx`, `ui/useLightbox.jsx`: hashed file names. · `ui/LightboxImpl.jsx`: backdrop colour = `dark`; caption with code + Enquire; controlled index for deep links. · `ui/SectionHeading.jsx`: eyebrow is `bronze-deep`, Archivo wide at 600 (v3 uses olive, bold, 0.18em). · `ui/useScrollLock.js`, `motion/LenisProvider.jsx`, `motion/useReveal.js`: the motion loader rules in §2.4. · `ui/Button.jsx`. · `ui/Logo.jsx`: the PROVISIONAL wordmark, restyled. · `ui/Seo.jsx`, `data/seo.js`: two addresses. · `data/site.js`: §4.2. · `data/categories.js` → `data/lines.js`: it already holds the brief's copy word for word, plus SEO titles, banners and finishes; add numbering, typologies, prev/next. · `sections/PageHeader.jsx`: overlay ≤ 0.72; top padding from the header-height variable. · `sections/ProjectGrid.jsx`: controlled lightbox index for `?img=`, Show more. · `sections/DesignCard.jsx`: plate caption. · `sections/Hero.jsx`: one slide per line, static H1, no JS entrance on the H1. · `sections/StatsBand.jsx` → `StatsStrip`. · `sections/{Process, EnquirySection, Applications}.jsx`. · `layout/{Header, MegaMenu, MobileMenu, Footer, FloatingWhatsApp}.jsx`: numbering, FAQ in mobile, CTA band + `handle.inlineEnquiry`, both emails. · `enquiry/{EnquiryPanel, EnquiryForm}.jsx`: **reset the Turnstile token after a failed send**; pre-fill from `?service=`/`?code=`. · `api/enquiry.js`: import the product list from `app/data/lines.js`; with `TURNSTILE_SECRET` but no site key, log a clear error rather than reject every enquiry. · `routes/category.jsx`: typologies, catalogue, `?design=`, prev/next. · `routes/projects.jsx`: keeps the hydration-gated filter; adds `?img=`. · `routes/contact.jsx`: map on click, pre-fill. · `routes/thank-you.jsx`: name read after hydration. · `routes/{privacy, not-found, styleguide}.jsx`. · `scripts/images.mjs`: hashing. · `scripts/shots.mjs`: all routes; turns off smooth scroll and Lenis before capture; asserts no horizontal scroll. · `scripts/sitemap.mjs` → `postbuild.mjs`. · `public/robots.txt`. · `CLAUDE.md`: v4 tokens and rules. |
 | **Reference only** (re-expressed, not copied) | `data/designs.js` → `designs.js` with an **explicit code per photo, identical to v3's** (exact mapping below). `data/{projects, clients, applications, content}.js` (shapes only; facts per §4). |
 | **Not copied** | `sections/{CategoryPanels, Collections, MaterialsFinishes}.jsx`, `routes/{home, about, clients, products}.jsx` (rebuilt; each must export `handle.heroHeader` where it has a photo banner), `images.generated.js` and `public/img` (regenerated), `build/`, `shots/`, `.react-router/`, `node_modules/`, `package-lock.json` (regenerated). |
 
@@ -569,7 +537,7 @@ Every phase ends the same way:
 | 0 | **Repo and skeleton** | New repo + Vercel project; v3 infra copied (§5.3); stub routes for every page; prerender + `/404`; postbuild; redirects; `CLAUDE.md`, `CONTENT-GAPS.md`, `BACKLOG.md` | Each route has its own HTML, and `404.html` exists. On the preview: `curl -I /nope` returns **404**; `/services/sculptures`, `/gallery/murals` and `/about-us.html` return **301**; `/__spa-fallback` returns 404 |
 | 1 | **Design system** | `global.css` tokens + aliases, fonts, Button/Plate/SectionHeading/Section, motion loader, `/styleguide` | Contrast table for every text/background pair ≥ 4.5:1 (UI ≥ 3:1). No hex values in classes. Every class in copied files resolves to a theme token. Font file sizes noted |
 | 2 | **Data and content** | `site.js` (§4.2), `lines.js` (brief word for word), `designs.js` (literal code table), projects, clients (names), faqs, content; `check-claims.mjs`, `check-codes.mjs`; `CONTENT-GAPS.md` with file:line | `check:codes` shows 0 codes changed. `grep -rn PROVISIONAL app` matches `CONTENT-GAPS.md`. The styleguide shows real plates |
-| 3 | **Layout shell + enquiry panel** | Header (transparent/solid), mega menu, mobile menu, footer + CTA band, WhatsApp button, enquiry panel + form (v3, restyled) | Keyboard: menu, mega menu and panel trap and restore focus; Esc closes; the panel opens from 3 entry points with the right pre-fill |
+| 3 | **Layout shell + enquiry panel** | Graphite header bar, mega menu, mobile menu, footer + CTA band, WhatsApp button, enquiry panel + form (v3, restyled) | Keyboard: menu, mega menu and panel trap and restore focus; Esc closes; the panel opens from 3 entry points with the right pre-fill |
 | 4 | **Home mock-up (CLIENT GATE)** | Header, Hero, Product lines, Trust band, Selected works, footer, with real photos | Preview URL sent to the client. **STOP until written sign-off on desktop and phone** |
 | 5 | **Rest of Home** | Client feedback first, then Materials, How we work, Trusted by, FAQ, Enquiry | Home is 9 sections; 2 dark bands |
 | 6 | **Product pages + /products** | The 5 lines on one template; the hub with sticky index and applications | Every card has Enquire; lightbox and `?design=` work after a reload; Show all; prev/next; "Made to your design" on Planters and FRP |
@@ -598,9 +566,9 @@ Every phase ends the same way:
 - [ ] `npm run check:claims` passes: none of the §4.1 phrases appear in data or JSX text.
 - [ ] The facts match §4.2 everywhere (footer, Contact, About, JSON-LD), including the raw factory address and both emails.
 - [ ] Every v2 URL (`/services*`, `/gallery*`) answers **301** to a v4 page. An unknown URL returns **HTTP 404**. No `__spa-fallback` page is reachable.
-- [ ] The hero photo is clearly visible: the overlay is at most 0.35 over the top 60%, and hero text is ≥ 4.5:1. No photo under 1,600 px is used full-bleed.
+- [ ] No text and no dark overlay on photos (the hero is split). No photo under 1,600 px is used full-bleed.
 - [ ] No cookie notice while the site sets no tracking cookies. If analytics are added, the notice is at most 20% of a 360×780 screen and both buttons are ≥ 4.5:1.
-- [ ] No pills except WhatsApp, no card shadows, no chips. Small bronze text uses `bronze-deep`, and there is no bronze text on dark.
+- [ ] No pills except WhatsApp, no card shadows, no chips, 0 radius. Small accent text uses `oxide-deep` on light and `oxide-bright` on graphite; text on oxide is white.
 - [ ] View-source of every route already contains its H1, title, description, canonical and JSON-LD.
 - [ ] `npm run check:codes`: design codes match v3 for the same photos. Adding a photo renumbers nothing.
 - [ ] Image file names are content-hashed. Replacing a photo shows the new one at once.
@@ -657,3 +625,7 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | 2 | "Browse by application" links each space only to the lines whose brief copy names it; the 6th tile is "Large-scale & project-specific" (was "Public & large-scale") | The brief never mentions public projects; v3 had linked FRP to hotels and commercial spaces without a source |
 | 2 | Related projects re-picked from photos ≥ 1,300 px wide | Some of v3's picks were 504–900 px |
 | 2 | Line FAQs are 4 per line: 2 specific to the line + "Do you deliver and install?" + "How do I get a quote?" | Plan said 4–5; every extra answer would need a source |
+| 3 | **Visual direction changed to "Concrete & Oxide"** (§2 rewritten): concrete/cement/graphite + oxide, Archivo only (Fraunces removed), 0 radius, ruled lines, a solid graphite header, a split hero with no overlay | You asked for a theme and style clearly different from v3; v2's palette is too close to v3's |
+| 3 | `Section.jsx` gains a `paper` tone and `Container frame` (grid lines), so it is adapted rather than copied as-is; `useFocusTrap.js` listens on the document | Theme; and the trap lost Esc and Tab after the submit button disabled itself (focus fell to <body>), a bug v3 has too |
+| 3 | Reduced-motion CSS makes transitions `0s` instead of `0.01ms` | With 0.01ms every element transitioned its inherited `visibility`, so the panel and menu could not take focus as they opened (also in v3) |
+| 3 | `npm run test:ui` (`scripts/ui-check.mjs`): 35 browser checks of the menus, the panel and the form | Phase 3's keyboard and pre-fill exit checks, kept for later phases |

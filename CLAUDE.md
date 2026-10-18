@@ -38,7 +38,42 @@ The default Tailwind palette is switched off. Tailwind ignores a missing token s
 - **Layout:** container 1280 px (`container-site`), gutter 16 → 32 px. Section padding `py-section` (72→128). Hairline rules between sections.
 - **Shape:** 2 px radius everywhere (`rounded-image`, `rounded-button`). The only circle is the WhatsApp button. No card shadows, no chips, no pills.
 
-## Rules
+## Rules01
+Hero
+One slide per product line, static H1, photos ≥ 2,400 px
+PHASE 4
+02
+Product lines
+Five numbered entries, the first spans 2 columns
+PHASE 4
+03
+Trust band
+Dark: community of artists, 4 facility units, stats, ISO
+PHASE 4
+04
+Selected works
+6 project photos with plate captions
+PHASE 4
+05
+Materials
+GRC | FRP from the brief, finish swatches
+PHASE 5
+06
+How we work
+5 sourced steps, Send your drawing
+PHASE 5
+07
+Trusted by
+Client marquee
+PHASE 5
+08
+FAQ
+5 questions
+PHASE 5
+09
+Enquiry
+Pitch + inline form
+PHASE 5
 1. Token colours only; no hex values in classes. No bronze text on dark bands. No dark text on bronze.
    - Allowed colour pairs and their contrast live in `app/styles/contrast.js`; `npm run check:contrast` tests them against the tokens.
    - Write class names out in full (use a lookup object, never `` `bg-${tone}` ``): Tailwind only generates classes it can read in the source. `npm run check:classes` fails on any rendered class without CSS.

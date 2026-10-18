@@ -112,7 +112,7 @@ export const finishes = [
   { name: 'Natural concrete grey', tone: 'surface-2' },
   { name: 'Sandstone texture', tone: 'surface' },
   { name: 'Matte colour', tone: 'ink-muted' },
-  { name: 'Metallic bronze', tone: 'bronze' },
+  { name: 'Metallic bronze', tone: 'oxide-deep' },
   { name: 'Custom colour', tone: 'line' },
 ];
 

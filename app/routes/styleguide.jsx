@@ -11,6 +11,7 @@ import { designs, designsFor, designByCode, sculptureGroups } from '../data/desi
 import { projects, projectGroups } from '../data/projects';
 import { clientLogos, clientNames } from '../data/clients';
 import { PAIRS, BANNED_PAIRS, contrast } from '../styles/contrast';
+import { useEnquiry } from '../enquiry/EnquiryContext';
 
 // Read from global.css at build time, so this page can't drift from the real tokens.
 const TOKENS = [...themeCss.matchAll(/--color-([a-z0-9-]+):\s*(#[0-9a-f]{6})\s*;(?:\s*\/\*\s*(.*?)\s*\*\/)?/gi)].map((m) => ({
@@ -22,32 +23,34 @@ const HEX = Object.fromEntries(TOKENS.map((t) => [t.name, t.hex]));
 
 // Full class names (Tailwind only generates classes it can see written out).
 const SWATCH = {
-  bg: 'bg-bg', surface: 'bg-surface', 'surface-2': 'bg-surface-2', line: 'bg-line', 'line-strong': 'bg-line-strong',
-  field: 'bg-field', ink: 'bg-ink', 'ink-muted': 'bg-ink-muted', bronze: 'bg-bronze', 'bronze-deep': 'bg-bronze-deep',
-  dark: 'bg-dark', 'dark-2': 'bg-dark-2', cream: 'bg-cream', 'cream-muted': 'bg-cream-muted', white: 'bg-white',
-  whatsapp: 'bg-whatsapp', error: 'bg-error',
+  bg: 'bg-bg', surface: 'bg-surface', 'surface-2': 'bg-surface-2', paper: 'bg-paper', line: 'bg-line',
+  'line-strong': 'bg-line-strong', field: 'bg-field', ink: 'bg-ink', 'ink-muted': 'bg-ink-muted', oxide: 'bg-oxide',
+  'oxide-deep': 'bg-oxide-deep', 'oxide-bright': 'bg-oxide-bright', dark: 'bg-dark', 'dark-2': 'bg-dark-2',
+  chalk: 'bg-chalk', 'chalk-muted': 'bg-chalk-muted', white: 'bg-white', whatsapp: 'bg-whatsapp', error: 'bg-error',
 };
-const FINISH = { 'surface-2': 'bg-surface-2', surface: 'bg-surface', 'ink-muted': 'bg-ink-muted', bronze: 'bg-bronze', line: 'bg-line' };
+const FINISH = { 'surface-2': 'bg-surface-2', surface: 'bg-surface', 'ink-muted': 'bg-ink-muted', 'oxide-deep': 'bg-oxide-deep', line: 'bg-line' };
 
 // Real designs from the catalogue (codes match site-v3, SITE-V4-PLAN.md §5.3).
 const PLATES = ['IFA-SC-012', 'IFA-PL-003', 'IFA-GRL-002'].map((code) => designByCode[code]);
 
+// Headline sizes (Archivo condensed 800 capitals; h3 is normal width).
 const TYPE = [
-  ['text-display', 'Display 44→84', 'Made to your design.'],
-  ['text-h1', 'H1 40→68', <>Sculptures, <em>made to measure</em></>],
-  ['text-h2', 'H2 32→48', <>Where Nature <em>Meets Design</em></>],
-  ['text-h3', 'H3 22→28', <>Distinctive Patterns. <em>Timeless Architectural Appeal.</em></>],
+  ['text-display', 'Display 48→128', <>Made to <em>your</em> design.</>],
+  ['text-h1', 'H1 44→104', <>Sculptures, <em>made to measure</em></>],
+  ['text-h2', 'H2 36→72', <>Where nature <em>meets design</em></>],
 ];
 
 /** Internal reference page (noindex): every token, contrast pair, type size, button, plate and reveal. */
 export default function Styleguide() {
   const sculptures = lineBySlug.sculptures;
+  const { open } = useEnquiry();
+  const sample = designByCode['IFA-SC-012'];
   return (
     <>
       <Seo title="Style guide | Invent Fine Art" description="Design tokens and components." noindex />
       <Section>
         <Container className="flex flex-col gap-20">
-          <SectionHeading eyebrow="Internal · noindex" title={<>Style guide <em>v4</em></>} tagline="Refined v2: travertine, bronze, charcoal. SITE-V4-PLAN.md §2." />
+          <SectionHeading eyebrow="Internal · noindex" title={<>Style guide <em>v4</em></>} tagline="Concrete & Oxide: concrete, cement, graphite and one oxide accent. SITE-V4-PLAN.md §2." />
 
           <div className="flex flex-col gap-6">
             <Eyebrow>Colour tokens</Eyebrow>
@@ -102,13 +105,25 @@ export default function Styleguide() {
           </div>
 
           <div className="flex flex-col gap-8">
-            <Eyebrow>Type: Fraunces (display) · Archivo (UI, body, labels)</Eyebrow>
+            <Eyebrow>Type: Archivo only (condensed capitals for headlines, normal width for text)</Eyebrow>
             {TYPE.map(([cls, label, sample]) => (
               <div key={cls} className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
                 <span className="caps-label text-ink-muted">{label}</span>
-                <p className={`font-display ${cls}`}>{sample}</p>
+                <p className={`condensed ${cls} [&_em]:text-oxide [&_em]:not-italic`}>{sample}</p>
               </div>
             ))}
+            <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+              <span className="caps-label text-ink-muted">H3 22→30</span>
+              <p className="text-h3 font-bold">Distinctive Patterns. Timeless Architectural Appeal.</p>
+            </div>
+            <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+              <span className="caps-label text-ink-muted">Number 64→144</span>
+              <p className="condensed flex gap-6 text-number text-oxide">
+                <span>01</span>
+                <span className="text-ink">02</span>
+                <span className="text-transparent [-webkit-text-stroke:2px_var(--color-ink)]">03</span>
+              </p>
+            </div>
             <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
               <span className="caps-label text-ink-muted">Lead 18→20</span>
               <p className="max-w-[68ch] text-lead text-ink-muted">{sculptures.intro[0]}</p>
@@ -124,8 +139,8 @@ export default function Styleguide() {
             <div className="grid gap-3 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
               <span className="caps-label text-ink-muted">caps-label</span>
               <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
-                <span className="caps-label text-bronze-deep">01 / 05 · Sculptures</span>
-                <span className="caps-label text-bronze-deep">IFA-SC-012</span>
+                <span className="caps-label text-oxide-deep">01 / 05 · Sculptures</span>
+                <span className="caps-label text-oxide-deep">IFA-SC-012</span>
                 <span className="caps-label text-ink-muted">Suitable for</span>
               </div>
             </div>
@@ -142,6 +157,23 @@ export default function Styleguide() {
               <Button arrow>Get a Quote</Button>
               <Button variant="onDark">WhatsApp us</Button>
               <Button variant="textOnDark" arrow>About us</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Enquiry panel: the three kinds of entry point</Eyebrow>
+            <div className="flex flex-wrap items-center gap-4">
+              <Button onClick={() => open()} data-test="enquire-general">General (header, footer)</Button>
+              <Button variant="secondary" onClick={() => open({ category: 'sculptures' })} data-test="enquire-line">
+                A product line
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => open({ category: sample.line, code: sample.code, title: sample.title })}
+                data-test="enquire-design"
+              >
+                A design ({sample.code})
+              </Button>
             </div>
           </div>
 
@@ -205,13 +237,13 @@ export default function Styleguide() {
 
       <Section tone="surface">
         <Container>
-          <SectionHeading eyebrow="Section tone: surface" title={<>Alternate <em>sections</em></>} tagline="Separated by tone or a hairline, never by boxes." />
+          <SectionHeading eyebrow="Section tone: surface" title={<>Alternate <em>sections</em></>} tagline="Bands are separated by tone or a visible ruled line, never by floating boxes." />
         </Container>
       </Section>
 
       <Section tone="dark">
         <Container className="flex flex-col gap-10">
-          <SectionHeading tone="dark" eyebrow="Section tone: dark" title={<>At most <em>three</em> per page</>} tagline="Eyebrows and links on dark use cream-muted." />
+          <SectionHeading tone="dark" eyebrow="Section tone: dark" title={<>Graphite, <em>at most two</em> per page</>} tagline="Besides the header and footer. Eyebrows, numbers and links on graphite use oxide-bright." />
           <ul className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3">
             {PLATES.slice(0, 2).map((p) => (
               <li key={p.code}>

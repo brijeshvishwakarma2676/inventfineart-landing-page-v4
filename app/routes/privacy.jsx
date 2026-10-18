@@ -4,9 +4,9 @@ import { site } from '../data/site';
 
 // Describes only what this site actually does (keep in sync if analytics or new services are added).
 export default function Privacy() {
-  const h2 = 'mt-10 font-display text-h3 text-ink';
+  const h2 = 'mt-10 text-[2rem] text-ink';
   const mail = (
-    <a className="font-semibold text-bronze-deep underline underline-offset-4" href={`mailto:${site.email}`}>
+    <a className="font-semibold text-oxide-deep underline underline-offset-4" href={`mailto:${site.email}`}>
       {site.email}
     </a>
   );
