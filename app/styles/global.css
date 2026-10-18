@@ -174,6 +174,29 @@ html.lenis body {
   }
 }
 
+/* Home sketchbook (Sketchbook.jsx): line drawings that draw themselves. Every path has pathLength="1", so one
+   dash is the whole line; the undrawn offset (1.02) sits just past the start, so round caps leave no dot.
+   Rubbing out waits until the drawing has faded (0.7s). Strokes are thicker on phones, where the drawing is small. */
+.sketch path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.02;
+  transition: stroke-dashoffset 0s linear 0.7s;
+}
+@media (width >= 48rem) {
+  .sketch path {
+    stroke-width: 1.6;
+  }
+}
+.sketch[data-drawn] path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.3s var(--ease-out-soft) var(--d, 0s);
+}
+
 /* Transitions become instant (0s), not "0.01ms": a non-zero duration on every element would make each one
    transition its inherited `visibility` too, so a dialog's controls would still be hidden in the frame it opens
    and focus could not move in. */

@@ -636,3 +636,6 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | 9 | The panel's form loads on first open; inline forms stay a normal import | Lazy inline forms streamed a placeholder first and shifted the Contact layout (CLS 0.73) |
 | 9 | A 1,200 px image width added | Phones at ~2.6× jumped from 960 to the 1,600 px file (224–267 KB) |
 | 9 | `npm run check:seo` in `npm run check` | One H1, unique titles (≤ 70) and descriptions, canonical, OG image, JSON-LD fields, alt text, sitemap |
+| After 10 | Home hero shows line drawings instead of photos: one per product line, graphite band, 01–05 tabs kept. The first drawing is complete in the prerendered page; each next one draws itself (CSS `pathLength` dashes, no GSAP). Photo slides stay in `site.js`, unused | Asked for after the owner saw a drawn-hero reference. Real photos remain on every other page |
+| After 10 | New graphite "Sketchbook" band on Home (between Materials and How we work) with the same five drawings, each captioned with the design codes it is drawn from (`/line?design=` links). Home is now 10 sections, 3 graphite bands (hero, trust band, sketchbook) | Asked for together with the drawn hero |
+| After 10 | The hero slideshow no longer stalls when the tab is hidden at the moment a slide changes | Bug: the timer skipped the change and never ran again |

@@ -4,6 +4,7 @@ import { ProductLines } from '../components/sections/ProductLines';
 import { TrustBand } from '../components/sections/TrustBand';
 import { SelectedWorks } from '../components/sections/SelectedWorks';
 import { Materials } from '../components/sections/Materials';
+import { Sketchbook } from '../components/sections/Sketchbook';
 import { Process } from '../components/sections/Process';
 import { ClientMarquee } from '../components/sections/ClientMarquee';
 import { FaqSection } from '../components/sections/FaqSection';
@@ -14,7 +15,7 @@ import { homeFaqs } from '../data/faqs';
 // Ends with the inline enquiry form, so the footer skips its CTA band.
 export const handle = { inlineEnquiry: true };
 
-// Home (SITE-V4-PLAN.md §3.1): nine sections; one graphite band (the trust band) besides the header and footer.
+// Home (SITE-V4-PLAN.md §3.1): ten sections; two graphite bands (trust band, sketchbook) besides the header and footer.
 export default function Home() {
   return (
     <>
@@ -29,6 +30,7 @@ export default function Home() {
       <TrustBand />
       <SelectedWorks />
       <Materials />
+      <Sketchbook />
       <Process />
       <ClientMarquee />
       <FaqSection items={homeFaqs} />
