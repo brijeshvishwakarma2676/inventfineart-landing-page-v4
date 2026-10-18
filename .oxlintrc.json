@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": []
+      }
+    ],
+    "react/jsx-key": "error",
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/prefer-tag-over-role": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "scripts/**"
+      ],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}
