@@ -614,7 +614,7 @@ Decisions taken while building, recorded here so this plan stays the source of t
 
 | Phase | Change | Why |
 |---|---|---|
-| — | Open questions 1–5 (§8) accepted as recommended (2026-10-18): v4 replaces v3 as the launch candidate; repo `inventfineart-site-v4`; no analytics cookies; client names published; the recommended hero H1 | You said "go" |
+| — | Open questions 1–5 (§8) accepted as recommended (2026-10-18): v4 replaces v3 as the launch candidate; repo created as `brijeshvishwakarma2676/inventfineart-landing-page-v4` (branches `main`, `dev`); no analytics cookies; client names published; the recommended hero H1 | You said "go" |
 | 0 | Fraunces loads `opsz.css` + `opsz-italic.css`, not `full.css`; the SOFT axis is dropped | The Latin regular + italic are 149 KB instead of 271 KB |
 | 0 | `ClientsWall.jsx` and `Testimonials.jsx` are copied in the phase that uses them, not in Phase 0 | They import files that arrive later; every commit must build |
 | 0 | The attribution check in §7 matches `co-authored-by`, `generated with` and `noreply@anthropic` | The earlier pattern also matched the file name `CLAUDE.md` |
