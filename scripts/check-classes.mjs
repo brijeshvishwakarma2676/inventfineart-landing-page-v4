@@ -25,7 +25,7 @@ for (const f of files.filter((f) => f.endsWith('.html'))) {
   const html = await fs.readFile(f, 'utf8');
   for (const [, value] of html.matchAll(/\sclass="([^"]*)"/g)) {
     for (const c of value.split(/\s+/).filter(Boolean)) {
-      const cls = c.replace(/&amp;/g, '&').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"');
+      const cls = c.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&');
       if (!used.has(cls)) used.set(cls, new Set());
       used.get(cls).add(page);
     }

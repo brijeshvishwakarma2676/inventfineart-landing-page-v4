@@ -122,6 +122,47 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
   await ctx.close();
 }
 
+// ---------- Product page catalogue (desktop) ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+  await page.goto(`${BASE}/sculptures`, { waitUntil: 'networkidle' });
+  const cards = '#designs ul > li';
+  const visible = () => page.$$eval(cards, (els) => els.filter((el) => el.offsetParent !== null).length);
+  check('catalogue: 24 designs show at first (desktop)', (await visible()) === 24, String(await visible()));
+  await page.click('#designs button:has-text("Show all")');
+  check('catalogue: Show all shows every design', (await visible()) === 76, String(await visible()));
+  await page.click('#designs button[aria-pressed]:has-text("Devotional")');
+  check('catalogue: a filter tab narrows the list', (await visible()) === 5, String(await visible()));
+  await page.click('#designs button[aria-pressed]:has-text("All")');
+  await page.locator('#designs ul > li button[aria-label^="View larger"]').first().click();
+  await page.waitForSelector('.yarl__root', { timeout: 5000 }).catch(() => {});
+  check('lightbox opens from a design photo', (await page.locator('.yarl__root').count()) > 0);
+  await page.click('.yarl__root button:has-text("Enquire")').catch(() => {});
+  await page.waitForTimeout(400);
+  check('lightbox Enquire opens the panel with the code', (await page.inputValue(`${panel} input[readonly]`).catch(() => '')) === 'IFA-SC-001');
+  check('lightbox closes when enquiring', (await page.locator('.yarl__root').count()) === 0);
+  await page.keyboard.press('Escape');
+
+  await page.goto(`${BASE}/sculptures?design=IFA-SC-012`, { waitUntil: 'networkidle' });
+  await page.waitForSelector('.yarl__root', { timeout: 5000 }).catch(() => {});
+  const title = await page.locator('.yarl__slide_current .yarl__slide_title').textContent().catch(() => '');
+  check('?design= deep link opens that design', title?.includes('Seated Buddha'), title);
+  check('no page or console errors on the product page (incl. #418)', errors.length === 0, errors.join(' | ').slice(0, 300));
+  await ctx.close();
+}
+{
+  const ctx = await browser.newContext({ viewport: { width: 360, height: 780 }, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/sculptures`, { waitUntil: 'networkidle' });
+  const n = await page.$$eval('#designs ul > li', (els) => els.filter((el) => el.offsetParent !== null).length);
+  check('catalogue: 12 designs show at first (phone)', n === 12, String(n));
+  await ctx.close();
+}
+
 // ---------- Phone, touch ----------
 {
   const ctx = await browser.newContext({ viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true, reducedMotion: 'reduce' });

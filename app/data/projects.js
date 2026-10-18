@@ -19,7 +19,7 @@ export const projectGroups = [
 ];
 const groupName = Object.fromEntries(projectGroups.map((g) => [g.slug, g.name]));
 
-// Titles for the photos shown with a caption (Home "Selected works"); the rest use their group name.
+// Titles for the photos shown with a caption (Home "Selected works", related projects); the rest use their group name.
 const TITLES = {
   'gallery/wall_murals/9': 'Metal leaf wall installation',
   'gallery/wall_murals/21': 'Metal eagle wall art',
@@ -27,6 +27,16 @@ const TITLES = {
   'gallery/wall_murals/35': 'Illuminated leaf wall lights',
   'gallery/water_fountains/20': 'Rock waterfall',
   'gallery/other_products/16': 'Garden pergola',
+  // related-project picks (descriptive, from the photos)
+  'gallery/wall_murals/10': 'Wall installation, living room',
+  'gallery/wall_murals/17': 'Relief wall panels',
+  'gallery/wall_murals/33': 'Dancers relief, lobby wall',
+  'gallery/wall_murals/34': 'Carved relief wall, full length',
+  'gallery/water_fountains/15': 'Water wall',
+  'gallery/water_fountains/16': 'Sphere fountain',
+  'gallery/other_products/2': 'Garden gazebo',
+  'gallery/other_products/5': 'Gazebo with lattice screens',
+  'gallery/other_products/17': 'Lattice pergola',
 };
 
 const make = (group) => (image) => {
