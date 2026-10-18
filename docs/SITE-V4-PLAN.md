@@ -229,9 +229,9 @@ Every allowed pair is listed in `app/styles/contrast.js` and tested by `npm run 
    - Layout: split. The headline block (static H1, buttons) sits beside the photo; no text and no overlay on the photo.
    - Per slide: `0N / 05 · LINE NAME`, the line's tagline, and *Explore →*.
    - Buttons: [Explore products] [Get a Quote].
-2. **Product lines** (v2 pillars, refined).
-   - Five numbered entries; the first spans 2 columns.
-   - Each has the correct photo, tagline, first sentence of the brief, "Suitable for" (from the brief), [Explore] and [Enquire].
+2. **Product lines** (v2 pillars, in the new theme).
+   - Five full-width numbered rows (huge oxide numbers). On desktop a sticky photo beside the list shows the row under the pointer or keyboard focus; on phones each row carries its photo.
+   - Each row has the correct photo, the tagline, "Suitable for" (from the brief), [Explore] (the whole row links) and [Enquire].
 3. **Trust band** (dark; replaces the factory strip).
    - The old site's line "a community of artists, committed to bring outstanding art to the commercial world".
    - The 4 facility units, 3 provisional stats and ISO (PROVISIONAL).
@@ -629,3 +629,5 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | 3 | `Section.jsx` gains a `paper` tone and `Container frame` (grid lines), so it is adapted rather than copied as-is; `useFocusTrap.js` listens on the document | Theme; and the trap lost Esc and Tab after the submit button disabled itself (focus fell to <body>), a bug v3 has too |
 | 3 | Reduced-motion CSS makes transitions `0s` instead of `0.01ms` | With 0.01ms every element transitioned its inherited `visibility`, so the panel and menu could not take focus as they opened (also in v3) |
 | 3 | `npm run test:ui` (`scripts/ui-check.mjs`): 35 browser checks of the menus, the panel and the form | Phase 3's keyboard and pre-fill exit checks, kept for later phases |
+| 4 | Phone hero order: photo, then the 01–05 strip and a one-line caption, then the headline (desktop keeps headline beside the photo) | On a phone the first screen was all text |
+| 4 | Product lines are numbered rows with a sticky preview, not v2's card grid | The new theme's "numbered rows that reveal a photo" layout |
