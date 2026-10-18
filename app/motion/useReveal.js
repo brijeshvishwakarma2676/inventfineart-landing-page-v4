@@ -8,6 +8,7 @@ import { useMotion } from './motion';
  *   data-reveal="clip"     image wipe upwards; the <img> inside settles from scale 1.08 to 1
  * Elements already on screen when motion starts are left as painted, so nothing disappears after the first
  * paint. Re-runs when `key` changes (route change). Does nothing until motion has loaded, or under reduced motion.
+ * Opacity only, never `visibility` (autoAlpha): hidden-visibility headings drop out of the accessibility tree.
  */
 export function useReveal(scopeRef, key) {
   const motion = useMotion();
@@ -21,11 +22,11 @@ export function useReveal(scopeRef, key) {
 
     const ctx = gsap.context(() => {
       root.querySelectorAll('[data-reveal="up"]').forEach((el) => {
-        if (below(el)) gsap.from(el, { y: 24, autoAlpha: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: trigger(el) });
+        if (below(el)) gsap.from(el, { y: 24, opacity: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: trigger(el) });
       });
       root.querySelectorAll('[data-reveal="stagger"]').forEach((el) => {
         if (!below(el)) return;
-        gsap.from(el.children, { y: 24, autoAlpha: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08, scrollTrigger: trigger(el) });
+        gsap.from(el.children, { y: 24, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08, scrollTrigger: trigger(el) });
       });
       root.querySelectorAll('[data-reveal="clip"]').forEach((el) => {
         if (!below(el)) return;

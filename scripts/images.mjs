@@ -14,7 +14,7 @@ const OUT = path.join(ROOT, 'public/img');
 const MANIFEST = path.join(ROOT, 'app/data/images.generated.js');
 const FORCE = process.argv.includes('--force');
 
-const PHOTO_WIDTHS = [480, 960, 1600, 2400];
+const PHOTO_WIDTHS = [480, 960, 1200, 1600, 2400]; // 1200 serves phones at ~2.6x without jumping to 1600
 const LOGO_WIDTHS = [160, 320];
 const MIN_WIDTH = 300; // smaller photos are skipped and reported (logos are always kept)
 const ENCODER = 'webp-q70-q85-e5-v1'; // change this to rebuild every file with new names

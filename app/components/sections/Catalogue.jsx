@@ -28,11 +28,9 @@ export function Catalogue({ designs, groups }) {
   const requested = hydrated ? params.get('design') : null;
   useEffect(() => {
     if (!requested) return;
+    // A fresh page load starts on "All", so the index into `designs` is the index into what's shown.
     const i = designs.findIndex((d) => d.code === requested.toUpperCase());
-    if (i >= 0) {
-      setGroup('all');
-      open(i);
-    }
+    if (i >= 0) open(i);
   }, [requested, designs, open]);
 
   const tabs = groups ? [{ slug: 'all', name: 'All', count: designs.length }, ...groups.map((g) => ({ ...g, count: designs.filter((d) => d.group === g.slug).length }))] : [];

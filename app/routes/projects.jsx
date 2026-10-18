@@ -42,7 +42,7 @@ export default function Projects() {
   return (
     <>
       <Seo
-        title="Projects: Wall Murals, Water Features & Installations | Invent Fine Art"
+        title="Projects: Murals, Water Features & Pergolas | Invent Fine Art"
         description="Past work by Invent Fine Art: wall murals and relief art, water features and rockery, pergolas and gazebos."
         image="gallery/wall_murals/9"
         jsonLd={breadcrumbs([{ name: 'Projects', path: '/projects' }])}

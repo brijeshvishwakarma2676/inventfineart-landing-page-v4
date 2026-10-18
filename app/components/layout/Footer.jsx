@@ -114,7 +114,7 @@ export function Footer() {
           <div className="container-site flex flex-col gap-2 py-5 text-micro sm:flex-row sm:justify-between">
             <p>
               © {YEAR} {site.name} · {site.credit.label}{' '}
-              <a href={site.credit.url} target="_blank" rel="noopener" className="text-chalk hover:underline">
+              <a href={site.credit.url} target="_blank" rel="noopener" className="text-chalk underline underline-offset-2">
                 {site.credit.name}
               </a>
             </p>

@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Invent Fine Art | Sculptures, Designer Planters, GRC & FRP Products, Mumbai"
+        title="Invent Fine Art | Sculptures, Planters, GRC & FRP Products, Mumbai"
         description="Sculptures, designer planters, GRC products, GRC grilles and FRP products, made to your design by Invent Fine Art, Mumbai. Ask for a quote."
         image="gallery/sculptures/20"
         jsonLd={organization}

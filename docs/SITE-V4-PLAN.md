@@ -632,3 +632,7 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | 4 | Phone hero order: photo, then the 01–05 strip and a one-line caption, then the headline (desktop keeps headline beside the photo) | On a phone the first screen was all text |
 | 4 | Product lines are numbered rows with a sticky preview, not v2's card grid | The new theme's "numbered rows that reveal a photo" layout |
 | 8 | Phase 8 is split: `npm run test:api` (16 offline checks, Resend and Turnstile intercepted) now; the live tests with the real inbox wait for the Vercel project and its environment variables | The Vercel project isn't set up yet |
+| 9 | Reveals animate opacity only (no `autoAlpha`) | `visibility: hidden` took below-the-fold headings out of the accessibility tree (Lighthouse "heading-order"; screen-reader heading navigation) |
+| 9 | The panel's form loads on first open; inline forms stay a normal import | Lazy inline forms streamed a placeholder first and shifted the Contact layout (CLS 0.73) |
+| 9 | A 1,200 px image width added | Phones at ~2.6× jumped from 960 to the 1,600 px file (224–267 KB) |
+| 9 | `npm run check:seo` in `npm run check` | One H1, unique titles (≤ 70) and descriptions, canonical, OG image, JSON-LD fields, alt text, sitemap |

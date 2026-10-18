@@ -50,7 +50,7 @@ export default function Styleguide() {
       <Seo title="Style guide | Invent Fine Art" description="Design tokens and components." noindex />
       <Section>
         <Container className="flex flex-col gap-20">
-          <SectionHeading eyebrow="Internal · noindex" title={<>Style guide <em>v4</em></>} tagline="Concrete & Oxide: concrete, cement, graphite and one oxide accent. SITE-V4-PLAN.md §2." />
+          <SectionHeading as="h1" eyebrow="Internal · noindex" title={<>Style guide <em>v4</em></>} tagline="Concrete & Oxide: concrete, cement, graphite and one oxide accent. SITE-V4-PLAN.md §2." />
 
           <div className="flex flex-col gap-6">
             <Eyebrow>Colour tokens</Eyebrow>

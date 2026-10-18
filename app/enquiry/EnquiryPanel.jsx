@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { MessageCircle, Phone, X } from 'lucide-react';
 import { useEnquiry } from './EnquiryContext';
-import { EnquiryForm } from './EnquiryForm';
+// The form (react-hook-form, Turnstile) loads on the first open, keeping it out of every page's first download.
+const EnquiryForm = lazy(() => import('./EnquiryForm').then((m) => ({ default: m.EnquiryForm })));
 import { useFocusTrap } from '../components/ui/useFocusTrap';
 import { useScrollLock } from '../components/ui/useScrollLock';
 import { site, whatsappLink } from '../data/site';
@@ -12,6 +13,9 @@ export function EnquiryPanel() {
   const { state, close } = useEnquiry();
   const panelRef = useRef(null);
   const { isOpen, prefill } = state;
+  // Mount the form on the first open and keep it mounted, so typed input survives closing and reopening.
+  const [opened, setOpened] = useState(false);
+  if (isOpen && !opened) setOpened(true);
   useFocusTrap(panelRef, isOpen, close);
   useScrollLock(isOpen);
 
@@ -56,7 +60,11 @@ export function EnquiryPanel() {
           </div>
 
           {/* Remount when the enquiry subject changes so the pre-filled product and code are fresh */}
-          <EnquiryForm key={`${prefill.category ?? ''}-${prefill.code ?? ''}`} prefill={prefill} layout="stacked" onSent={close} />
+          {opened && (
+            <Suspense fallback={<p className="text-small text-ink-muted">Loading the form…</p>}>
+              <EnquiryForm key={`${prefill.category ?? ''}-${prefill.code ?? ''}`} prefill={prefill} layout="stacked" onSent={close} />
+            </Suspense>
+          )}
 
           <div className="flex flex-col gap-3 border-t-2 border-line-strong pt-6 text-small">
             <p className="caps-label">Prefer to talk?</p>

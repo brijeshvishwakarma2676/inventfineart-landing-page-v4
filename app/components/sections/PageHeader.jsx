@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
-import { Img } from '../ui/Img';
+import { preload } from 'react-dom';
+import { Img, imageSrc, imageSrcSet } from '../ui/Img';
 import { Eyebrow } from '../ui/SectionHeading';
 
 /** Breadcrumb trail (Home first). The last item is the current page. */
@@ -31,11 +32,15 @@ export function Breadcrumbs({ crumbs }) {
   );
 }
 
+const HEADER_SIZES = '(min-width: 1024px) 60vw, 100vw';
+
 /**
  * Page header with a photo, split like the Home hero: the headline block beside the photo (no text on photos),
  * the photo bleeding to the right edge from 1024px; on phones the photo comes first.
  */
 export function SplitHeader({ crumbs, eyebrow, title, lead, image, position, alt = '', children }) {
+  // The photo is the page's largest paint: let the browser fetch it while it parses the head.
+  preload(imageSrc(image, 1600), { as: 'image', fetchPriority: 'high', imageSrcSet: imageSrcSet(image), imageSizes: HEADER_SIZES });
   return (
     <header className="flex flex-col bg-bg lg:grid lg:min-h-[min(44rem,calc(100svh-var(--header-h)))] lg:grid-cols-[minmax(2rem,1fr)_minmax(0,32.5rem)_minmax(0,46rem)_minmax(2rem,1fr)]">
       <div className="order-2 flex flex-col justify-end gap-6 px-4 pt-8 pb-12 md:px-8 lg:order-none lg:col-[2/3] lg:px-0 lg:py-14 lg:pr-12">
@@ -46,7 +51,7 @@ export function SplitHeader({ crumbs, eyebrow, title, lead, image, position, alt
         {children}
       </div>
       <div className="relative order-1 aspect-[4/3] overflow-hidden bg-surface-2 lg:order-none lg:col-[3/5] lg:aspect-auto">
-        <Img id={image} alt={alt} priority sizes="(min-width: 1024px) 60vw, 100vw" className="size-full object-cover" style={{ objectPosition: position }} />
+        <Img id={image} alt={alt} priority sizes={HEADER_SIZES} className="size-full object-cover" style={{ objectPosition: position }} />
       </div>
     </header>
   );
