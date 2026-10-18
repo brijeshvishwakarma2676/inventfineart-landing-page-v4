@@ -8,14 +8,15 @@
     "preview": "sirv build/client --dev --port 4173",
     "lint": "oxlint app scripts api",
     "check:claims": "node scripts/check-claims.mjs",
-    "check": "npm run lint && npm run check:claims && npm run build",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:classes": "node scripts/check-classes.mjs",
+    "check": "npm run lint && npm run check:claims && npm run check:contrast && npm run build && npm run check:classes",
     "images": "node scripts/images.mjs",
     "shots": "node scripts/shots.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",
     "@fontsource-variable/fraunces": "^5.3.0",
-    "@gsap/react": "^2.1.2",
     "@marsidev/react-turnstile": "^1.6.2",
     "@react-router/dev": "^8.4.0",
     "@react-router/node": "^8.4.0",

@@ -1,15 +1,227 @@
+import themeCss from '../styles/global.css?raw';
 import { Seo } from '../components/ui/Seo';
-import { PageStub } from '../components/sections/PageStub';
+import { Section, Container } from '../components/ui/Section';
+import { SectionHeading, Eyebrow } from '../components/ui/SectionHeading';
+import { Button } from '../components/ui/Button';
+import { Img } from '../components/ui/Img';
+import { Plate } from '../components/ui/Plate';
+import { dots } from '../components/ui/format';
+import { lineBySlug, finishes } from '../data/lines';
+import { PAIRS, BANNED_PAIRS, contrast } from '../styles/contrast';
 
+// Read from global.css at build time, so this page can't drift from the real tokens.
+const TOKENS = [...themeCss.matchAll(/--color-([a-z0-9-]+):\s*(#[0-9a-f]{6})\s*;(?:\s*\/\*\s*(.*?)\s*\*\/)?/gi)].map((m) => ({
+  name: m[1],
+  hex: m[2].toUpperCase(),
+  note: m[3] ?? '',
+}));
+const HEX = Object.fromEntries(TOKENS.map((t) => [t.name, t.hex]));
+
+// Full class names (Tailwind only generates classes it can see written out).
+const SWATCH = {
+  bg: 'bg-bg', surface: 'bg-surface', 'surface-2': 'bg-surface-2', line: 'bg-line', 'line-strong': 'bg-line-strong',
+  field: 'bg-field', ink: 'bg-ink', 'ink-muted': 'bg-ink-muted', bronze: 'bg-bronze', 'bronze-deep': 'bg-bronze-deep',
+  dark: 'bg-dark', 'dark-2': 'bg-dark-2', cream: 'bg-cream', 'cream-muted': 'bg-cream-muted', white: 'bg-white',
+  whatsapp: 'bg-whatsapp', error: 'bg-error',
+};
+const FINISH = { 'surface-2': 'bg-surface-2', surface: 'bg-surface', 'ink-muted': 'bg-ink-muted', bronze: 'bg-bronze', line: 'bg-line' };
+
+// Real designs; codes and titles match site-v3 (SITE-V4-PLAN.md §5.3).
+const PLATES = [
+  { image: 'gallery/sculptures/15', code: 'IFA-SC-012', title: 'Seated Buddha', detail: 'Gold finish', alt: 'Seated Buddha sculpture with a gold finish, in a garden' },
+  { image: 'gallery/planters/3', code: 'IFA-PL-003', title: 'Elephant planter', alt: 'Cream elephant planter holding a spiky plant on a stone plinth' },
+  { image: 'gallery/grc_products/5', code: 'IFA-GRL-002', title: 'Geometric jali cladding', detail: 'GRC', alt: 'Geometric GRC jali panels cladding a wall' },
+];
+
+const TYPE = [
+  ['text-display', 'Display 44→84', 'Made to your design.'],
+  ['text-h1', 'H1 40→68', <>Sculptures, <em>made to measure</em></>],
+  ['text-h2', 'H2 32→48', <>Where Nature <em>Meets Design</em></>],
+  ['text-h3', 'H3 22→28', <>Distinctive Patterns. <em>Timeless Architectural Appeal.</em></>],
+];
+
+/** Internal reference page (noindex): every token, contrast pair, type size, button, plate and reveal. */
 export default function Styleguide() {
+  const sculptures = lineBySlug.sculptures;
   return (
     <>
       <Seo title="Style guide | Invent Fine Art" description="Design tokens and components." noindex />
-      <PageStub
-        eyebrow="Internal"
-        title="Style guide"
-        sections={[['Tokens, type, buttons, plates, motion', '', 'Phase 1']]}
-      />
+      <Section>
+        <Container className="flex flex-col gap-20">
+          <SectionHeading eyebrow="Internal · noindex" title={<>Style guide <em>v4</em></>} tagline="Refined v2: travertine, bronze, charcoal. SITE-V4-PLAN.md §2." />
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Colour tokens</Eyebrow>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
+              {TOKENS.map((t) => (
+                <li key={t.name} className="flex flex-col gap-2 text-small">
+                  <span className={`h-16 rounded-image border border-line ${SWATCH[t.name] ?? ''}`} />
+                  <span className="font-semibold">{t.name}</span>
+                  <span className="caps-label text-ink-muted">{t.hex}</span>
+                  {t.note && <span className="text-micro text-ink-muted">{t.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Contrast (WCAG), computed from the tokens</Eyebrow>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[36rem] border-t border-line-strong text-left text-small">
+                <thead>
+                  <tr className="border-b border-line-strong">
+                    {['Text', 'On', 'Ratio', 'Needs', 'Used for'].map((h) => (
+                      <th key={h} className="caps-label py-3 pr-4 font-semibold text-ink-muted">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {PAIRS.map(([fg, bg, min, use]) => {
+                    const r = contrast(HEX[fg], HEX[bg]);
+                    return (
+                      <tr key={`${fg}-${bg}-${use}`} className="border-b border-line">
+                        <td className="py-2 pr-4 font-semibold">{fg}</td>
+                        <td className="py-2 pr-4">{bg}</td>
+                        <td className={`py-2 pr-4 tabular-nums ${r >= min ? '' : 'font-semibold text-error'}`}>{r.toFixed(2)}:1</td>
+                        <td className="py-2 pr-4 tabular-nums text-ink-muted">{min}:1</td>
+                        <td className="py-2 text-ink-muted">{use}</td>
+                      </tr>
+                    );
+                  })}
+                  {BANNED_PAIRS.map(([fg, bg, instead]) => (
+                    <tr key={`${fg}-${bg}-ban`} className="border-b border-line text-ink-muted">
+                      <td className="py-2 pr-4 line-through">{fg}</td>
+                      <td className="py-2 pr-4 line-through">{bg}</td>
+                      <td className="py-2 pr-4 tabular-nums">{contrast(HEX[fg], HEX[bg]).toFixed(2)}:1</td>
+                      <td className="py-2 pr-4">banned</td>
+                      <td className="py-2">{instead}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <Eyebrow>Type: Fraunces (display) · Archivo (UI, body, labels)</Eyebrow>
+            {TYPE.map(([cls, label, sample]) => (
+              <div key={cls} className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+                <span className="caps-label text-ink-muted">{label}</span>
+                <p className={`font-display ${cls}`}>{sample}</p>
+              </div>
+            ))}
+            <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+              <span className="caps-label text-ink-muted">Lead 18→20</span>
+              <p className="max-w-[68ch] text-lead text-ink-muted">{sculptures.intro[0]}</p>
+            </div>
+            <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+              <span className="caps-label text-ink-muted">Body 16→17</span>
+              <p className="max-w-[68ch]">{lineBySlug['grc-products'].intro[1]}</p>
+            </div>
+            <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+              <span className="caps-label text-ink-muted">Small 14</span>
+              <p className="text-small text-ink-muted">Small text for notes, captions and form hints.</p>
+            </div>
+            <div className="grid gap-3 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
+              <span className="caps-label text-ink-muted">caps-label</span>
+              <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
+                <span className="caps-label text-bronze-deep">01 / 05 · Sculptures</span>
+                <span className="caps-label text-bronze-deep">IFA-SC-012</span>
+                <span className="caps-label text-ink-muted">Suitable for</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Buttons</Eyebrow>
+            <div className="flex flex-wrap items-center gap-4">
+              <Button arrow>Get a Quote</Button>
+              <Button variant="secondary" arrow>Explore products</Button>
+              <Button variant="text" arrow>All projects</Button>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 bg-dark p-6">
+              <Button arrow>Get a Quote</Button>
+              <Button variant="onDark">WhatsApp us</Button>
+              <Button variant="textOnDark" arrow>About us</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Catalogue plates (real designs, v3 codes)</Eyebrow>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:gap-x-8" data-reveal="stagger">
+              {PLATES.map((p) => (
+                <li key={p.code} className="flex flex-col gap-3">
+                  <div className="aspect-[4/5] overflow-hidden rounded-image bg-surface-2">
+                    <Img id={p.image} alt={p.alt} sizes="(min-width: 768px) 30vw, 45vw" className="size-full object-cover" />
+                  </div>
+                  <Plate code={p.code} title={p.title} detail={p.detail} as="h3" />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Ruled spec list (no chips)</Eyebrow>
+            <dl className="max-w-xl border-t border-line-strong">
+              {[
+                ['Suitable for', dots(sculptures.suitableFor)],
+                ['Materials', dots(sculptures.materials)],
+                ['Sizes', sculptures.sizes],
+                ['Finishes', dots(finishes.map((f) => f.name))],
+              ].map(([k, v]) => (
+                <div key={k} className="grid gap-1 border-b border-line py-3 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                  <dt className="caps-label text-ink-muted">{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <ul className="flex flex-wrap gap-4">
+              {finishes.map((f) => (
+                <li key={f.name} className="flex w-28 flex-col gap-2 text-small">
+                  <span className={`aspect-square rounded-image border border-line ${FINISH[f.tone]}`} />
+                  {f.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Container>
+      </Section>
+
+      <Section tone="surface">
+        <Container>
+          <SectionHeading eyebrow="Section tone: surface" title={<>Alternate <em>sections</em></>} tagline="Separated by tone or a hairline, never by boxes." />
+        </Container>
+      </Section>
+
+      <Section tone="dark">
+        <Container className="flex flex-col gap-10">
+          <SectionHeading tone="dark" eyebrow="Section tone: dark" title={<>At most <em>three</em> per page</>} tagline="Eyebrows and links on dark use cream-muted." />
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3">
+            {PLATES.slice(0, 2).map((p) => (
+              <li key={p.code}>
+                <Plate tone="dark" code={p.code} title={p.title} detail={p.detail} />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container className="flex flex-col gap-6">
+          <Eyebrow>Reveals (scroll down; off under reduced motion)</Eyebrow>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div className="rounded-image bg-surface p-8" data-reveal="up">data-reveal=&quot;up&quot;</div>
+            <ul className="flex flex-col gap-2" data-reveal="stagger">
+              {['stagger 1', 'stagger 2', 'stagger 3'].map((t) => (
+                <li key={t} className="rounded-image bg-surface p-3">{t}</li>
+              ))}
+            </ul>
+            <div className="aspect-[4/3] overflow-hidden rounded-image" data-reveal="clip">
+              <Img id="gallery/sculptures/20" alt="Giant garden chess set" sizes="(min-width: 640px) 33vw, 90vw" className="size-full object-cover" />
+            </div>
+          </div>
+        </Container>
+      </Section>
     </>
   );
 }

@@ -637,3 +637,18 @@ Every phase ends the same way:
   - A reload of each deep-link URL with the console open (expect no #418).
 - **Enquiry (Phase 8):** the 6 test cases in §6, with the email and the auto-reply checked in the inbox.
 - **Launch gate (Phase 10):** every §7 item, each with evidence (screenshot path, command output or Lighthouse report), and the list of remaining `CONTENT-GAPS.md` rows.
+
+---
+
+## 10. Changes made during the build
+
+Decisions taken while building, recorded here so this plan stays the source of truth.
+
+| Phase | Change | Why |
+|---|---|---|
+| — | Open questions 1–5 (§8) accepted as recommended (2026-10-18): v4 replaces v3 as the launch candidate; repo `inventfineart-site-v4`; no analytics cookies; client names published; the recommended hero H1 | You said "go" |
+| 0 | Fraunces loads `opsz.css` + `opsz-italic.css`, not `full.css`; the SOFT axis is dropped | The Latin regular + italic are 149 KB instead of 271 KB |
+| 0 | `ClientsWall.jsx` and `Testimonials.jsx` are copied in the phase that uses them, not in Phase 0 | They import files that arrive later; every commit must build |
+| 0 | The attribution check in §7 matches `co-authored-by`, `generated with` and `noreply@anthropic` | The earlier pattern also matched the file name `CLAUDE.md` |
+| 1 | v3's `motion/gsap.js` and `LenisProvider.jsx` are replaced by `motion/motion.js` (idle loader) + `MotionProvider.jsx`; `@gsap/react` is removed | Any static import of GSAP would put it back in the first download (§2.4) |
+| 1 | Two more build checks: `check:contrast` (every allowed pair in `app/styles/contrast.js` against the tokens) and `check:classes` (every class in the prerendered HTML must generate CSS) | Turn the Phase 1 exit checks into checks that run on every build |

@@ -1,14 +1,24 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse } from 'react-router';
+import { useRef } from 'react';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation } from 'react-router';
 import '@fontsource-variable/fraunces/opsz.css';
 import '@fontsource-variable/fraunces/opsz-italic.css';
 import '@fontsource-variable/archivo/wdth.css';
+import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
+import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import './styles/global.css';
 
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { EnquiryProvider } from './enquiry/EnquiryContext';
+import { MotionProvider } from './motion/MotionProvider';
+import { useReveal } from './motion/useReveal';
 
-export const links = () => [{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }];
+// The two Latin font files used above the fold are preloaded; italics and other subsets load on use.
+export const links = () => [
+  { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+  { rel: 'preload', href: frauncesLatin, as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
+  { rel: 'preload', href: archivoLatin, as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
+];
 
 export function Layout({ children }) {
   return (
@@ -30,20 +40,28 @@ export function Layout({ children }) {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  const scope = useRef(null);
+  useReveal(scope, pathname);
+
   return (
-    <EnquiryProvider>
-      <a
-        href="#main"
-        className="sr-only z-[80] rounded-button bg-ink px-4 py-3 text-small text-cream focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
-      >
-        Skip to content
-      </a>
-      <Header />
-      <main id="main">
-        <Outlet />
-      </main>
-      <Footer />
-    </EnquiryProvider>
+    <MotionProvider>
+      <EnquiryProvider>
+        <a
+          href="#main"
+          className="sr-only z-[80] rounded-button bg-ink px-4 py-3 text-small text-cream focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to content
+        </a>
+        <Header />
+        <div ref={scope}>
+          <main id="main">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </EnquiryProvider>
+    </MotionProvider>
   );
 }
 
