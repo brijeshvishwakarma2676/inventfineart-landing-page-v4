@@ -1,26 +1,24 @@
 import { Link } from 'react-router';
+import { Img } from '../ui/Img';
 import { Section, Container } from '../ui/Section';
 import { SectionHeading } from '../ui/SectionHeading';
 import { materials } from '../../data/content';
 import { lineBySlug, finishes } from '../../data/lines';
 
-// Full class names (Tailwind only generates classes it can read in the source).
-const SWATCH = { 'surface-2': 'bg-surface-2', surface: 'bg-surface', 'ink-muted': 'bg-ink-muted', 'oxide-deep': 'bg-oxide-deep', line: 'bg-line' };
-
 /**
- * Materials (SITE-V4-PLAN.md §3.1-5): the two materials the sources name, GRC and FRP, in the brief's own words,
- * each with the lines made in it; then the provisional finishes as flat swatches until photos arrive.
+ * Materials and finishes (SITE-V4-PLAN.md §3.1): the two materials the sources name, GRC and FRP, in the brief's own
+ * words, each with the lines made in it; then the provisional finishes as round photo swatches.
  */
 export function Materials() {
   return (
     <Section>
       <Container>
-        <SectionHeading eyebrow="Materials" title={<>Made in <em>GRC</em> and <em>FRP</em></>} />
+        <SectionHeading eyebrow="Materials and finishes" title="Made in GRC and FRP" />
 
-        <div className="mt-12 grid border-t-2 border-line-strong md:grid-cols-2" data-reveal="stagger">
+        <div className="mt-12 grid gap-4 md:grid-cols-2" data-reveal="stagger">
           {materials.map((m) => (
-            <article key={m.name} className="flex flex-col gap-4 border-b border-line py-8 md:border-b-0 md:px-8 md:first:border-r md:first:pl-0">
-              <p className="condensed text-number text-oxide">{m.name}</p>
+            <article key={m.name} className="flex flex-col gap-4 bg-surface p-6 md:p-8">
+              <p className="headline text-number text-oxide">{m.name}</p>
               <h3 className="text-h3">{m.full}</h3>
               <p className="max-w-[60ch] text-ink-muted">{m.text}</p>
               <p className="text-small">
@@ -38,17 +36,19 @@ export function Materials() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-5 border-t border-line pt-8">
-          <p className="caps-label">Finishes</p>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-14 flex flex-col items-center gap-8 text-center">
+          <h3 className="text-h3">Finishes</h3>
+          <ul className="grid w-full grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
             {finishes.map((f) => (
-              <li key={f.name} className="flex flex-col gap-2">
-                <span className={`aspect-[4/3] border border-line ${SWATCH[f.tone]}`} aria-hidden="true" />
+              <li key={f.name} className="flex flex-col items-center gap-3">
+                <span className="block aspect-square w-full max-w-44 overflow-hidden rounded-full bg-surface-2">
+                  <Img id={f.image} alt="" sizes="176px" className="size-full object-cover" />
+                </span>
                 <span className="text-small font-bold">{f.name}</span>
               </li>
             ))}
           </ul>
-          <p className="text-small text-ink-muted">Colours shown are indicative. Colours and textures can be matched to your brief.</p>
+          <p className="text-small text-ink-muted">Shown as indicative examples. Colours and textures can be matched to your brief.</p>
         </div>
       </Container>
     </Section>

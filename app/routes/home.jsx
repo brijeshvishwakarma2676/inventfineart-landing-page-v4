@@ -1,11 +1,13 @@
 import { Seo } from '../components/ui/Seo';
 import { Hero } from '../components/sections/Hero';
 import { ProductLines } from '../components/sections/ProductLines';
-import { TrustBand } from '../components/sections/TrustBand';
-import { SelectedWorks } from '../components/sections/SelectedWorks';
+import { FeaturedDesigns } from '../components/sections/FeaturedDesigns';
+import { WhyUs } from '../components/sections/WhyUs';
+import { Factory } from '../components/sections/Factory';
 import { Materials } from '../components/sections/Materials';
-import { Sketchbook } from '../components/sections/Sketchbook';
+import { Applications } from '../components/sections/Applications';
 import { Process } from '../components/sections/Process';
+import { SelectedWorks } from '../components/sections/SelectedWorks';
 import { ClientMarquee } from '../components/sections/ClientMarquee';
 import { FaqSection } from '../components/sections/FaqSection';
 import { EnquirySection } from '../components/sections/EnquirySection';
@@ -15,7 +17,8 @@ import { homeFaqs } from '../data/faqs';
 // Ends with the inline enquiry form, so the footer skips its CTA band.
 export const handle = { inlineEnquiry: true };
 
-// Home (SITE-V4-PLAN.md §3.1): ten sections; two graphite bands (trust band, sketchbook) besides the header and footer.
+// Home (SITE-V4-PLAN.md §3.1, catalogue direction): photo hero, the five lines, popular designs, why choose us, the
+// factory, materials and finishes, applications, process, latest projects, clients, FAQ, enquiry.
 export default function Home() {
   return (
     <>
@@ -27,14 +30,16 @@ export default function Home() {
       />
       <Hero />
       <ProductLines />
-      <TrustBand />
-      <SelectedWorks />
+      <FeaturedDesigns />
+      <WhyUs />
+      <Factory />
       <Materials />
-      <Sketchbook />
-      <Process />
+      <Applications tone="surface" />
+      <Process tone="bg" />
+      <SelectedWorks />
       <ClientMarquee />
-      <FaqSection items={homeFaqs} />
-      <EnquirySection />
+      <FaqSection items={homeFaqs} tone="surface" />
+      <EnquirySection tone="bg" />
     </>
   );
 }

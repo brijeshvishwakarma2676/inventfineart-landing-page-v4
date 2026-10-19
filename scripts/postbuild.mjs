@@ -2,11 +2,16 @@
 // 1. Moves the prerendered /404 page to 404.html, which Vercel serves with a 404 status for unknown URLs.
 // 2. Deletes __spa-fallback.html (every route is prerendered, so nothing needs it; left in, it would be a
 //    reachable page with no title).
-// 3. Writes sitemap.xml from the prerendered pages (noindex pages are skipped).
+// 3. Writes sitemap.xml from the prerendered pages (noindex pages are skipped), and points robots.txt at it.
 // 4. Fails the build if a redirect in vercel.json points to a page that wasn't built.
+// 5. Link previews: saves each page's og:image as a 1200 × 630 JPG under /og/ (WhatsApp and other apps show JPG
+//    reliably; WebP not always) and points og:image at it, with its size and type.
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { SITE_URL as SITE } from '../app/data/site.js';
+import sharp from 'sharp';
+import { siteUrl } from './site-url.mjs';
+
+const SITE = siteUrl();
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, 'build/client');
@@ -44,6 +49,9 @@ const xml =
   pages.map((p) => `  <url><loc>${SITE}${p === '/' ? '' : p}</loc><lastmod>${today}</lastmod></url>`).join('\n') +
   '\n</urlset>\n';
 await fs.writeFile(path.join(OUT, 'sitemap.xml'), xml);
+const robots = path.join(OUT, 'robots.txt');
+const robotsTxt = await fs.readFile(robots, 'utf8').catch(() => null);
+if (robotsTxt) await fs.writeFile(robots, robotsTxt.replace(/^Sitemap:.*$/m, `Sitemap: ${SITE}/sitemap.xml`));
 console.log(`postbuild: 404.html ready, spa fallback removed, sitemap ${pages.length} URLs`);
 
 // 4. Expand ":param(a|b)" alternatives so every concrete destination can be checked.
@@ -62,3 +70,29 @@ for (const r of redirects) {
 }
 if (missing.length) fail(`redirects to pages that were not built:\n  ${missing.join('\n  ')}`);
 console.log(`postbuild: ${redirects.length} redirects checked`);
+
+// 5
+const ogDir = path.join(OUT, 'og');
+await fs.mkdir(ogDir, { recursive: true });
+const made = new Map(); // webp URL → jpg URL
+let ogPages = 0;
+for (const f of (await walk(OUT)).filter((f) => f.endsWith('.html'))) {
+  let html = await fs.readFile(f, 'utf8');
+  const m = html.match(/<meta property="og:image" content="([^"]+)"\/?>/);
+  if (!m || !m[1].startsWith(SITE + '/img/')) continue;
+  const src = m[1];
+  if (!made.has(src)) {
+    const file = src.slice(SITE.length); // /img/gallery/sculptures/20-1200.63265118.webp
+    const name = file.replace(/^\/img\/gallery\//, '').replace(/-\d+\.([0-9a-f]+)\.webp$/, '.$1').replace(/\//g, '-') + '.jpg';
+    await sharp(path.join(OUT, file)).resize(1200, 630, { fit: 'cover', position: 'attention' }).jpeg({ quality: 80, mozjpeg: true }).toFile(path.join(ogDir, name));
+    made.set(src, `${SITE}/og/${name}`);
+  }
+  const jpg = made.get(src);
+  html = html.replace(
+    m[0],
+    `<meta property="og:image" content="${jpg}"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:type" content="image/jpeg"/>`,
+  );
+  await fs.writeFile(f, html);
+  ogPages++;
+}
+console.log(`postbuild: link-preview JPGs for ${ogPages} pages (${made.size} images), site URL ${SITE}`);

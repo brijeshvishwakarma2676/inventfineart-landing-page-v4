@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation } from 'react-router';
-// One family, one variable file (weight and width axes): condensed capitals for headlines, normal width for text.
+// One family, one variable file (weight and width axes): headline capitals for headlines, normal width for text.
 import '@fontsource-variable/archivo/wdth.css';
 import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
 import './styles/global.css';

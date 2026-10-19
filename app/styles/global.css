@@ -1,19 +1,19 @@
 @import 'tailwindcss';
 
-/* Design tokens: "Concrete & Oxide" (SITE-V4-PLAN.md §2). The only place colours, fonts, sizes and radii
-   are defined. The default palette is off, and Tailwind ignores a missing token silently: add new ones here
+/* Design tokens: "Catalogue" (SITE-V4-PLAN.md §2, revised 2026-10-19 after the client asked for a style of its
+   own: white and photo-led, after metalssculpture.com). The only place colours, fonts, sizes and radii are defined. The default palette is off, and Tailwind ignores a missing token silently: add new ones here
    and run `npm run check` (check:contrast tests the allowed pairs, check:classes every rendered class). */
 @theme {
   --color-*: initial;
-  --color-bg: #e4e2de; /* concrete: the page */
-  --color-surface: #cfcbc4; /* cement: alternate bands */
-  --color-surface-2: #d9d6d0; /* image placeholders */
-  --color-paper: #f4f3f0; /* forms, panel, tables: the lightest surface */
-  --color-line: #b9b5ad; /* visible 1px grid lines */
-  --color-line-strong: #1a1a1a; /* black rules: spec tables, plates */
-  --color-field: #6f6b64; /* form field borders (≥3:1) */
-  --color-ink: #1a1a1a; /* graphite text */
-  --color-ink-muted: #55524c; /* secondary text */
+  --color-bg: #ffffff; /* the page */
+  --color-surface: #f3f2ef; /* light grey bands */
+  --color-surface-2: #e7e5e1; /* image placeholders, swatches */
+  --color-paper: #faf9f7; /* forms, panel, tables */
+  --color-line: #e2dfda; /* hairlines between cards and rows */
+  --color-line-strong: #c9c5be; /* rules: plates, tab strips, tables */
+  --color-field: #8a857d; /* form field borders (≥3:1) */
+  --color-ink: #1a1a1a; /* charcoal text */
+  --color-ink-muted: #5c5851; /* secondary text */
   --color-oxide: #c24a1c; /* the accent: fills (white text), large text ≥24px, numbers */
   --color-oxide-deep: #8c3010; /* small accent text on light: links, eyebrows, codes; button hover */
   --color-oxide-bright: #e0612e; /* the accent on graphite: numbers, eyebrows, links */
@@ -30,17 +30,17 @@
   --font-*: initial;
   --font-sans: 'Archivo Variable', 'Archivo', 'Arial Narrow', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Type scale: 360px → 1440px. Display, h1 and h2 are condensed 800 capitals (see base styles). */
-  --text-display: clamp(3rem, 1.333rem + 7.407vw, 8rem);
-  --text-display--line-height: 0.88;
-  --text-h1: clamp(2.75rem, 1.5rem + 5.556vw, 6.5rem);
-  --text-h1--line-height: 0.9;
-  --text-h2: clamp(2.25rem, 1.5rem + 3.333vw, 4.5rem);
-  --text-h2--line-height: 0.92;
-  --text-h3: clamp(1.375rem, 1.208rem + 0.741vw, 1.875rem);
-  --text-h3--line-height: 1.05;
-  --text-number: clamp(4rem, 2.333rem + 7.407vw, 9rem); /* the oversized 01–05 */
-  --text-number--line-height: 0.8;
+  /* Type scale: 360px → 1440px. Headlines are Archivo bold at normal width, in sentence case (see base styles). */
+  --text-display: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem);
+  --text-display--line-height: 1.02;
+  --text-h1: clamp(2.25rem, 1.75rem + 2.222vw, 3.75rem);
+  --text-h1--line-height: 1.05;
+  --text-h2: clamp(1.75rem, 1.417rem + 1.481vw, 2.75rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.25rem, 1.167rem + 0.37vw, 1.5rem);
+  --text-h3--line-height: 1.2;
+  --text-number: clamp(2.5rem, 2rem + 2.222vw, 4rem); /* stats and step numbers */
+  --text-number--line-height: 1;
   --text-lead: clamp(1.125rem, 1.083rem + 0.185vw, 1.25rem);
   --text-lead--line-height: 1.55;
   --text-body: clamp(1rem, 0.979rem + 0.093vw, 1.0625rem);
@@ -60,13 +60,19 @@
   --container-site: 82.5rem; /* 1320px */
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --shadow-menu: 0 12px 24px -12px rgb(26 26 26 / 0.18); /* mega menus under the header */
 }
 
 @layer base {
   :root {
-    /* The graphite header bar: sticky sub-navs, anchor offsets, and the space above content */
+    /* The header (white bar, plus the dark contact bar from 1024px): sticky sub-navs, anchor offsets and the
+       space above content all read this. */
     --header-h: 4.5rem;
     --header-offset: var(--header-h);
+    @media (width >= 64rem) {
+      --header-h: 6.75rem;
+    }
   }
   html {
     -webkit-text-size-adjust: 100%;
@@ -76,20 +82,18 @@
   body {
     @apply bg-bg font-sans text-body text-ink;
   }
-  /* Headlines: Archivo condensed, extra bold, capitals. h3 stays normal width for readability. */
+  /* Headlines: Archivo bold, normal width, sentence case. */
   h1,
   h2 {
-    font-stretch: 68%;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.005em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
   h3 {
     font-weight: 700;
     text-wrap: balance;
   }
-  /* Emphasis inside a headline is the accent, not italics (large text only: oxide is 3.8:1 on concrete). */
+  /* Emphasis inside a headline is the accent colour, not italics. */
   h1 em,
   h2 em {
     font-style: normal;
@@ -147,11 +151,18 @@ html.lenis body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Condensed capitals at any size (headline voice outside h1/h2: numbers, nav, card titles). */
-@utility condensed {
-  font-stretch: 68%;
-  font-weight: 800;
-  text-transform: uppercase;
+/* The headline voice outside h1/h2 (numbers, card titles, the wordmark): bold, tight. */
+@utility headline {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* The Home hero's scrim: a radial shade, darkest behind the centred headline, plus a shade along the bottom
+   for the caption and the slide controls (white text stays ≥ 4.5:1 on the brightest slide). */
+@utility hero-scrim {
+  background:
+    linear-gradient(to top, rgb(26 26 26 / 0.6), rgb(26 26 26 / 0) 9rem),
+    radial-gradient(ellipse at center, rgb(26 26 26 / 0.74), rgb(26 26 26 / 0.5) 75%);
 }
 
 /* Client marquee: the track holds two copies of the logos and moves by one copy */
@@ -172,40 +183,6 @@ html.lenis body {
   to {
     width: 100%;
   }
-}
-
-/* Home sketchbook (Sketchbook.jsx): line drawings that draw themselves. Every path has pathLength="1", so one
-   dash is the whole line; the undrawn offset (1.02) sits just past the start, so round caps leave no dot.
-   Rubbing out waits until the drawing has faded (0.7s). Strokes are thicker on phones, where the drawing is small. */
-.sketch path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: var(--sw, 2.6);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1 2;
-  stroke-dashoffset: 1.02;
-  transition: stroke-dashoffset 0s linear 0.7s;
-}
-@media (width >= 48rem) {
-  .sketch path {
-    stroke-width: var(--sw, 1.6);
-  }
-}
-.sketch[data-drawn] path {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1.3s var(--ease-out-soft) var(--d, 0s);
-}
-/* Card hover views (HoverView.jsx): the drawing draws while the card is hovered or has keyboard focus. */
-@media (hover: hover) {
-  .sketch-trigger:hover .sketch path {
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1.1s var(--ease-out-soft) var(--d, 0s);
-  }
-}
-.sketch-trigger:has(:focus-visible) .sketch path {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1.1s var(--ease-out-soft) var(--d, 0s);
 }
 
 /* Transitions become instant (0s), not "0.01ms": a non-zero duration on every element would make each one

@@ -12,7 +12,7 @@ export function Typologies({ items }) {
           </div>
           <div className="flex items-baseline gap-3 border-t-2 border-line-strong pt-3">
             <span className="caps-label text-oxide-deep">{String(i + 1).padStart(2, '0')}</span>
-            <h3 className="condensed text-[1.6rem] leading-none">{t.name}</h3>
+            <h3 className="headline text-[1.6rem] leading-none">{t.name}</h3>
           </div>
           <p className="text-small text-ink-muted">{t.text}</p>
         </li>

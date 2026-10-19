@@ -1,14 +1,12 @@
 import { Link } from 'react-router';
-import { ArrowRight } from 'lucide-react';
 import { Seo } from '../components/ui/Seo';
 import { Section, Container } from '../components/ui/Section';
-import { SectionHeading } from '../components/ui/SectionHeading';
 import { Button } from '../components/ui/Button';
 import { Img } from '../components/ui/Img';
 import { dots } from '../components/ui/format';
 import { PlainHeader } from '../components/sections/PageHeader';
-import { lines, lineBySlug } from '../data/lines';
-import { applications } from '../data/applications';
+import { lines } from '../data/lines';
+import { Applications } from '../components/sections/Applications';
 import { breadcrumbs } from '../data/seo';
 import { useEnquiry } from '../enquiry/EnquiryContext';
 
@@ -40,7 +38,7 @@ export default function Products() {
               {lines.map((l) => (
                 <li key={l.slug} className="border-b border-line">
                   <a href={`#${l.slug}`} className="group flex items-baseline gap-3 py-3 hover:text-oxide-deep">
-                    <span className="condensed text-[1.6rem] leading-none text-oxide">{l.num}</span>
+                    <span className="headline text-[1.6rem] leading-none text-oxide">{l.num}</span>
                     <span className="text-small font-bold uppercase tracking-label">{l.name}</span>
                   </a>
                 </li>
@@ -55,7 +53,7 @@ export default function Products() {
                   <Img id={l.banner.image} alt="" sizes="(min-width: 1024px) 36vw, (min-width: 768px) 50vw, 100vw" className="size-full object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105" style={{ objectPosition: l.banner.position }} />
                 </Link>
                 <div className="flex flex-col gap-4">
-                  <span className="condensed text-number text-oxide">{l.num}</span>
+                  <span className="headline text-number text-oxide">{l.num}</span>
                   <h2 className="text-[clamp(2rem,1.5rem+1.6vw,3rem)] leading-[0.92]">
                     <Link to={`/${l.slug}`} className="hover:text-oxide-deep">
                       {l.name}
@@ -82,35 +80,7 @@ export default function Products() {
         </Container>
       </Section>
 
-      {/* Browse by application */}
-      <Section tone="surface">
-        <Container>
-          <SectionHeading eyebrow="Browse by application" title={<>Made for <em>your kind of space</em></>} className="mb-12" />
-          <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" data-reveal="stagger">
-            {applications.map((a) => (
-              <li key={a.slug} className="flex flex-col gap-3">
-                <div className="aspect-[4/3] overflow-hidden bg-surface-2">
-                  <Img id={a.image} alt={a.name} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw" className="size-full object-cover" />
-                </div>
-                <h3 className="condensed border-t-2 border-line-strong pt-3 text-[1.6rem] leading-none">{a.name}</h3>
-                <ul className="flex flex-col">
-                  {a.lines.map((slug) => (
-                    <li key={slug}>
-                      <Link to={`/${slug}`} className="group flex items-center justify-between gap-3 border-b border-line py-2 text-small font-bold hover:text-oxide-deep">
-                        <span>
-                          <span className="caps-label mr-2 text-oxide-deep">{lineBySlug[slug].num}</span>
-                          {lineBySlug[slug].name}
-                        </span>
-                        <ArrowRight className="size-4 text-oxide transition-transform group-hover:translate-x-1" strokeWidth={2.25} aria-hidden="true" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
+      <Applications tone="surface" />
     </>
   );
 }

@@ -118,71 +118,56 @@ v3 (`site-v3/`) solved the engineering: prerendering, the enquiry system, the im
 
 ---
 
-## 2. Visual direction: "Concrete & Oxide"
+## 2. Visual direction: "Catalogue"
 
-Chosen on 2026-10-18, replacing "Refined v2". v2 and v3 share a warm-cream, bronze and serif look, so a clearly different v4 leaves that palette behind.
+Revised on 2026-10-19. The client saw v4, v2 and a third demo side by side and answered: "All are in same style. Only background color is different." All three shared the same structure (dark hero with a line drawing and 01–05 strip, the same Home order, nav and copy). So each demo now follows a different inspiration site from `new-design.md` (`THREE-DEMOS-DIRECTION.md`). **v4 follows metalssculpture.com: a white, photo-led, catalogue-first manufacturer site.** The line drawings now belong to the third demo only, and v4 no longer uses them.
 
-**In one line:** an industrial-architectural identity built from the material Invent Fine Art makes. That means concrete and cement greys, graphite, one oxide accent, huge condensed capitals, square corners and visible ruled lines. It is bold like Ferrocon, and still a light site like the three reference sites.
+Earlier directions, for the record: "Refined v2" (cream, bronze, serif; dropped on 2026-10-18 as too close to v3), then "Concrete & Oxide" (concrete greys, graphite, condensed capitals, split hero; 2026-10-18 to 2026-10-19).
 
 ### 2.1 Colour (Tailwind `@theme`, with the default palette switched off)
 
 | Token | Hex | Use |
 |---|---|---|
-| `bg` | `#E4E2DE` | Concrete: the page |
-| `surface` | `#CFCBC4` | Cement: alternate bands |
-| `surface-2` | `#D9D6D0` | Image placeholders |
-| `paper` | `#F4F3F0` | Forms, the enquiry panel, tables: the lightest surface |
-| `line` | `#B9B5AD` | Visible 1 px grid lines |
-| `line-strong` | `#1A1A1A` | Black rules: spec tables, spec tags |
-| `field` | `#6F6B64` | Form field borders (5.3:1 on white) |
-| `ink` / `ink-muted` | `#1A1A1A` / `#55524C` | Graphite text / secondary text (6.0:1 on concrete, 4.8:1 on cement) |
-| `oxide` | `#C24A1C` | The one accent: button fills (always **white** text, 4.9:1), headline emphasis and big numbers (large text only, 3.8:1) |
-| `oxide-deep` | `#8C3010` | Small accent text on light (links, eyebrows, codes: 6.4:1); button hover |
-| `oxide-bright` | `#E0612E` | The accent on graphite: numbers, eyebrows, links (4.9:1). Never on light |
-| `dark` / `dark-2` | `#1A1A1A` / `#262624` | Graphite: header, footer, at most 2 more bands per page / raised on graphite |
-| `chalk` / `chalk-muted` | `#F2F1EE` / `#A3A09A` | Text on graphite / secondary text on graphite (6.7:1) |
-| `white` | `#FFFFFF` | Text on oxide, form fields |
-| `whatsapp` | `#25D366` | The floating button only |
-| `error` | `#9B2C1F` | Form errors only |
+| `bg` | `#FFFFFF` | The page |
+| `surface` | `#F3F2EF` | Light grey bands, cards |
+| `surface-2` | `#E7E5E1` | Image placeholders |
+| `paper` | `#FAF9F7` | Forms, the enquiry panel, tables |
+| `line` / `line-strong` | `#E2DFDA` / `#C9C5BE` | Hairlines / rules (spec tags, tab strips, tables) |
+| `field` | `#8A857D` | Form field borders (≥ 3:1) |
+| `ink` / `ink-muted` | `#1A1A1A` / `#5C5851` | Charcoal text / secondary text |
+| `oxide` | `#C24A1C` | The one accent: button fills (white text), headline emphasis, numbers |
+| `oxide-deep` | `#8C3010` | Small accent text: links, eyebrows, codes; button hover |
+| `oxide-bright` | `#E0612E` | The accent on charcoal (contact bar, footer) |
+| `dark` / `dark-2` | `#1A1A1A` / `#262624` | The contact bar above the header, the footer |
+| `chalk` / `chalk-muted` | `#F2F1EE` / `#A3A09A` | Text on charcoal |
+| `white`, `whatsapp`, `error` | | As before |
 
-Every allowed pair is listed in `app/styles/contrast.js` and tested by `npm run check:contrast` (29 pairs). **Banned:** oxide-bright on light, oxide-deep on graphite, any text but white on oxide (chalk is 4.3:1), and hex values in classes.
+Every allowed pair is in `app/styles/contrast.js` and tested by `npm run check:contrast`. No hex values in classes; the hero scrim and the menu shadow are named in `global.css` (`hero-scrim`, `shadow-menu`).
 
-### 2.2 Type: Archivo only (`@fontsource-variable/archivo`, `wdth.css`: one 90 KB Latin file with weight and width axes)
+### 2.2 Type: Archivo only
 
-- **Headlines (h1, h2, display):** width 68% (condensed), weight 800, UPPERCASE, line height 0.88–0.92. `<em>` inside a headline is oxide, not italic.
-- **h3:** normal width, weight 700, sentence case, for readability.
-- **Body and UI:** normal width, 400; UI 500–700. Buttons and nav are 700 capitals, tracking 0.08em.
-- **Labels, design codes, eyebrows:** the `caps-label` utility (700 capitals, tabular figures). Eyebrows carry a short oxide rule in front.
-- **Numbers 01–05:** oversized condensed numerals (`text-number`, 64 → 144 px) in oxide.
-- **Taglines** (the brief's own words) are set as a medium-weight lead, not italic: there is no serif and no italic file.
-- **Scale** (mobile → desktop via `clamp()`): display 48 → 128 · h1 44 → 104 · h2 36 → 72 · h3 22 → 30 · lead 18 → 20 · body 16 → 17 · small 14 · micro/label 12 → 13. Body text is capped at about 68 characters per line.
+- **Headlines (h1, h2, display):** Archivo bold at normal width, **sentence case**, tight tracking (−0.02em). Display 40 → 72 px, h1 36 → 60, h2 28 → 44, h3 20 → 24. `<em>` inside a headline is oxide.
+- **The `headline` utility** (bold, tight) carries the same voice outside h1/h2: card titles, numbers, the wordmark.
+- **Labels, design codes, eyebrows:** `caps-label` (bold capitals, tabular figures), as before.
+- **Body and UI:** 400 body, 500–700 UI. Buttons in bold capitals.
 
 ### 2.3 Layout and shape
 
-- **Grid:** container 1320 px, gutter 16 → 32 px. Sections are separated by tone or a visible ruled line; `Container frame` draws vertical grid lines at the container edges from 1024 px.
-- **Radius: 0 everywhere.** The only circle is the WhatsApp button.
-- **No card shadows, no chips, no pills.** Lists are ruled rows or dot-separated text (`dots()`). Shadows appear only on the enquiry panel and the WhatsApp button.
-- **Header:** a solid graphite bar on every page: logo · nav in capitals · phone · **GET A QUOTE** as an oxide block the full height of the bar. No photo runs under it, so it is never transparent.
-- **Photography:** a photo goes full-bleed only if it is at least 1,600 px wide. **Text is never set on a photo and photos get no dark overlay:** the hero is split, a headline block next to the photo. Catalogue photos are 4:5; project photos keep their natural ratio.
+- **Container** 1320 px, gutter 16 → 32 px. Sections alternate white and light grey; no dark bands in the page body.
+- **Header:** from 1024 px a charcoal contact bar (three phones, email, WhatsApp), then the white bar: logo · Products ▾ · Applications ▾ · Projects · About · Contact · [Get a Quote]. Both menus are white mega panels with photos.
+- **Hero:** a full-width photo slideshow with the H1 centred on one dark scrim (this replaces the earlier "no text on photos" rule, for the hero only; product and inner-page headers stay split, with no text on photos).
+- **Cards:** catalogue grids with photos and spec tags (code, title, detail); light grey icon cards for reasons and facility units. Square corners, except the **round finish swatches** (and the WhatsApp button).
+- **Photography:** full-bleed only at ≥ 1,600 px. Catalogue photos 4:5.
 
-### 2.4 Motion (GSAP + ScrollTrigger + Lenis, through `app/motion/`)
+### 2.4 Motion
 
-- **Allowed:**
-  - v3 spec §3.5: Lenis; fade-up 24 px over 0.8 s with `power3.out`; stagger 0.08 s; clip-path image wipe with scale 1.08 → 1; Ken Burns at most 1.06.
-  - Header hidden on scroll down, back on scroll up.
-  - v2's client marquee (40–60 s, pauses on hover and focus) and the hero crossfade every 6.5 s with a pause button.
-- **Not allowed:** intro or loading screens, pulse, bounce, spin, cursor effects, gradient text, 3D, page-wide fades, autoplay audio.
-- **Reduced motion:** nothing animates and transitions are instant (`0s`, which keeps dialogs focusable as they open). The marquee becomes a static grid and the hero doesn't auto-advance.
-- **Motion loader:** GSAP and Lenis load with a dynamic `import()` once the browser is idle after hydration, never under reduced motion. Elements already on screen are not animated.
+As before: GSAP and Lenis load on idle, reveals skip what is on screen, the hero crossfades every 6.5 s with a slow zoom and can be paused, reduced motion stops everything. No line-drawing animation.
 
-### 2.5 What makes it not look like a template (or like v3)
+### 2.5 What makes it different from the other two demos
 
-1. **The material is the theme.** Concrete and cement greys, graphite and an oxide accent: the colours of a GRC and FRP workshop, not a lifestyle brand.
-2. **One loud voice.** Huge condensed capitals for headlines, oversized 01–05 numbers, bold capital labels. No serif and no italics anywhere.
-3. **Spec tags.** Every product photo carries a tag under a black rule: `IFA-SC-012` in oxide capitals, the title, then a detail. The codes are the visual signature and the enquiry reference.
-4. **Visible structure.** Ruled grids, square corners and black spec tables instead of rounded cards, chips and shadows.
-5. **Photos stay clean.** No text and no dark overlay on photos; the split hero puts the headline beside the picture.
-6. **One accent.** Oxide only, used for action (Get a Quote, the CTA band) and for numbers.
+1. **Catalogue first:** popular designs with their IFA codes on Home, product-line tiles with design counts, Applications in the main menu.
+2. **White and photo-led:** a full-width photo hero; no dark hero, no line drawings, no 01–05 strip.
+3. **Manufacturer proof:** "Why clients choose us" cards, workshop photos with the stats and the four facility units, materials with round finish swatches, process steps. Every point restates the old site.
 
 ---
 
@@ -208,10 +193,9 @@ Every allowed pair is listed in `app/styles/contrast.js` and tested by `npm run 
 - Any other `/gallery/*` → `/products`.
 
 **Header (every page)**
-- Top bar (desktop only): phones · email · WhatsApp · "ISO 9001 Certified" (PROVISIONAL).
-- Main row: logo · **Products ▾** (mega menu: 5 numbered thumbnails with taglines) · Projects · About · Clients · Contact · **[Get a Quote]**.
-- Mobile: a full-screen menu with FAQ, and **Get a Quote** and **Call** pinned at the bottom.
-- The header is the same solid graphite bar on every page (no transparent state).
+- Contact bar (from 1024 px): three phones · email · WhatsApp.
+- Main row: logo · **Products ▾** (five lines with photos) · **Applications ▾** (six kinds of space, each linking to its tile on /products) · Projects · About · Contact · **[Get a Quote]**. Clients and FAQ are in the footer and the mobile menu.
+- Mobile: a full-screen white menu (products with thumbnails, applications, pages), with **Get a Quote** and **Call** pinned at the bottom.
 
 **Footer:**
 - The CTA band ("We can turn your ideas and imagination into reality." [Get a Quote] [WhatsApp]). It is hidden on routes that export `handle.inlineEnquiry` (Home, Contact, and product pages, which end in the enquiry section).
@@ -219,29 +203,20 @@ Every allowed pair is listed in `app/styles/contrast.js` and tested by `npm run 
 
 **Floating on every page:** the WhatsApp button, with a message that names the current page or design.
 
-### 3.1 Home (9 sections + footer; 2 dark bands)
+### 3.1 Home (12 sections + footer; catalogue direction, 2026-10-19)
 
-1. **Hero.** One slide per line.
-   - Slide candidates, all landscape and at least 2,400 px: `sculptures/20` (giant garden chess set), `planters/3` (elephant planter), `grc_products/1` (3D façade), `wall_murals/13` (jali gate, a PROVISIONAL grille), `other_products/11` (curved interior, an FRP stand-in).
-   - The final picks and the phone crops (`object-position` per slide) are chosen by eye in Phase 4. Slide 1 is preloaded.
-   - These are amateur site photos, so the client's new photos and video (CONTENT-GAPS) remain the biggest single improvement.
-   - Static H1 (PROVISIONAL, gap 6, open question 5): *"Sculptures, designer planters, GRC and FRP, made to your design."*
-   - Layout: split. The headline block (static H1, buttons) sits beside the photo; no text and no overlay on the photo.
-   - Per slide: `0N / 05 · LINE NAME`, the line's tagline, and *Explore →*.
-   - Buttons: [Explore products] [Get a Quote].
-2. **Product lines** (v2 pillars, in the new theme).
-   - Five full-width numbered rows (huge oxide numbers). On desktop a sticky photo beside the list shows the row under the pointer or keyboard focus; on phones each row carries its photo.
-   - Each row has the correct photo, the tagline, "Suitable for" (from the brief), [Explore] (the whole row links) and [Enquire].
-3. **Trust band** (dark; replaces the factory strip).
-   - The old site's line "a community of artists, committed to bring outstanding art to the commercial world".
-   - The 4 facility units, 3 provisional stats and ISO (PROVISIONAL).
-   - Buttons: [About us] [Contact].
-4. **Selected works.** 6 project photos of at least 1,200 px with plate captions, then *All projects →*.
-5. **Materials.** GRC | FRP in two columns, using the brief's definitions and uses, plus the provisional finish swatches.
-6. **How we work.** 5 sourced steps, then [Send your drawing] (opens the panel with upload).
-7. **Trusted by.** Client marquee, then *All clients →*.
-8. **FAQ.** 5 questions (answers PROVISIONAL, gap 16), then *All questions →*.
-9. **Enquiry.** v3's split section: pitch, phone, WhatsApp and email on the left; the inline form on the right.
+1. **Hero.** Full-width photos, one per line (`site.hero.slides`, all ≥ 2,400 px), crossfading every 6.5 s. Centred on one scrim: "Sculptures · Planters · GRC · FRP", the H1 (PROVISIONAL, gap 6), the old About page's "start to end solutions" line, [Explore products] [Get a Quote]. Below: what the photo shows, one bar per slide, previous / pause / next. Slide 1 is preloaded.
+2. **Five product lines.** Photo tiles (Sculptures large), each with the brief's tagline and its number of designs.
+3. **Popular designs.** Eight catalogue cards with codes, Enquire, a second view on hover and the lightbox.
+4. **Why clients choose us.** Six icon cards, each restating the old site (`content.js` `reasons`).
+5. **Factory.** The "community of artists" line, two workshop photos, the provisional stats with ISO, the four facility units.
+6. **Materials and finishes.** GRC | FRP in the brief's words; the provisional finishes as round photo swatches.
+7. **Browse by application.** Six kinds of space with the lines that suit them (shared with /products).
+8. **How we work.** Five sourced steps, [Send your drawing].
+9. **Latest projects.** Six project photos.
+10. **Trusted by.** Client logos.
+11. **FAQ.** Five questions.
+12. **Enquiry.** Pitch and direct lines beside the inline form.
 
 ### 3.2 Product page template (all 5 lines)
 
@@ -566,10 +541,10 @@ Every phase ends the same way:
 - [ ] `npm run check:claims` passes: none of the §4.1 phrases appear in data or JSX text.
 - [ ] The facts match §4.2 everywhere (footer, Contact, About, JSON-LD), including the raw factory address and both emails.
 - [ ] Every v2 URL (`/services*`, `/gallery*`) answers **301** to a v4 page. An unknown URL returns **HTTP 404**. No `__spa-fallback` page is reachable.
-- [ ] No text and no dark overlay on photos (the hero is split). No photo under 1,600 px is used full-bleed.
+- [ ] Text sits on a photo only in the Home hero, on one scrim, with white text ≥ 4.5:1 on the brightest slide; elsewhere no text on photos. No photo under 1,600 px is used full-bleed.
 - [ ] No cookie notice while the site sets no tracking cookies. If analytics are added, the notice is at most 20% of a 360×780 screen and both buttons are ≥ 4.5:1.
-- [ ] No pills except WhatsApp, no card shadows, no chips, 0 radius. Small accent text uses `oxide-deep` on light and `oxide-bright` on graphite; text on oxide is white.
-- [ ] View-source of every route already contains its H1, title, description, canonical and JSON-LD.
+- [ ] No pills, no card shadows, no chips, square corners; the only circles are the WhatsApp button and the round finish swatches. Small accent text uses `oxide-deep` on light and `oxide-bright` on charcoal; text on oxide is white.
+- [ ] View-source of every route already contains its H1, title, description, canonical and JSON-LD. Link previews (og:image) are 1200 × 630 JPGs on the project's own domain, so WhatsApp shows a picture.
 - [ ] `npm run check:codes`: design codes match v3 for the same photos. Adding a photo renumbers nothing.
 - [ ] Image file names are content-hashed. Replacing a photo shows the new one at once.
 - [ ] Turnstile: a retry after a failed send succeeds.
@@ -640,3 +615,5 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | After 10 | New graphite "Sketchbook" band on Home (between Materials and How we work) with the same five drawings, each captioned with the design codes it is drawn from (`/line?design=` links). Home is now 10 sections, 3 graphite bands (hero, trust band, sketchbook) | Asked for together with the drawn hero |
 | After 10 | The hero slideshow no longer stalls when the tab is hidden at the moment a slide changes | Bug: the timer skipped the change and never ran again |
 | After 10 | Design and project cards show a second view on hover or keyboard focus: the piece's line drawing (20 design cards), else another photo of the same piece (`SAME_PIECE` in `designs.js`, from the titles) or project (`SAME_PROJECT` in `projects.js`, 4 pairs judged from the photos). A short hint under the card names it; touch screens keep one photo. The second photo loads only on first hover | Asked for: two images of the same product on hover |
+| 2026-10-19 | **Visual direction changed to "Catalogue"** (§2, §3 header, §3.1 rewritten): white page and light-grey bands, Archivo bold in sentence case, a charcoal contact bar and white header with Products and Applications menus, a full-width photo hero with a centred headline on one scrim, product-line tiles, popular designs with codes, "why clients choose us", the factory, round finish swatches, applications on Home. Removed: the drawn hero, the Sketchbook band and the drawings in card hover views (the second photo on hover stays) | The client said the three demos were "all in same style, only background color is different". Each demo now follows a different inspiration site from `new-design.md` (`THREE-DEMOS-DIRECTION.md`); v4 follows metalssculpture.com, and the line drawings belong to the third demo |
+| 2026-10-19 | Link previews: the site URL comes from the build (`scripts/site-url.mjs`: `SITE_URL`, else the Vercel project's production domain, else inventfineart.com), and postbuild saves each page's og:image as a 1200 × 630 JPG under `/og/`. `sharp` moved to `dependencies` (postbuild runs on Vercel) | WhatsApp showed no picture: og:image pointed at www.inventfineart.com, which still serves the old site, and was a WebP |

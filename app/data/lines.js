@@ -107,13 +107,14 @@ export const lines = [
   },
 ];
 
-// PROVISIONAL – confirm with client (swatch photos still needed; tiles are flat token colours)
+// PROVISIONAL – confirm with client (swatch photos still needed; the round swatches crop catalogue photos)
+// `image`: a catalogue photo showing a similar surface, cropped into the round swatch (until finish photos arrive).
 export const finishes = [
-  { name: 'Natural concrete grey', tone: 'surface-2' },
-  { name: 'Sandstone texture', tone: 'surface' },
-  { name: 'Matte colour', tone: 'ink-muted' },
-  { name: 'Metallic bronze', tone: 'oxide-deep' },
-  { name: 'Custom colour', tone: 'line' },
+  { name: 'Natural concrete grey', tone: 'surface-2', image: 'gallery/grc_products/2' },
+  { name: 'Sandstone texture', tone: 'surface', image: 'gallery/grc_products/15' },
+  { name: 'Matte colour', tone: 'ink-muted', image: 'gallery/planters/1' },
+  { name: 'Metallic bronze', tone: 'oxide-deep', image: 'gallery/sculptures/40' },
+  { name: 'Custom colour', tone: 'line', image: 'gallery/planters/3' },
 ];
 
 // Typology tiles on each product page (SITE-V4-PLAN.md §3.2). Names and text use only the brief's own words;

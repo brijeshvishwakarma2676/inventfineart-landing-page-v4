@@ -57,7 +57,7 @@ export function SplitHeader({ crumbs, eyebrow, title, lead, image, position, alt
   );
 }
 
-/** Page header without a photo: breadcrumbs, eyebrow, condensed H1, lead, above a black rule. */
+/** Page header without a photo: breadcrumbs, eyebrow, headline H1, lead, above a black rule. */
 export function PlainHeader({ crumbs, eyebrow, title, lead, children }) {
   return (
     <header className="bg-bg">

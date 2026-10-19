@@ -2,7 +2,10 @@
 // The archive's own notes (old data/pages/*.md) are NOT a source. Every value marked PROVISIONAL is listed
 // in CONTENT-GAPS.md and must be confirmed by the client before launch.
 
-export const SITE_URL = 'https://www.inventfineart.com';
+// Set at build time from scripts/site-url.mjs (the Vercel project's own domain until inventfineart.com moves over).
+// Plain Node scripts don't get it: they import siteUrl() from scripts/site-url.mjs instead.
+/* global __SITE_URL__ */
+export const SITE_URL = typeof __SITE_URL__ === 'string' ? __SITE_URL__ : 'https://www.inventfineart.com';
 
 const foundedYear = 2008; // PROVISIONAL – confirm with client (old Home says "SINCE 2008", old About says 2009)
 
@@ -46,7 +49,7 @@ export const site = {
     // PROVISIONAL – confirm with client (headline; the alternative is v3's "Art that gives your space an identity.")
     title: 'Sculptures, designer planters, GRC and FRP, made to your design.',
     video: null, // PROVISIONAL – confirm with client (no hero video yet; the slider is used)
-    // Photo slides, one per line: not shown while the hero uses the line drawings (sections/sketches.js).
+    // Hero photos, one per product line (≥ 2,400 px); `position` is the crop on narrow screens.
     slides: [
       { line: 'sculptures', image: 'gallery/sculptures/20', caption: 'Giant garden chess set', position: '50% 60%' },
       { line: 'designer-planters', image: 'gallery/planters/3', caption: 'Elephant planter', position: '50% 45%' },
@@ -69,11 +72,12 @@ export const site = {
   credit: { label: 'Crafted by', name: 'Brijesh Vishwakarma', url: 'https://brijesh-dev-portfolio.vercel.app/' },
 };
 
+// `mega`: the header menu it opens. Clients and FAQ are in the footer and the mobile menu.
 export const nav = [
-  { label: 'Products', to: '/products', mega: true },
+  { label: 'Products', to: '/products', mega: 'products' },
+  { label: 'Applications', to: '/products#applications', mega: 'applications' },
   { label: 'Projects', to: '/projects' },
   { label: 'About', to: '/about' },
-  { label: 'Clients', to: '/clients' },
   { label: 'Contact', to: '/contact' },
 ];
 

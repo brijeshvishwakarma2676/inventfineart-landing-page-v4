@@ -33,6 +33,7 @@
     "react-hook-form": "^7.90.0",
     "react-router": "^8.4.0",
     "resend": "^6.34.1",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.4",
     "yet-another-react-lightbox": "^3.32.2"
@@ -40,7 +41,6 @@
   "devDependencies": {
     "oxlint": "^1.88.0",
     "playwright": "^1.64.1",
-    "sharp": "^0.35.5",
     "sirv-cli": "^3.0.1"
   },
   "engines": {

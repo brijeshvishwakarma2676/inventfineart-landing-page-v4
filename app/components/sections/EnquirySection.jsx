@@ -11,14 +11,14 @@ const WHATSAPP_LABEL = `+${site.whatsapp.slice(0, 2)} ${site.whatsapp.slice(2, 7
  * on a paper panel on the right. Routes that end with it export handle { inlineEnquiry: true } so the footer
  * skips its CTA band. `prefill` as for the panel: { category, code, title }.
  */
-export function EnquirySection({ prefill = {}, title, id = 'enquiry' }) {
+export function EnquirySection({ prefill = {}, title, id = 'enquiry', tone = 'surface' }) {
   const lines = [
     { icon: MessageCircle, label: `WhatsApp ${WHATSAPP_LABEL}`, href: whatsappLink('Hello Invent Fine Art, I have an enquiry.'), external: true },
     { icon: Phone, label: `Call ${site.phones[0].label}`, href: `tel:${site.phones[0].tel}` },
     { icon: Mail, label: site.email, href: `mailto:${site.email}` },
   ];
   return (
-    <Section id={id} tone="surface">
+    <Section id={id} tone={tone}>
       <Container className="grid gap-12 lg:grid-cols-12">
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SectionHeading

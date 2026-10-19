@@ -21,7 +21,7 @@ export default function Faq() {
             <section key={g.slug} aria-labelledby={`faq-${g.slug}`} className="grid gap-6 lg:grid-cols-12 lg:gap-10">
               <div className="lg:col-span-4">
                 <div className="flex items-baseline gap-4 lg:sticky lg:top-[calc(var(--header-h)+2rem)]">
-                  <span className="condensed text-[3rem] leading-none text-oxide">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="headline text-[3rem] leading-none text-oxide">{String(i + 1).padStart(2, '0')}</span>
                   <h2 id={`faq-${g.slug}`} className="text-[clamp(1.9rem,1.5rem+1.2vw,2.75rem)] leading-none">
                     {g.name}
                   </h2>

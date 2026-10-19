@@ -125,7 +125,7 @@ const RAW = [
 ];
 
 // Photos of the same piece, from the titles ("…, side view", "…, on display", "…, in the workshop"). A card shows the
-// next photo of its group on hover (or the piece's line drawing, where sections/sketches.js has one).
+// next photo of its group on hover.
 const SAME_PIECE = [
   ['IFA-SC-010', 'IFA-SC-011'],
   ['IFA-SC-016', 'IFA-SC-017'],

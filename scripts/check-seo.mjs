@@ -5,7 +5,9 @@
 // Usage: node scripts/check-seo.mjs
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { SITE_URL } from '../app/data/site.js';
+import { siteUrl } from './site-url.mjs';
+
+const SITE_URL = siteUrl();
 
 const OUT = path.resolve(import.meta.dirname, '../build/client');
 const walk = async (d) =>
@@ -50,7 +52,7 @@ for (const file of pages) {
   if (route !== '/404' && canonical !== expected) bad(`canonical is ${canonical}, expected ${expected}`);
 
   const og = html.match(/<meta property="og:image" content="([^"]*)"/)?.[1];
-  if (!og?.startsWith(SITE_URL + '/img/')) bad(`og:image is not an absolute /img URL: ${og}`);
+  if (!og?.startsWith(SITE_URL + '/og/') || !og.endsWith('.jpg')) bad(`og:image is not an absolute /og/*.jpg URL (postbuild step 5): ${og}`);
   else if (!(await fs.access(path.join(OUT, og.slice(SITE_URL.length))).then(() => true, () => false))) bad(`og:image file missing: ${og}`);
 
   for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {

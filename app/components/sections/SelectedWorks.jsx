@@ -17,7 +17,7 @@ export function SelectedWorks() {
     <Section tone="surface">
       <Container>
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading eyebrow="Selected works" title={<>Past work, <em>in place</em></>} tagline="Murals, water features, pergolas and more from past projects." />
+          <SectionHeading eyebrow="Projects" title="Latest projects" tagline="Murals, water features, pergolas and more from past projects." />
           <Button to="/projects" variant="secondary" arrow className="shrink-0">
             All projects
           </Button>
@@ -39,7 +39,7 @@ function WorkTile({ p, large }) {
   const [armed, hoverHandlers] = useHoverView();
   const sizes = large ? '(min-width: 1024px) 66vw, 100vw' : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw';
   return (
-    <Link to={`/projects?type=${p.group}`} className="group sketch-trigger flex h-full flex-col gap-3" {...hoverHandlers}>
+    <Link to={`/projects?type=${p.group}`} className="group flex h-full flex-col gap-3" {...hoverHandlers}>
       <span className={`relative block overflow-hidden bg-surface-2 ${large ? 'aspect-[4/3] lg:aspect-auto lg:flex-1' : 'aspect-[4/3]'}`}>
         <Img id={p.image} alt={p.alt} sizes={sizes} className="size-full object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105" />
         <HoverView item={p} armed={armed} sizes={sizes} />

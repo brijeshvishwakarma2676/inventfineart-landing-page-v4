@@ -107,7 +107,7 @@ const PHOTO_SIZES = '(min-width: 768px) 33vw, 50vw';
 function ProjectPhoto({ p, onOpen }) {
   const [armed, hoverHandlers] = useHoverView();
   return (
-    <li className="group sketch-trigger mb-4 break-inside-avoid lg:mb-6" {...hoverHandlers}>
+    <li className="group mb-4 break-inside-avoid lg:mb-6" {...hoverHandlers}>
       <button type="button" onClick={onOpen} className="relative block w-full cursor-zoom-in overflow-hidden bg-surface-2" aria-label={`View larger: ${p.title}`}>
         <Img id={p.image} alt={p.alt} sizes={PHOTO_SIZES} className="w-full transition-transform duration-700 ease-out-soft group-hover:scale-105" />
         <HoverView item={p} armed={armed} sizes={PHOTO_SIZES} />

@@ -23,6 +23,19 @@ export const process = [
   { title: 'Packing & fixing', text: 'Delivered in premium quality packing, and fixed on site where required.' },
 ];
 
+// Why choose us (Home): each point restates the old site. index.html: "enables us to do turnkey projects";
+// about-us.html: "trading, manufacturing, supplying and fixing", "premium quality packing", "stringently examined on
+// numerous factors", "start to end solutions from conceptualizations to the complete execution", "as per design and
+// requirement". `icon` names a lucide icon (mapped in WhyUs.jsx).
+export const reasons = [
+  { icon: 'factory', title: 'Our own manufacturing unit', text: 'Designed and made in our own facility, with the latest tools, technology and machinery.' },
+  { icon: 'ruler', title: 'Made to your design', text: 'Every piece is made as per your design and requirement, in the size you need.' },
+  { icon: 'route', title: 'Start to end solutions', text: 'From the first concept to the complete execution, with one team.' },
+  { icon: 'building', title: 'Turnkey projects', text: 'For residential, commercial and large-scale projects, indoors and outdoors.' },
+  { icon: 'check', title: 'Quality checked', text: 'Every piece is examined on numerous factors before it is delivered.' },
+  { icon: 'truck', title: 'Packing and fixing', text: 'Delivered in premium quality packing, then supplied and fixed on site.' },
+];
+
 // The four units of the facility (about-us.html).
 export const facility = [
   { name: 'Manufacturing unit', text: 'Equipped with the latest tools, technology and machinery.' },

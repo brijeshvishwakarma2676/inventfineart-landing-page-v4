@@ -1,6 +1,6 @@
 /**
  * Wordmark drawn from the client's pebble logo (stacked stones + INVENT + "Fine Art"), in the v4 voice:
- * condensed capitals. Colour follows the text colour.
+ * headline capitals. Colour follows the text colour.
  * PROVISIONAL – confirm with client: the only logo file on hand is a 120px PNG; replace with their vector logo.
  */
 export function Logo({ className = '' }) {
@@ -13,7 +13,7 @@ export function Logo({ className = '' }) {
         <ellipse cx="14" cy="4.2" rx="3.6" ry="2.6" fill="currentColor" opacity="0.55" />
       </svg>
       <span className="flex flex-col leading-none">
-        <span className="condensed text-[1.65rem] tracking-[0.02em]">Invent</span>
+        <span className="text-[1.45rem] font-extrabold uppercase tracking-[0.04em]">Invent</span>
         <span className="caps-label -mt-0.5 text-[0.62rem] tracking-[0.32em] opacity-80">Fine Art</span>
       </span>
     </span>

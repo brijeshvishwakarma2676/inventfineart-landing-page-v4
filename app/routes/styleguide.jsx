@@ -33,7 +33,7 @@ const FINISH = { 'surface-2': 'bg-surface-2', surface: 'bg-surface', 'ink-muted'
 // Real designs from the catalogue (codes match site-v3, SITE-V4-PLAN.md §5.3).
 const PLATES = ['IFA-SC-012', 'IFA-PL-003', 'IFA-GRL-002'].map((code) => designByCode[code]);
 
-// Headline sizes (Archivo condensed 800 capitals; h3 is normal width).
+// Headline sizes (Archivo headline 800 capitals; h3 is normal width).
 const TYPE = [
   ['text-display', 'Display 48→128', <>Made to <em>your</em> design.</>],
   ['text-h1', 'H1 44→104', <>Sculptures, <em>made to measure</em></>],
@@ -105,11 +105,11 @@ export default function Styleguide() {
           </div>
 
           <div className="flex flex-col gap-8">
-            <Eyebrow>Type: Archivo only (condensed capitals for headlines, normal width for text)</Eyebrow>
+            <Eyebrow>Type: Archivo only (headline capitals for headlines, normal width for text)</Eyebrow>
             {TYPE.map(([cls, label, sample]) => (
               <div key={cls} className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
                 <span className="caps-label text-ink-muted">{label}</span>
-                <p className={`condensed ${cls} [&_em]:text-oxide [&_em]:not-italic`}>{sample}</p>
+                <p className={`headline ${cls} [&_em]:text-oxide [&_em]:not-italic`}>{sample}</p>
               </div>
             ))}
             <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
@@ -118,7 +118,7 @@ export default function Styleguide() {
             </div>
             <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
               <span className="caps-label text-ink-muted">Number 64→144</span>
-              <p className="condensed flex gap-6 text-number text-oxide">
+              <p className="headline flex gap-6 text-number text-oxide">
                 <span>01</span>
                 <span className="text-ink">02</span>
                 <span className="text-transparent [-webkit-text-stroke:2px_var(--color-ink)]">03</span>

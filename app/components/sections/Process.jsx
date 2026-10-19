@@ -25,8 +25,8 @@ export function Process({ tone = 'surface', cta = true }) {
         <ol className="mt-12 grid border-t-2 border-line-strong sm:grid-cols-2 lg:grid-cols-5" data-reveal="stagger">
           {process.map((step, i) => (
             <li key={step.title} className="flex flex-col gap-3 border-b border-line py-6 sm:px-5 sm:odd:pl-0 lg:border-b-0 lg:border-l lg:px-5 lg:first:border-l-0 lg:first:pl-0">
-              <span className="condensed text-[3.5rem] leading-[0.85] text-oxide">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="condensed text-[1.6rem] leading-none">{step.title}</h3>
+              <span className="headline text-[3.5rem] leading-[0.85] text-oxide">{String(i + 1).padStart(2, '0')}</span>
+              <h3 className="headline text-[1.6rem] leading-none">{step.title}</h3>
               <p className="text-small text-ink-muted">{step.text}</p>
             </li>
           ))}

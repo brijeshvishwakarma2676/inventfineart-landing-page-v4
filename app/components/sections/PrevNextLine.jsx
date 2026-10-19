@@ -16,7 +16,7 @@ export function PrevNextLine({ slug }) {
             <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" strokeWidth={2.25} aria-hidden="true" />
             Previous line
           </span>
-          <span className="condensed text-[2rem] leading-none">
+          <span className="headline text-[2rem] leading-none">
             <span className="text-oxide">{prev.num}</span> {prev.name}
           </span>
         </Link>
@@ -25,7 +25,7 @@ export function PrevNextLine({ slug }) {
             Next line
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" strokeWidth={2.25} aria-hidden="true" />
           </span>
-          <span className="condensed text-[2rem] leading-none">
+          <span className="headline text-[2rem] leading-none">
             <span className="text-oxide">{next.num}</span> {next.name}
           </span>
         </Link>

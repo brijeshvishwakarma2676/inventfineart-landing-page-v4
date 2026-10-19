@@ -27,8 +27,8 @@ export function MadeToDesign({ line }) {
         <ol className="mt-12 grid border-t border-chalk/15 sm:grid-cols-2 lg:grid-cols-5">
           {process.map((step, i) => (
             <li key={step.title} className="flex flex-col gap-3 border-b border-chalk/15 py-6 sm:px-5 sm:odd:pl-0 lg:border-b-0 lg:border-l lg:px-5 lg:first:border-l-0 lg:first:pl-0">
-              <span className="condensed text-[2.5rem] leading-[0.85] text-oxide-bright">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="condensed text-[1.4rem] leading-none text-chalk">{step.title}</h3>
+              <span className="headline text-[2.5rem] leading-[0.85] text-oxide-bright">{String(i + 1).padStart(2, '0')}</span>
+              <h3 className="headline text-[1.4rem] leading-none text-chalk">{step.title}</h3>
               <p className="text-small text-chalk-muted">{step.text}</p>
             </li>
           ))}

@@ -19,7 +19,7 @@ As of 2026-10-18 (Phase 7). This is the **master list**: it supersedes `site-v3/
 | 7 | Hero video | none, so the slider is used (one slide per line; picks in `site.js` `hero.slides`) | `app/data/site.js:48` |
 | 8 | Catalogue PDF | none (`/catalogue` is not built) | `app/data/site.js:66` |
 | 9 | Sizes | Planters S/M/L/Custom; the rest "Made to your size and drawing" | `app/data/lines.js:18, 38, 59, 79, 100`; `app/data/faqs.js:85` |
-| 10 | Finishes | 5 names; swatches are flat token colours | `app/data/lines.js:110` |
+| 10 | Finishes | 5 names; round swatches crop catalogue photos that look similar | `app/data/lines.js:110` |
 | 11 | FRP banner and designs | stand-ins from `other_products` that look fibre-made (3, 6, 8, 9, 11, 12, 13, 14), flagged `provisional: true` | `app/data/lines.js:101`; `app/data/designs.js:17` |
 | 12 | GRC Grilles split | `grc_products` 4, 5, 6, 10 = grilles; plus `wall_murals` 12, 13 (jali gates) | `app/data/lines.js:80`; `app/data/designs.js:17` |
 | 13 | Testimonials | none (section hidden) | `app/data/testimonials.js:2` |

@@ -9,7 +9,7 @@ export function Eyebrow({ tone = 'light', className = '', children }) {
   );
 }
 
-/** Eyebrow + condensed H2 + optional tagline. `align="center"` centres it; `tone="dark"` on graphite. */
+/** Eyebrow + headline H2 + optional tagline. `align="center"` centres it; `tone="dark"` on graphite. */
 export function SectionHeading({ eyebrow, title, tagline, align = 'left', tone = 'light', as: Tag = 'h2', className = '', children }) {
   const center = align === 'center' ? 'mx-auto text-center items-center' : '';
   const dark = tone === 'dark';

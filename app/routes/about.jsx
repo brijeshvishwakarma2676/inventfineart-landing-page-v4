@@ -53,7 +53,7 @@ export default function About() {
           {stats.map((s, i) => (
             <div key={s.label} className={`flex flex-col-reverse justify-end gap-1 border-chalk/15 py-6 ${i % 2 ? 'border-l pl-5' : ''} lg:border-l lg:pl-6 lg:first:border-l-0 lg:first:pl-0`}>
               <dt className="caps-label text-chalk-muted">{s.label}</dt>
-              <dd className="condensed text-[clamp(1.8rem,1.2rem+1.6vw,2.75rem)] leading-none text-oxide-bright">{s.value}</dd>
+              <dd className="headline text-[clamp(1.8rem,1.2rem+1.6vw,2.75rem)] leading-none text-oxide-bright">{s.value}</dd>
             </div>
           ))}
         </dl>
@@ -126,7 +126,7 @@ export default function About() {
           <ul className="mt-12 grid border-t border-chalk/15 sm:grid-cols-2 lg:grid-cols-4">
             {facility.map((f, i) => (
               <li key={f.name} className="flex flex-col gap-3 border-b border-chalk/15 py-6 sm:px-6 sm:odd:pl-0 lg:border-b-0 lg:border-l lg:px-6 lg:first:border-l-0 lg:first:pl-0">
-                <span className="condensed text-[2rem] leading-none text-oxide-bright">{String(i + 1).padStart(2, '0')}</span>
+                <span className="headline text-[2rem] leading-none text-oxide-bright">{String(i + 1).padStart(2, '0')}</span>
                 <p className="font-bold text-chalk">{f.name}</p>
                 <p className="text-small text-chalk-muted">{f.text}</p>
               </li>

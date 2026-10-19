@@ -14,7 +14,7 @@ export function DesignCard({ design, onOpen, sizes = '(min-width: 1024px) 24vw, 
   const enquire = () => open({ category: design.line, code: design.code, title: design.title });
   const [armed, hoverHandlers] = useHoverView();
   return (
-    <article className="group sketch-trigger flex h-full flex-col gap-3" {...hoverHandlers}>
+    <article className="group flex h-full flex-col gap-3" {...hoverHandlers}>
       <button
         type="button"
         onClick={onOpen}
