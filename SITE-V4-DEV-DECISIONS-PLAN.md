@@ -169,3 +169,22 @@ Clicking a piece should show **where it was done, for whom, and the material**. 
 | Sculpture materials | Stainless steel, stone, bronze, FRP; **"RSJ" left out** until the client explains it |
 
 Phase A can start.
+
+## 6. His written list (from his notebook, shared 2026-10-26)
+
+This overrides the meeting transcript wherever the two differ. The site uses these names and segments.
+
+| Service (his heading) | Segments |
+|---|---|
+| Customize Designer Products in FRP & GRC | Customize reception table · Console table · Utility products · Garden benches · Fins · Grill/Jali & screens · Chajjas · Column/Pillar · Arch |
+| Sculptures | Steel sculptures · Stone sculptures · Bronze sculptures · FRP/GRP sculptures |
+| Murals & Wall Features | Steel murals · FRP murals & wall features · Mix media murals |
+| Planters & Pots | FRP pots & planters · GRC pots & planters · Removable planters · Partition creepers planters · Big tray for flower bed |
+
+What it changed on the site:
+- **Names:** "Customised Designer Products in FRP & GRC" (TASKS 0.2 settled) and "Planters & Pots". The URLs stay the same.
+- **Sculptures:** "Steel", not "stainless steel"; "FRP/GRP"; **no RSJ** (TASKS 0.7 settled).
+- **Murals:** the segments are materials (steel, FRP, mixed media). The current photos aren't labelled by material, so the filter keeps Murals / Wall features until his labelled photos arrive (as for sculptures).
+- **Customised:** columns/pillars and arches are separate. **Façades and gates are not in his list.** The 7 façade photos (IFA-GRC-001…007) stay under "All" with no segment, and the jali gate is filed under Grills, jaali & screens. Ask him whether the façade photos should stay.
+- **His order** in the notebook is Customised, Sculptures, Murals, Planters. The site keeps 01 Sculptures, 02 Planters, 03 Murals, 04 Customised (meeting L220–234) until he says the notebook order is the one he wants.
+

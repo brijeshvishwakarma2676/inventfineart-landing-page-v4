@@ -84,7 +84,7 @@ export const materials = [
 ];
 
 // The other materials (meeting L874), mainly for sculptures and murals.
-export const otherMaterials = 'We also work in stainless steel, stone and bronze, mainly for sculptures.';
+export const otherMaterials = 'We also work in steel, stone and bronze, for sculptures and steel murals.';
 
 // About page (about-us.html and index.html, tidied; same facts only).
 export const about = {

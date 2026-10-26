@@ -1,6 +1,6 @@
 # Invent Fine Art — website v4
 
-A marketing and catalogue site for Invent Fine Art, Mumbai. Four services (since 2026-10-26): Sculptures, Planters, Murals & Wall Features, and Customised FRP & GRC Products. The owner's decisions are in `SITE-V4-DEV-DECISIONS-PLAN.md`; the work list is `TASKS.md`.
+A marketing and catalogue site for Invent Fine Art, Mumbai. Four services (since 2026-10-26): Sculptures, Planters & Pots, Murals & Wall Features, and Customised Designer Products in FRP & GRC. The owner's decisions are in `SITE-V4-DEV-DECISIONS-PLAN.md`; the work list is `TASKS.md`.
 
 **Source of truth: `docs/SITE-V4-PLAN.md`.** If this file and the plan disagree, the plan wins. Change the plan first, then the code. v4 inherits the v3 rules in `../SITE-V3-SPEC.md` unless the plan says otherwise. Product copy comes from `docs/new-design.md`, word for word.
 

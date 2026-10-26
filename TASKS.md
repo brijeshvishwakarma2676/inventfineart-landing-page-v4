@@ -19,12 +19,12 @@ Rules that apply to every task (from `CLAUDE.md`):
 | ID | Question | Owner | Answer |
 |---|---|---|---|
 | 0.1 | [x] URLs of the four services | Dev | `/sculptures`, `/murals-wall-features`, `/planters`, `/customised-products`. Old pages 301 to them (A1.6) |
-| 0.2 | [x] Short name for "Customised designer products in FRP & GRC" (L1918) | Client | **"Customised FRP & GRC Products"**: placeholder until the client confirms (add to `CONTENT-GAPS.md`) |
+| 0.2 | [x] Short name for "Customised designer products in FRP & GRC" (L1918) | Client | **"Customised Designer Products in FRP & GRC"**, his written list (decisions plan §6) |
 | 0.3 | [x] Which Home sections stay between "Few executed works" and "Why choose us" | Dev | **Process + Clients** stay; **FAQ only on `/faq`** (A2.6) |
 | 0.4 | [x] Executed-work heading | Dev | **"Few executed works"** + a "View gallery" button |
 | 0.5 | [x] Sketchbook band | Dev | **Remove** (A2.5) |
 | 0.6 | [x] Header right side once Get a Quote is removed | Dev | **Phone number + WhatsApp icon**; "Contact" stays in the menu (A4.1) |
-| 0.7 | [~] Sculpture materials ("RSJ"?) (L794, L874) | Client | Show **stainless steel, stone, bronze, FRP** now; **leave out "RSJ"** until he says what it means, then add it |
+| 0.7 | [x] Sculpture materials ("RSJ"?) (L794, L874) | Client | His written list: **steel, stone, bronze, FRP/GRP**; no RSJ (decisions plan §6) |
 
 ---
 
@@ -44,14 +44,14 @@ Rules that apply to every task (from `CLAUDE.md`):
 | A1.9 | [x] **Jaali only in Customised products** (remove it from every other service and segment) (L14–22) | grep: no jaali segment elsewhere |
 | A1.10 | [x] Jaali **gate** photos (wall_murals 12–13) go under Customised products → Gates, not murals (L374) | |
 
-Segments per service:
+Segments per service (his written list, decisions plan §6):
 
 | Service | Segments |
 |---|---|
-| Sculptures | Stainless steel · Stone · Bronze · RSJ (confirm, 0.7) · FRP |
-| Murals & wall features | Murals (3D relief on walls) · Wall features (decorative wall panels) · Steel / RSJ / mixed-media murals |
-| Planters | FRP pots & planters · GRC pots & planters · Removable planters (on wheels) · Partition creeper planters · Tray flower beds (FRP) |
-| Customised products in FRP & GRC | Reception tables · Console tables · Utility products · Garden benches · Fins (ducting, fencing) · Jaali & screens · Chhajja · Columns, pillars & arches · Façades · Gates |
+| Sculptures | Steel · Stone · Bronze · FRP/GRP |
+| Planters & Pots | FRP pots & planters · GRC pots & planters · Removable planters (on wheels) · Partition creeper planters · Big trays for flower beds (FRP) |
+| Murals & wall features | Steel murals · FRP murals & wall features · Mixed media murals |
+| Customised Designer Products in FRP & GRC | Reception tables · Console tables · Utility products · Garden benches · Fins · Grills, jaali & screens · Chhajjas · Columns & pillars · Arches |
 
 ### A2. Home order (L82–126)
 | ID | Task | Done when |
@@ -114,7 +114,7 @@ Segments per service:
 |---|---|---|
 | A9.1 | [x] Update `SITE-V4-PLAN.md` §3 and §10, `CLAUDE.md`, `CONTENT-GAPS.md`, `README.md` | |
 | A9.2 | [x] `npm run check`, `test:ui`, `test:api`, `shots` (360/768/1024/1440) and the 12-size layout audit (tap targets ≥ 44 px) | All pass. Done 2026-10-26: check, test:ui 54/54, test:api 16/16, shots 15 pages × 4 widths; 12-width audit (320–1440, 7 pages): no sideways scroll; small targets are inline text links and card Enquire, same as before |
-| A9.3 | [~] Commit (no AI tags), push to `dev`, send the preview link to the client | Committed locally; push when you say |
+| A9.3 | [~] Commit (no AI tags), push to `dev`, send the preview link to the client | Only with your go-ahead for each step |
 
 ---
 
@@ -140,6 +140,8 @@ Segments per service:
 | B16 | [ ] Use only good photos; many existing ones are mid-work shots. Site visits for new photos where needed (L1886, L2150–2192) | Both | |
 | B17 | [ ] Named pieces to include when photos arrive: two reception tables (Zeus, factory), stair-step planter, wood-finish garden benches, steel sculptures, Reliance wall piece, suspended light (L794, L1058, L1954–1990, L2106, L2142) | Dev | |
 | B18 | [ ] **Never publish prices** mentioned in the meeting (e.g. the ₹6 lakh light) | Dev | |
+| B19 | [~] Façade photos: his written list has no façades. Keep IFA-GRC-001…007 (shown under "All" in Customised for now)? | Client | His answer (CONTENT-GAPS row 23) |
+| B20 | [~] Service order: his notebook lists Customised, Sculptures, Murals, Planters; the site uses the meeting order (01 Sculptures … 04 Customised) | Client | His answer |
 
 ---
 

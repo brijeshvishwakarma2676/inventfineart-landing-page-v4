@@ -6,6 +6,12 @@
 import { lineBySlug, inSentence } from './lines';
 
 // Sculpture filter groups on /sculptures. PROVISIONAL – confirm with client (proposed by us from the photos).
+// Murals filter on /murals-wall-features (its segments are materials, not yet known per photo). PROVISIONAL – by eye.
+export const muralGroups = [
+  { slug: 'murals', name: 'Murals' },
+  { slug: 'wall-features', name: 'Wall features' },
+];
+
 export const sculptureGroups = [
   { slug: 'figures', name: 'Figures & portraits' },
   { slug: 'devotional', name: 'Devotional' },
@@ -14,9 +20,10 @@ export const sculptureGroups = [
   { slug: 'nature', name: 'Garden & nature' },
 ];
 
-// Since the meeting of 2026-10-24 the GRC, GRL and FRP designs belong to "Customised FRP & GRC Products" (codes unchanged),
+// Since the meeting of 2026-10-24 the GRC, GRL and FRP designs belong to "Customised Designer Products in FRP & GRC" (codes unchanged),
 // and the four GRC relief panels (GRC-008…011) to Murals & wall features. `segment` files a design under one of its
 // service's segments (lines.js); set by eye from the photos – PROVISIONAL, confirm with client. No segment: shown under All.
+// The owner's written list has no façades or gates: the façade photos (GRC-001…007) have no segment, the jali gate is a grill.
 // Details on click (meeting L298–318): optional `location` (where it was done) and `client` (for whom), alongside
 // `detail` (material or finish). The lightbox and the card show whichever are filled; fill them from the client's
 // notes with the photos (TASKS.md B7), and only where he allows naming the place or client.
@@ -103,22 +110,22 @@ const RAW = [
   { code: 'IFA-PL-002', line: 'planters', image: 'gallery/planters/2', title: 'Classical urn planters' },
   { code: 'IFA-PL-003', line: 'planters', image: 'gallery/planters/3', title: 'Elephant planter' },
   { code: 'IFA-PL-004', line: 'planters', image: 'gallery/planters/4', title: 'Stone-face planter' },
-  { code: 'IFA-GRC-001', line: 'customised-products', image: 'gallery/grc_products/1', title: '3D façade panels', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-002', line: 'customised-products', image: 'gallery/grc_products/2', title: '3D façade wall', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-003', line: 'customised-products', image: 'gallery/grc_products/3', title: '3D façade, corner detail', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-004', line: 'customised-products', image: 'gallery/grc_products/7', title: 'Façade cladding', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-005', line: 'customised-products', image: 'gallery/grc_products/8', title: 'Façade cladding, installation', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-006', line: 'customised-products', image: 'gallery/grc_products/9', title: 'Façade cladding, on site', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-007', line: 'customised-products', image: 'gallery/grc_products/11', title: 'Heritage-style façade', detail: 'GRC', segment: 'facades' },
-  { code: 'IFA-GRC-008', line: 'murals-wall-features', image: 'gallery/grc_products/12', title: 'Relief frieze wall', detail: 'GRC', segment: 'murals' },
-  { code: 'IFA-GRC-009', line: 'murals-wall-features', image: 'gallery/grc_products/13', title: 'Figurative relief panel', detail: 'GRC', segment: 'murals' },
-  { code: 'IFA-GRC-010', line: 'murals-wall-features', image: 'gallery/grc_products/14', title: 'Botanical relief panel', detail: 'GRC', segment: 'murals' },
-  { code: 'IFA-GRC-011', line: 'murals-wall-features', image: 'gallery/grc_products/15', title: 'Lotus relief wall', detail: 'GRC', segment: 'murals' },
+  { code: 'IFA-GRC-001', line: 'customised-products', image: 'gallery/grc_products/1', title: '3D façade panels', detail: 'GRC' },
+  { code: 'IFA-GRC-002', line: 'customised-products', image: 'gallery/grc_products/2', title: '3D façade wall', detail: 'GRC' },
+  { code: 'IFA-GRC-003', line: 'customised-products', image: 'gallery/grc_products/3', title: '3D façade, corner detail', detail: 'GRC' },
+  { code: 'IFA-GRC-004', line: 'customised-products', image: 'gallery/grc_products/7', title: 'Façade cladding', detail: 'GRC' },
+  { code: 'IFA-GRC-005', line: 'customised-products', image: 'gallery/grc_products/8', title: 'Façade cladding, installation', detail: 'GRC' },
+  { code: 'IFA-GRC-006', line: 'customised-products', image: 'gallery/grc_products/9', title: 'Façade cladding, on site', detail: 'GRC' },
+  { code: 'IFA-GRC-007', line: 'customised-products', image: 'gallery/grc_products/11', title: 'Heritage-style façade', detail: 'GRC' },
+  { code: 'IFA-GRC-008', line: 'murals-wall-features', image: 'gallery/grc_products/12', title: 'Relief frieze wall', detail: 'GRC', group: 'murals' },
+  { code: 'IFA-GRC-009', line: 'murals-wall-features', image: 'gallery/grc_products/13', title: 'Figurative relief panel', detail: 'GRC', group: 'murals' },
+  { code: 'IFA-GRC-010', line: 'murals-wall-features', image: 'gallery/grc_products/14', title: 'Botanical relief panel', detail: 'GRC', group: 'murals' },
+  { code: 'IFA-GRC-011', line: 'murals-wall-features', image: 'gallery/grc_products/15', title: 'Lotus relief wall', detail: 'GRC', group: 'murals' },
   { code: 'IFA-GRL-001', line: 'customised-products', image: 'gallery/grc_products/4', title: 'Geometric jali screen', detail: 'GRC', segment: 'jaali-screens' },
   { code: 'IFA-GRL-002', line: 'customised-products', image: 'gallery/grc_products/5', title: 'Geometric jali cladding', detail: 'GRC', segment: 'jaali-screens' },
   { code: 'IFA-GRL-003', line: 'customised-products', image: 'gallery/grc_products/6', title: 'Jali panel, geometric pattern', detail: 'GRC', segment: 'jaali-screens' },
   { code: 'IFA-GRL-004', line: 'customised-products', image: 'gallery/grc_products/10', title: 'Jali partition', detail: 'GRC', segment: 'jaali-screens' },
-  { code: 'IFA-GRL-005', line: 'customised-products', image: 'gallery/wall_murals/12', title: 'Jali gate and boundary screen', detail: 'GRC', segment: 'gates' },
+  { code: 'IFA-GRL-005', line: 'customised-products', image: 'gallery/wall_murals/12', title: 'Jali gate and boundary screen', detail: 'GRC', segment: 'jaali-screens' },
   { code: 'IFA-GRL-006', line: 'customised-products', image: 'gallery/wall_murals/13', title: 'Jali boundary screen', detail: 'GRC', segment: 'jaali-screens' },
   { code: 'IFA-FRP-001', line: 'customised-products', image: 'gallery/other_products/3', title: 'Wave wall sculpture', provisional: true },
   { code: 'IFA-FRP-002', line: 'customised-products', image: 'gallery/other_products/6', title: 'Illuminated lobby installation', provisional: true },
@@ -131,37 +138,37 @@ const RAW = [
   // Murals & wall features (new service, meeting 2026-10-24). The photos were under Projects → Murals & relief art.
   // Segment by eye from the photos: PROVISIONAL – confirm with client. wm/2 and wm/24 are not wall pieces: no segment.
   { code: 'IFA-MU-001', line: 'murals-wall-features', image: 'gallery/wall_murals/2', title: 'Woven leaf installations' },
-  { code: 'IFA-MU-002', line: 'murals-wall-features', image: 'gallery/wall_murals/3', title: 'Lit textured stone wall', segment: 'wall-features' },
-  { code: 'IFA-MU-003', line: 'murals-wall-features', image: 'gallery/wall_murals/4', title: 'Wave-textured wall panels', segment: 'wall-features' },
-  { code: 'IFA-MU-004', line: 'murals-wall-features', image: 'gallery/wall_murals/5', title: 'White tree relief', segment: 'murals' },
-  { code: 'IFA-MU-005', line: 'murals-wall-features', image: 'gallery/wall_murals/6', title: 'Vase-form relief figures', segment: 'murals' },
-  { code: 'IFA-MU-006', line: 'murals-wall-features', image: 'gallery/wall_murals/7', title: 'Orchid relief, reception wall', segment: 'murals' },
-  { code: 'IFA-MU-007', line: 'murals-wall-features', image: 'gallery/wall_murals/8', title: 'Leaf wall lights', segment: 'wall-features' },
-  { code: 'IFA-MU-008', line: 'murals-wall-features', image: 'gallery/wall_murals/9', title: 'Metal leaf wall installation', segment: 'murals' },
-  { code: 'IFA-MU-009', line: 'murals-wall-features', image: 'gallery/wall_murals/10', title: 'Metal leaves on a blue wall', segment: 'wall-features' },
-  { code: 'IFA-MU-010', line: 'murals-wall-features', image: 'gallery/wall_murals/11', title: 'Wheat relief, kitchen wall', segment: 'murals' },
-  { code: 'IFA-MU-011', line: 'murals-wall-features', image: 'gallery/wall_murals/14', title: 'White 3D block panel', segment: 'wall-features' },
-  { code: 'IFA-MU-012', line: 'murals-wall-features', image: 'gallery/wall_murals/15', title: 'Metal swirl ring', segment: 'murals' },
-  { code: 'IFA-MU-013', line: 'murals-wall-features', image: 'gallery/wall_murals/16', title: 'Metal pods on a wood wall', segment: 'wall-features' },
-  { code: 'IFA-MU-014', line: 'murals-wall-features', image: 'gallery/wall_murals/17', title: 'Relief wall panels', segment: 'wall-features' },
-  { code: 'IFA-MU-015', line: 'murals-wall-features', image: 'gallery/wall_murals/18', title: 'Textured feature wall', segment: 'wall-features' },
-  { code: 'IFA-MU-016', line: 'murals-wall-features', image: 'gallery/wall_murals/19', title: 'Glass tile panel', segment: 'wall-features' },
-  { code: 'IFA-MU-017', line: 'murals-wall-features', image: 'gallery/wall_murals/20', title: 'Leaf wall art panel', segment: 'murals' },
-  { code: 'IFA-MU-018', line: 'murals-wall-features', image: 'gallery/wall_murals/21', title: 'Metal eagle wall art', segment: 'murals' },
-  { code: 'IFA-MU-019', line: 'murals-wall-features', image: 'gallery/wall_murals/22', title: 'Sunburst mirror', segment: 'murals' },
-  { code: 'IFA-MU-020', line: 'murals-wall-features', image: 'gallery/wall_murals/23', title: 'Painted masks wall', segment: 'wall-features' },
+  { code: 'IFA-MU-002', line: 'murals-wall-features', image: 'gallery/wall_murals/3', title: 'Lit textured stone wall', group: 'wall-features' },
+  { code: 'IFA-MU-003', line: 'murals-wall-features', image: 'gallery/wall_murals/4', title: 'Wave-textured wall panels', group: 'wall-features' },
+  { code: 'IFA-MU-004', line: 'murals-wall-features', image: 'gallery/wall_murals/5', title: 'White tree relief', group: 'murals' },
+  { code: 'IFA-MU-005', line: 'murals-wall-features', image: 'gallery/wall_murals/6', title: 'Vase-form relief figures', group: 'murals' },
+  { code: 'IFA-MU-006', line: 'murals-wall-features', image: 'gallery/wall_murals/7', title: 'Orchid relief, reception wall', group: 'murals' },
+  { code: 'IFA-MU-007', line: 'murals-wall-features', image: 'gallery/wall_murals/8', title: 'Leaf wall lights', group: 'wall-features' },
+  { code: 'IFA-MU-008', line: 'murals-wall-features', image: 'gallery/wall_murals/9', title: 'Metal leaf wall installation', group: 'murals' },
+  { code: 'IFA-MU-009', line: 'murals-wall-features', image: 'gallery/wall_murals/10', title: 'Metal leaves on a blue wall', group: 'wall-features' },
+  { code: 'IFA-MU-010', line: 'murals-wall-features', image: 'gallery/wall_murals/11', title: 'Wheat relief, kitchen wall', group: 'murals' },
+  { code: 'IFA-MU-011', line: 'murals-wall-features', image: 'gallery/wall_murals/14', title: 'White 3D block panel', group: 'wall-features' },
+  { code: 'IFA-MU-012', line: 'murals-wall-features', image: 'gallery/wall_murals/15', title: 'Metal swirl ring', group: 'murals' },
+  { code: 'IFA-MU-013', line: 'murals-wall-features', image: 'gallery/wall_murals/16', title: 'Metal pods on a wood wall', group: 'wall-features' },
+  { code: 'IFA-MU-014', line: 'murals-wall-features', image: 'gallery/wall_murals/17', title: 'Relief wall panels', group: 'wall-features' },
+  { code: 'IFA-MU-015', line: 'murals-wall-features', image: 'gallery/wall_murals/18', title: 'Textured feature wall', group: 'wall-features' },
+  { code: 'IFA-MU-016', line: 'murals-wall-features', image: 'gallery/wall_murals/19', title: 'Glass tile panel', group: 'wall-features' },
+  { code: 'IFA-MU-017', line: 'murals-wall-features', image: 'gallery/wall_murals/20', title: 'Leaf wall art panel', group: 'murals' },
+  { code: 'IFA-MU-018', line: 'murals-wall-features', image: 'gallery/wall_murals/21', title: 'Metal eagle wall art', group: 'murals' },
+  { code: 'IFA-MU-019', line: 'murals-wall-features', image: 'gallery/wall_murals/22', title: 'Sunburst mirror', group: 'murals' },
+  { code: 'IFA-MU-020', line: 'murals-wall-features', image: 'gallery/wall_murals/23', title: 'Painted masks wall', group: 'wall-features' },
   { code: 'IFA-MU-021', line: 'murals-wall-features', image: 'gallery/wall_murals/24', title: 'Metal tree by a window' },
-  { code: 'IFA-MU-022', line: 'murals-wall-features', image: 'gallery/wall_murals/25', title: 'Painted plates on a stone wall', segment: 'wall-features' },
-  { code: 'IFA-MU-023', line: 'murals-wall-features', image: 'gallery/wall_murals/26', title: 'Floral relief panel', segment: 'murals' },
-  { code: 'IFA-MU-024', line: 'murals-wall-features', image: 'gallery/wall_murals/27', title: 'Teal disc wall pieces', segment: 'wall-features' },
-  { code: 'IFA-MU-025', line: 'murals-wall-features', image: 'gallery/wall_murals/28', title: 'Metal figures, wall and floor', segment: 'murals' },
-  { code: 'IFA-MU-026', line: 'murals-wall-features', image: 'gallery/wall_murals/29', title: 'Lit stone panels with water', segment: 'wall-features' },
-  { code: 'IFA-MU-027', line: 'murals-wall-features', image: 'gallery/wall_murals/30', title: 'Lit leaf wall light', segment: 'wall-features' },
-  { code: 'IFA-MU-028', line: 'murals-wall-features', image: 'gallery/wall_murals/31', title: 'Tiled art panel, lobby', segment: 'wall-features' },
-  { code: 'IFA-MU-029', line: 'murals-wall-features', image: 'gallery/wall_murals/32', title: 'Carved relief wall', segment: 'murals' },
-  { code: 'IFA-MU-030', line: 'murals-wall-features', image: 'gallery/wall_murals/33', title: 'Dancers relief, lobby wall', segment: 'murals' },
-  { code: 'IFA-MU-031', line: 'murals-wall-features', image: 'gallery/wall_murals/34', title: 'Carved relief wall, full length', segment: 'murals' },
-  { code: 'IFA-MU-032', line: 'murals-wall-features', image: 'gallery/wall_murals/35', title: 'Illuminated leaf wall lights', segment: 'wall-features' },
+  { code: 'IFA-MU-022', line: 'murals-wall-features', image: 'gallery/wall_murals/25', title: 'Painted plates on a stone wall', group: 'wall-features' },
+  { code: 'IFA-MU-023', line: 'murals-wall-features', image: 'gallery/wall_murals/26', title: 'Floral relief panel', group: 'murals' },
+  { code: 'IFA-MU-024', line: 'murals-wall-features', image: 'gallery/wall_murals/27', title: 'Teal disc wall pieces', group: 'wall-features' },
+  { code: 'IFA-MU-025', line: 'murals-wall-features', image: 'gallery/wall_murals/28', title: 'Metal figures, wall and floor', group: 'murals' },
+  { code: 'IFA-MU-026', line: 'murals-wall-features', image: 'gallery/wall_murals/29', title: 'Lit stone panels with water', group: 'wall-features' },
+  { code: 'IFA-MU-027', line: 'murals-wall-features', image: 'gallery/wall_murals/30', title: 'Lit leaf wall light', group: 'wall-features' },
+  { code: 'IFA-MU-028', line: 'murals-wall-features', image: 'gallery/wall_murals/31', title: 'Tiled art panel, lobby', group: 'wall-features' },
+  { code: 'IFA-MU-029', line: 'murals-wall-features', image: 'gallery/wall_murals/32', title: 'Carved relief wall', group: 'murals' },
+  { code: 'IFA-MU-030', line: 'murals-wall-features', image: 'gallery/wall_murals/33', title: 'Dancers relief, lobby wall', group: 'murals' },
+  { code: 'IFA-MU-031', line: 'murals-wall-features', image: 'gallery/wall_murals/34', title: 'Carved relief wall, full length', group: 'murals' },
+  { code: 'IFA-MU-032', line: 'murals-wall-features', image: 'gallery/wall_murals/35', title: 'Illuminated leaf wall lights', group: 'wall-features' },
 ];
 
 // Photos of the same piece, from the titles ("…, side view", "…, on display", "…, in the workshop"). A card shows the
@@ -198,3 +205,6 @@ export const designs = RAW.map((d) => ({
 export const designsFor = (slug) => designs.filter((d) => d.line === slug);
 export const designByCode = Object.fromEntries(designs.map((d) => [d.code, d]));
 export const designByImage = (image) => designs.find((d) => d.image === image);
+
+/** The filter tabs for services whose segments are materials (lines.js segmentsAreMaterials). */
+export const filterGroups = { sculptures: sculptureGroups, 'murals-wall-features': muralGroups };

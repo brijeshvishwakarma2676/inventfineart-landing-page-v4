@@ -22,14 +22,14 @@ export default function Products() {
     <>
       <Seo
         title="Products: Sculptures, Planters, Murals, FRP & GRC | Invent Fine Art"
-        description="Four services by Invent Fine Art: sculptures, planters, murals and wall features, and customised FRP and GRC products, each made to your design."
+        description="Four services by Invent Fine Art: sculptures, planters and pots, murals and wall features, and customised designer products in FRP and GRC, each made to your design."
         jsonLd={breadcrumbs([{ name: 'Products', path: '/products' }])}
       />
       <PlainHeader
         crumbs={[{ name: 'Products' }]}
         eyebrow="Four services"
         title={<>Our <em>products</em></>}
-        lead="Sculptures, planters, murals and wall features, and customised FRP and GRC products, each made as per your design and requirement."
+        lead="Sculptures, planters and pots, murals and wall features, and customised designer products in FRP and GRC, each made as per your design and requirement."
       />
 
       <Section className="pt-0">

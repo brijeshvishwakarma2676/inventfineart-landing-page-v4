@@ -13,7 +13,7 @@ import { FaqSection } from '../components/sections/FaqSection';
 import { PrevNextLine } from '../components/sections/PrevNextLine';
 import { EnquirySection } from '../components/sections/EnquirySection';
 import { lines, lineBySlug, finishes, inSentence } from '../data/lines';
-import { designsFor, sculptureGroups } from '../data/designs';
+import { designsFor, filterGroups } from '../data/designs';
 import { relatedProjects } from '../data/projects';
 import { lineFaqs, faqJsonLd } from '../data/faqs';
 import { breadcrumbs } from '../data/seo';
@@ -22,6 +22,8 @@ import { useEnquiry } from '../enquiry/EnquiryContext';
 
 // Ends with the inline enquiry form, so the footer skips its CTA band.
 export const handle = { inlineEnquiry: true };
+
+const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six'];
 
 // One template for the four services (SITE-V4-PLAN.md §3.2; four services since the 2026-10-24 meeting).
 export default function Category() {
@@ -33,10 +35,10 @@ export default function Category() {
   const { open } = useEnquiry();
   // "Made to your design" when the range on hand is small or the photos are stand-ins (Planters, FRP).
   const madeToOrder = designs.length < 6 || designs.some((d) => d.provisional);
-  // Sculptures: the photos aren't labelled by material yet, so the filter keeps the subjects (figures, devotional…)
-  // and the material segments are listed only. Other services filter by segment.
+  // Sculptures and murals: the photos aren't labelled by material yet, so the filter keeps the subjects
+  // (figures, devotional… / murals, wall features) and the material segments are listed only. Others filter by segment.
   const materialSegments = line.segmentsAreMaterials;
-  const groups = materialSegments ? sculptureGroups : line.segments;
+  const groups = materialSegments ? filterGroups[line.slug] : line.segments;
   const groupKey = materialSegments ? 'group' : 'segment';
   const countFor = (slug) => designs.filter((d) => d.segment === slug).length;
 
@@ -105,7 +107,7 @@ export default function Category() {
       {/* What the service covers: its segments (meeting 2026-10-24). Each opens its tab in the designs below. */}
       <Section tone="surface">
         <Container>
-          <SectionHeading eyebrow="What we make" title={materialSegments ? <>Made in <em>four materials</em></> : <>Our <em>{inSentence(line.name)}</em> range</>} className="mb-10" />
+          <SectionHeading eyebrow="What we make" title={materialSegments ? <>Made in <em>{NUMBER_WORDS[line.segments.length]} materials</em></> : <>Our <em>{inSentence(line.name)}</em> range</>} className="mb-10" />
           <ul className="grid border-t-2 border-line-strong sm:grid-cols-2 lg:grid-cols-3" data-reveal="stagger">
             {line.segments.map((sg) => {
               const n = countFor(sg.slug);
