@@ -22,7 +22,7 @@ export function ProjectTiles({ items }) {
 function Tile({ p }) {
   const [armed, hoverHandlers] = useHoverView();
   return (
-    <Link to={`/projects?type=${p.group}`} className="group sketch-trigger flex flex-col gap-3" {...hoverHandlers}>
+    <Link to={`/gallery?type=${p.group}`} className="group sketch-trigger flex flex-col gap-3" {...hoverHandlers}>
       <span className="relative block aspect-[4/3] overflow-hidden bg-surface-2">
         <Img id={p.image} alt={p.alt} sizes={SIZES} className="size-full object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105" />
         <HoverView item={p} armed={armed} sizes={SIZES} />

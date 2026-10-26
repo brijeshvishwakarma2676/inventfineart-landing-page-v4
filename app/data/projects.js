@@ -1,4 +1,4 @@
-// Past work that is not one of the five product lines: murals, water features and rockery, pergolas and gazebos
+// The Gallery: executed work, shown under /gallery: murals, water features and rockery, pergolas and gazebos
 // (all named on the old site: services.html and about-us.html). Shown under /projects only.
 import { images } from './images.generated';
 
@@ -60,22 +60,21 @@ export const projects = [
 ];
 const byImage = Object.fromEntries(projects.map((p) => [p.image, p]));
 
-// Home "Selected works", in display order (all ≥ 1,200 px wide).
+// Home "Few executed works" (meeting L94–106: 4–5 eye-catching photos, then the gallery), in display order, all
+// ≥ 1,200 px wide. To be replaced by the client's chosen photos (TASKS.md B6).
 export const featuredProjects = [
-  'gallery/wall_murals/9',
   'gallery/wall_murals/32',
   'gallery/water_fountains/20',
-  'gallery/wall_murals/35',
+  'gallery/wall_murals/9',
   'gallery/other_products/16',
-  'gallery/wall_murals/21',
+  'gallery/wall_murals/35',
 ].map((image) => byImage[image]);
 
-// Product page "Related projects": three per line, ≥ 1,300 px wide.
+// Service page "Related work" from the Gallery: three per service, ≥ 1,300 px wide (murals now have their own page).
 const related = {
-  sculptures: ['gallery/wall_murals/21', 'gallery/wall_murals/33', 'gallery/water_fountains/16'],
-  'designer-planters': ['gallery/other_products/16', 'gallery/other_products/17', 'gallery/water_fountains/15'],
-  'grc-products': ['gallery/wall_murals/32', 'gallery/wall_murals/34', 'gallery/wall_murals/17'],
-  'grc-grilles': ['gallery/other_products/17', 'gallery/other_products/2', 'gallery/other_products/5'],
-  'frp-products': ['gallery/wall_murals/35', 'gallery/wall_murals/10', 'gallery/wall_murals/9'],
+  sculptures: ['gallery/water_fountains/16', 'gallery/water_fountains/20', 'gallery/water_fountains/15'],
+  planters: ['gallery/other_products/16', 'gallery/other_products/17', 'gallery/water_fountains/15'],
+  'murals-wall-features': ['gallery/water_fountains/20', 'gallery/water_fountains/16', 'gallery/other_products/16'],
+  'customised-products': ['gallery/other_products/17', 'gallery/other_products/2', 'gallery/other_products/5'],
 };
 export const relatedProjects = (slug) => (related[slug] ?? []).map((image) => byImage[image]).filter(Boolean);

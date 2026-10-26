@@ -8,58 +8,166 @@
   "headers": [
     {
       "source": "/img/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/index.html", "destination": "/", "statusCode": 301 },
-    { "source": "/about-us.html", "destination": "/about", "statusCode": 301 },
-    { "source": "/contact-us.html", "destination": "/contact", "statusCode": 301 },
-    { "source": "/gallery.html", "destination": "/products", "statusCode": 301 },
-    { "source": "/services.html", "destination": "/products", "statusCode": 301 },
-    { "source": "/sculptures.html", "destination": "/sculptures", "statusCode": 301 },
-    { "source": "/planter.html", "destination": "/designer-planters", "statusCode": 301 },
-    { "source": "/grc-products.html", "destination": "/grc-products", "statusCode": 301 },
-    { "source": "/wall_murals.html", "destination": "/projects?type=wall-murals", "statusCode": 301 },
-    { "source": "/water_fountains.html", "destination": "/projects?type=water-features", "statusCode": 301 },
-    { "source": "/other.html", "destination": "/projects", "statusCode": 301 },
-    { "source": "/our_client.html", "destination": "/clients", "statusCode": 301 },
-
-    { "source": "/services", "destination": "/products", "statusCode": 301 },
     {
-      "source": "/services/:slug(sculptures|designer-planters|grc-products|grc-grilles|frp-products)",
-      "destination": "/:slug",
+      "source": "/index.html",
+      "destination": "/",
       "statusCode": 301
     },
-    { "source": "/services/:path*", "destination": "/products", "statusCode": 301 },
-
-    { "source": "/gallery", "destination": "/products", "statusCode": 301 },
     {
-      "source": "/gallery/:slug(sculptures|designer-planters|grc-products|grc-grilles|frp-products)",
-      "destination": "/:slug",
+      "source": "/about-us.html",
+      "destination": "/about",
       "statusCode": 301
     },
-    { "source": "/gallery/planters", "destination": "/designer-planters", "statusCode": 301 },
-    { "source": "/gallery/grc", "destination": "/grc-products", "statusCode": 301 },
-    { "source": "/gallery/grilles", "destination": "/grc-grilles", "statusCode": 301 },
-    { "source": "/gallery/:slug(frp|other)", "destination": "/frp-products", "statusCode": 301 },
-    { "source": "/gallery/:slug(wall-murals|murals)", "destination": "/projects?type=wall-murals", "statusCode": 301 },
+    {
+      "source": "/contact-us.html",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/gallery.html",
+      "destination": "/gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/services.html",
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/sculptures.html",
+      "destination": "/sculptures",
+      "statusCode": 301
+    },
+    {
+      "source": "/planter.html",
+      "destination": "/planters",
+      "statusCode": 301
+    },
+    {
+      "source": "/grc-products.html",
+      "destination": "/customised-products",
+      "statusCode": 301
+    },
+    {
+      "source": "/wall_murals.html",
+      "destination": "/murals-wall-features",
+      "statusCode": 301
+    },
+    {
+      "source": "/water_fountains.html",
+      "destination": "/gallery?type=water-features",
+      "statusCode": 301
+    },
+    {
+      "source": "/other.html",
+      "destination": "/gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/our_client.html",
+      "destination": "/clients",
+      "statusCode": 301
+    },
+    {
+      "source": "/designer-planters",
+      "destination": "/planters",
+      "statusCode": 301
+    },
+    {
+      "source": "/:slug(grc-products|grc-grilles|frp-products)",
+      "destination": "/customised-products",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects",
+      "destination": "/gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/services",
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/sculptures",
+      "destination": "/sculptures",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/designer-planters",
+      "destination": "/planters",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/:slug(grc-products|grc-grilles|frp-products)",
+      "destination": "/customised-products",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/:path*",
+      "destination": "/products",
+      "statusCode": 301
+    },
+    {
+      "source": "/gallery/sculptures",
+      "destination": "/sculptures",
+      "statusCode": 301
+    },
+    {
+      "source": "/gallery/:slug(designer-planters|planters)",
+      "destination": "/planters",
+      "statusCode": 301
+    },
+    {
+      "source": "/gallery/:slug(grc-products|grc|grc-grilles|grilles|frp-products|frp|other)",
+      "destination": "/customised-products",
+      "statusCode": 301
+    },
+    {
+      "source": "/gallery/:slug(wall-murals|murals)",
+      "destination": "/murals-wall-features",
+      "statusCode": 301
+    },
     {
       "source": "/gallery/:slug(water-fountains|fountains)",
-      "destination": "/projects?type=water-features",
+      "destination": "/gallery?type=water-features",
       "statusCode": 301
     },
-    { "source": "/gallery/:path*", "destination": "/products", "statusCode": 301 }
+    {
+      "source": "/gallery/:path*",
+      "destination": "/gallery",
+      "statusCode": 301
+    }
   ]
 }

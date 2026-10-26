@@ -13,7 +13,7 @@ import { breadcrumbs } from '../data/seo';
 import { useEnquiry } from '../enquiry/EnquiryContext';
 
 /**
- * Products hub (SITE-V4-PLAN.md §3.3): v2's sticky 01–05 index beside one block per line, then browse by
+ * Products hub (SITE-V4-PLAN.md §3.3): a sticky 01–04 index beside one block per service, then browse by
  * application (each space links only to the lines whose brief names it).
  */
 export default function Products() {
@@ -21,21 +21,21 @@ export default function Products() {
   return (
     <>
       <Seo
-        title="Products: Sculptures, Planters, GRC & FRP | Invent Fine Art"
-        description="Five product lines by Invent Fine Art: sculptures, designer planters, GRC products, GRC grilles and FRP products, each made to your design."
+        title="Products: Sculptures, Planters, Murals, FRP & GRC | Invent Fine Art"
+        description="Four services by Invent Fine Art: sculptures, planters, murals and wall features, and customised FRP and GRC products, each made to your design."
         jsonLd={breadcrumbs([{ name: 'Products', path: '/products' }])}
       />
       <PlainHeader
         crumbs={[{ name: 'Products' }]}
-        eyebrow="Five product lines"
+        eyebrow="Four services"
         title={<>Our <em>products</em></>}
-        lead="Sculptures, designer planters, GRC products, GRC grilles and FRP products, each made as per your design and requirement."
+        lead="Sculptures, planters, murals and wall features, and customised FRP and GRC products, each made as per your design and requirement."
       />
 
       <Section className="pt-0">
         <Container className="grid gap-10 lg:grid-cols-12">
           {/* Sticky index (desktop) */}
-          <nav aria-label="Product lines" className="hidden lg:col-span-3 lg:block">
+          <nav aria-label="Services" className="hidden lg:col-span-3 lg:block">
             <ol className="sticky top-[calc(var(--header-h)+2rem)] border-t-2 border-line-strong">
               {lines.map((l) => (
                 <li key={l.slug} className="border-b border-line">

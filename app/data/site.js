@@ -44,15 +44,14 @@ export const site = {
 
   hero: {
     // PROVISIONAL – confirm with client (headline; the alternative is v3's "Art that gives your space an identity.")
-    title: 'Sculptures, designer planters, GRC and FRP, made to your design.',
+    title: 'Sculptures, planters, murals and FRP & GRC products, made to your design.',
     video: null, // PROVISIONAL – confirm with client (no hero video yet; the slider is used)
     // Photo slides, one per line: not shown while the hero uses the line drawings (sections/sketches.js).
     slides: [
       { line: 'sculptures', image: 'gallery/sculptures/20', caption: 'Giant garden chess set', position: '50% 60%' },
-      { line: 'designer-planters', image: 'gallery/planters/3', caption: 'Elephant planter', position: '50% 45%' },
-      { line: 'grc-products', image: 'gallery/grc_products/1', caption: 'GRC 3D façade panels', position: '50% 55%' },
-      { line: 'grc-grilles', image: 'gallery/wall_murals/13', caption: 'Jali boundary screen', position: '50% 50%' },
-      { line: 'frp-products', image: 'gallery/other_products/11', caption: 'Curved interior installation', position: '50% 50%' },
+      { line: 'planters', image: 'gallery/planters/3', caption: 'Elephant planter', position: '50% 45%' },
+      { line: 'murals-wall-features', image: 'gallery/wall_murals/32', caption: 'Carved relief wall', position: '50% 50%' },
+      { line: 'customised-products', image: 'gallery/grc_products/1', caption: 'GRC 3D façade panels', position: '50% 55%' },
     ],
   },
 
@@ -71,7 +70,7 @@ export const site = {
 
 export const nav = [
   { label: 'Products', to: '/products', mega: true },
-  { label: 'Projects', to: '/projects' },
+  { label: 'Gallery', to: '/gallery' },
   { label: 'About', to: '/about' },
   { label: 'Clients', to: '/clients' },
   { label: 'Contact', to: '/contact' },

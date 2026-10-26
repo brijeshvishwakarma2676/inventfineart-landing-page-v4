@@ -83,7 +83,7 @@ export default function About() {
 
       <Section id="make" tone="surface" className="scroll-mt-[calc(var(--header-h)+3.5rem)]">
         <Container className="grid gap-10 lg:grid-cols-12">
-          <SectionHeading eyebrow="What we make" title={<>Five lines, <em>and more</em></>} className="lg:col-span-5" />
+          <SectionHeading eyebrow="What we make" title={<>Four services, <em>and more</em></>} className="lg:col-span-5" />
           <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7">
             <ul className="border-t-2 border-line-strong">
               {lines.map((l) => (
@@ -107,8 +107,8 @@ export default function About() {
                   </li>
                 ))}
               </ul>
-              <Link to="/projects" className="mt-4 inline-flex items-center gap-2 text-small font-bold uppercase tracking-label text-oxide-deep hover:text-ink">
-                See past projects
+              <Link to="/gallery" className="mt-4 inline-flex items-center gap-2 text-small font-bold uppercase tracking-label text-oxide-deep hover:text-ink">
+                View the gallery
                 <ArrowRight className="size-4" strokeWidth={2.25} aria-hidden="true" />
               </Link>
             </div>

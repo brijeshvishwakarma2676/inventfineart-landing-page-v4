@@ -9,7 +9,8 @@ import { lines } from '../app/data/lines.js';
 const MAX_FILE = 4 * 1024 * 1024;
 const FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 // slug → name, from the same data the site uses (one list to keep in step).
-const PRODUCTS = Object.fromEntries(lines.map((l) => [l.slug, l.name]));
+// Service slugs, plus the old line slugs (e.g. grc-grilles from a cached form) mapped to their service now
+const PRODUCTS = Object.fromEntries(lines.flatMap((l) => [[l.slug, l.name], ...l.legacy.map((old) => [old, l.name])]));
 
 const json = (body, status = 200) => Response.json(body, { status });
 const esc = (s) =>

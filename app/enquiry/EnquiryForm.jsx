@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { Paperclip, X } from 'lucide-react';
-import { lines, lineBySlug } from '../data/lines';
+import { lines, lineBySlug, serviceFor } from '../data/lines';
 import { whatsappLink } from '../data/site';
 
 const ROLES = ['Homeowner', 'Architect', 'Interior designer', 'Builder or developer', 'Hotel or hospitality', 'Other'];
@@ -54,7 +54,8 @@ export function EnquiryForm({ prefill = {}, layout = 'grid', onSent }) {
       email: '',
       city: '',
       role: '',
-      products: prefill.category ? [prefill.category] : [],
+      // Old line slugs (e.g. grc-grilles from an old link) map to their service now
+      products: prefill.category && serviceFor(prefill.category) ? [serviceFor(prefill.category).slug] : [],
       code: prefill.code ?? '',
       quantity: '',
       message: '',

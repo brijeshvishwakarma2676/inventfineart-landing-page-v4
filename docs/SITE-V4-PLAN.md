@@ -1,6 +1,6 @@
 # Invent Fine Art — Site v4 plan
 
-As of 2026-10-18. Status: **awaiting your approval**. Nothing has been built. Building starts at Phase 0 only when you say so.
+As of 2026-10-18; updated 2026-10-26 for the owner's decisions (§3 note, §10). Built through Phase 10.
 
 v4 inherits every rule in `SITE-V3-SPEC.md` and `SITE-V3-STACK-AND-PLUGINS.md` unless this plan says otherwise.
 
@@ -187,6 +187,13 @@ Every allowed pair is listed in `app/styles/contrast.js` and tested by `npm run 
 ---
 
 ## 3. Site map and section order
+
+> **Superseded in part on 2026-10-26** (owner meeting, `SITE-V4-DEV-DECISIONS-PLAN.md`, `TASKS.md` Phase A). Where this section and the list below disagree, the list wins:
+> - **Four services, not five lines:** `/sculptures`, `/planters`, `/murals-wall-features`, `/customised-products` (Customised FRP & GRC Products). Each service page lists its segments ("What we make"), and the catalogue filters by segment (`?segment=`); an empty segment shows "Photos coming soon" + Enquire. `/designer-planters` → `/planters`; `/grc-products`, `/grc-grilles`, `/frp-products` → `/customised-products` (301; old `?service=` links map through `legacy` in `lines.js`).
+> - **Gallery, not Projects:** `/gallery` (301 from `/projects`), menu label "Gallery". Its murals photos also became designs `IFA-MU-001…032` on the murals page.
+> - **No Get a Quote in the header or the phone menu:** the header shows the phone number and WhatsApp; the enquiry form stays at the end of pages (footer band, inline sections, `/contact`) and on every Enquire button.
+> - **Home:** Hero (second button "View gallery") → Services (4 rows, 4 photos each) → Trust band → Few executed works (5, "View gallery") → Materials (GRC | FRP with photos, product groups, advantages, "Why GRC", other materials) → How we work (adds the 3D-printed miniature) → Clients → **Why choose us** → Enquiry. The FAQ (kept on `/faq`) and the Sketchbook band are removed.
+> - Optional `location` and `client` fields on designs show in the card plate and the lightbox caption when filled.
 
 ```
 /                       Home
@@ -640,3 +647,4 @@ Decisions taken while building, recorded here so this plan stays the source of t
 | After 10 | New graphite "Sketchbook" band on Home (between Materials and How we work) with the same five drawings, each captioned with the design codes it is drawn from (`/line?design=` links). Home is now 10 sections, 3 graphite bands (hero, trust band, sketchbook) | Asked for together with the drawn hero |
 | After 10 | The hero slideshow no longer stalls when the tab is hidden at the moment a slide changes | Bug: the timer skipped the change and never ran again |
 | After 10 | Design and project cards show a second view on hover or keyboard focus: the piece's line drawing (20 design cards), else another photo of the same piece (`SAME_PIECE` in `designs.js`, from the titles) or project (`SAME_PROJECT` in `projects.js`, 4 pairs judged from the photos). A short hint under the card names it; touch screens keep one photo. The second photo loads only on first hover | Asked for: two images of the same product on hover |
+| After 10 | **Owner meeting 2026-10-24, Phase A (2026-10-26):** four services, Gallery, no header Get a Quote, new Home order, Why choose us, Materials rebuilt, Sketchbook and Home FAQ removed (summary at the top of §3). `check:codes` now checks that every v3 code still points at the same photo, whatever its service | The owner's decisions (`SITE-V4-DEV-DECISIONS-PLAN.md`); a design's service may change, its code and photo may not |

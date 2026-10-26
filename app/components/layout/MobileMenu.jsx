@@ -1,19 +1,17 @@
 import { useRef } from 'react';
 import { Link, NavLink } from 'react-router';
-import { X, Phone } from 'lucide-react';
+import { X, MessageCircle, Phone } from 'lucide-react';
 import { Logo } from '../ui/Logo';
 import { useFocusTrap } from '../ui/useFocusTrap';
 import { useScrollLock } from '../ui/useScrollLock';
 import { lines } from '../../data/lines';
-import { nav, site } from '../../data/site';
-import { useEnquiry } from '../../enquiry/EnquiryContext';
+import { nav, site, whatsappLink } from '../../data/site';
 
 const more = [...nav.filter((n) => !n.mega), { label: 'FAQ', to: '/faq' }];
 
-/** Full-screen graphite menu below 1024px. Get a Quote and Call stay pinned at the bottom. */
+/** Full-screen graphite menu below 1024px. WhatsApp and Call stay pinned at the bottom (no Get a Quote: meeting L450–486). */
 export function MobileMenu({ open, onClose }) {
   const ref = useRef(null);
-  const { open: openEnquiry } = useEnquiry();
   useFocusTrap(ref, open, onClose);
   useScrollLock(open);
 
@@ -73,16 +71,15 @@ export function MobileMenu({ open, onClose }) {
       </nav>
 
       <div className="grid shrink-0 grid-cols-2 border-t border-chalk/10">
-        <button
-          type="button"
-          onClick={() => {
-            onClose();
-            openEnquiry();
-          }}
-          className="min-h-14 bg-oxide px-4 text-small font-bold uppercase tracking-label text-white"
+        <a
+          href={whatsappLink('Hello Invent Fine Art, I have an enquiry.')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-14 items-center justify-center gap-2 bg-oxide px-4 text-small font-bold uppercase tracking-label text-white"
         >
-          Get a Quote
-        </button>
+          <MessageCircle className="size-4" strokeWidth={2} aria-hidden="true" />
+          WhatsApp
+        </a>
         <a
           href={`tel:${site.phones[0].tel}`}
           className="inline-flex min-h-14 items-center justify-center gap-2 px-4 text-small font-bold uppercase tracking-label"

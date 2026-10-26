@@ -14,7 +14,7 @@ import { useHydrated } from '../motion/useReducedMotion';
 const imgKey = (image) => image.split('/').slice(1).join('-');
 
 /**
- * Projects (SITE-V4-PLAN.md §3.3): past work outside the five product lines, in three groups.
+ * Gallery (was Projects; renamed after the 2026-10-24 meeting): executed work outside the services, in three groups.
  * The prerendered HTML is the unfiltered page; ?type= and ?img= apply only after hydration (React #418).
  * The first 18 photos show, then "Show all" (hidden with CSS, so prerender and hydration match).
  */
@@ -43,16 +43,16 @@ export default function Projects() {
   return (
     <>
       <Seo
-        title="Projects: Murals, Water Features & Pergolas | Invent Fine Art"
-        description="Past work by Invent Fine Art: wall murals and relief art, water features and rockery, pergolas and gazebos."
+        title="Gallery: Murals, Water Features & Pergolas | Invent Fine Art"
+        description="Work done by Invent Fine Art: wall murals and relief art, water features and rockery, pergolas and gazebos."
         image="gallery/wall_murals/9"
-        jsonLd={breadcrumbs([{ name: 'Projects', path: '/projects' }])}
+        jsonLd={breadcrumbs([{ name: 'Gallery', path: '/gallery' }])}
       />
       <SplitHeader
-        crumbs={[{ name: 'Projects' }]}
-        eyebrow="Past work"
-        title={<>Our <em>projects</em></>}
-        lead="Murals and relief art, water features and rockery, pergolas and gazebos, beyond our five product lines."
+        crumbs={[{ name: 'Gallery' }]}
+        eyebrow="Work done by us"
+        title={<>The <em>gallery</em></>}
+        lead="Murals and relief art, water features and rockery, pergolas and gazebos: a selection of executed work."
         image="gallery/wall_murals/9"
         alt="Metal leaf wall installation in a living room, by Invent Fine Art"
       />

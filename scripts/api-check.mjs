@@ -67,7 +67,7 @@ check('valid enquiry: 200 ok', r.status === 200 && r.body.ok, JSON.stringify(r.b
 const [mail, reply] = sent;
 check('enquiry email goes to ENQUIRY_TO with the visitor as reply-to', [].concat(mail?.to)[0] === 'inbox@example.com' && [].concat(mail?.reply_to ?? mail?.replyTo)[0] === 'asha@example.com', JSON.stringify({ to: mail?.to, reply_to: mail?.reply_to }));
 check('subject names the design code and the visitor', mail?.subject === 'New enquiry: IFA-SC-012 from Asha Rao', mail?.subject);
-check('unknown product slugs are dropped; names come from lines.js', mail?.text?.includes('Interested in: Sculptures, GRC Grilles') && !mail?.text?.includes('not-a-line'), mail?.text);
+check('unknown product slugs are dropped; old line slugs map to their service', mail?.text?.includes('Interested in: Sculptures, Customised FRP & GRC Products') && !mail?.text?.includes('not-a-line'), mail?.text);
 check('HTML in the message is escaped', mail?.html?.includes('&lt;b&gt;lobby&lt;/b&gt;') && !mail?.html?.includes('<b>lobby'));
 check('the attachment is included', mail?.attachments?.[0]?.filename === 'site-plan.pdf');
 check('auto-reply goes to the visitor and mentions the design', [].concat(reply?.to)[0] === 'asha@example.com' && reply?.text?.includes('IFA-SC-012'), JSON.stringify(reply?.to));

@@ -27,7 +27,7 @@ export function DesignCard({ design, onOpen, sizes = '(min-width: 1024px) 24vw, 
           <Maximize2 className="size-4" strokeWidth={2.25} />
         </span>
       </button>
-      <Plate code={design.code} title={design.title} detail={design.detail} as={`h${headingLevel}`} className="flex-1" />
+      <Plate code={design.code} title={design.title} detail={[design.detail, design.location].filter(Boolean).join(' · ') || undefined} as={`h${headingLevel}`} className="flex-1" />
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <button
           type="button"

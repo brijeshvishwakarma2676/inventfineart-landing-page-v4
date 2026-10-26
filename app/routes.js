@@ -7,7 +7,7 @@ export default [
   index('routes/home.jsx'),
   route('products', 'routes/products.jsx'),
   ...lines.map((l) => route(l.slug, 'routes/category.jsx', { id: `line-${l.slug}` })),
-  route('projects', 'routes/projects.jsx'),
+  route('gallery', 'routes/projects.jsx', { id: 'gallery' }),
   route('about', 'routes/about.jsx'),
   route('clients', 'routes/clients.jsx'),
   route('faq', 'routes/faq.jsx'),

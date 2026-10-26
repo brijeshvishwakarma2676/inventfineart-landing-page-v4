@@ -6,7 +6,7 @@ const EnquiryForm = lazy(() => import('./EnquiryForm').then((m) => ({ default: m
 import { useFocusTrap } from '../components/ui/useFocusTrap';
 import { useScrollLock } from '../components/ui/useScrollLock';
 import { site, whatsappLink } from '../data/site';
-import { lineBySlug, inSentence } from '../data/lines';
+import { serviceFor, inSentence, lines } from '../data/lines';
 
 /** Slide-over enquiry panel opened by every "Get a Quote" / "Enquire" (SITE-V4-PLAN.md §5, v3 spec §5). */
 export function EnquiryPanel() {
@@ -19,7 +19,7 @@ export function EnquiryPanel() {
   useFocusTrap(panelRef, isOpen, close);
   useScrollLock(isOpen);
 
-  const line = prefill.category ? lineBySlug[prefill.category] : null;
+  const line = prefill.category ? serviceFor(prefill.category) : null;
   const subject = prefill.code ? `${prefill.title} (${prefill.code})` : line ? inSentence(line.name) : 'your products';
 
   return (
@@ -52,7 +52,7 @@ export function EnquiryPanel() {
 
         <div className="flex flex-col gap-7 px-6 py-8 md:px-8">
           <div className="flex flex-col gap-2">
-            {(prefill.code || line) && <p className="caps-label text-oxide-deep">{prefill.code ?? `${line.num} / 05`}</p>}
+            {(prefill.code || line) && <p className="caps-label text-oxide-deep">{prefill.code ?? `${line.num} / 0${lines.length}`}</p>}
             <h2 id="enquiry-title" className="text-[2.25rem] leading-[0.95]">
               {prefill.code ? prefill.title : line ? line.name : 'Tell us about your space'}
             </h2>

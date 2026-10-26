@@ -23,7 +23,8 @@ export function useLightbox(items, { onEnquire } = {}) {
           height: Math.round((m.h * top) / m.w),
           alt: it.alt,
           title: it.title,
-          description: it.code,
+          // Details on click (meeting L298–318): code · material · where · for whom, each only when known.
+          description: [it.code, it.detail, it.location, it.client].filter(Boolean).join(' · ') || undefined,
           srcSet: widths.map((w) => ({ src: `/img/${m.files[w]}`, width: w, height: Math.round((m.h * w) / m.w) })),
         };
       }),

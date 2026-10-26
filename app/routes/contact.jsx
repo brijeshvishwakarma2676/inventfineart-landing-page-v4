@@ -6,7 +6,7 @@ import { Section, Container } from '../components/ui/Section';
 import { PlainHeader } from '../components/sections/PageHeader';
 import { EnquiryForm } from '../enquiry/EnquiryForm';
 import { site, whatsappLink } from '../data/site';
-import { lineBySlug } from '../data/lines';
+import { serviceFor } from '../data/lines';
 import { designByCode } from '../data/designs';
 import { breadcrumbs } from '../data/seo';
 import { useHydrated } from '../motion/useReducedMotion';
@@ -58,8 +58,8 @@ export default function Contact() {
   const design = code ? designByCode[code] : null;
   const prefill = design
     ? { category: design.line, code: design.code, title: design.title }
-    : service && lineBySlug[service]
-      ? { category: service }
+    : service && serviceFor(service)
+      ? { category: serviceFor(service).slug }
       : {};
 
   const direct = [

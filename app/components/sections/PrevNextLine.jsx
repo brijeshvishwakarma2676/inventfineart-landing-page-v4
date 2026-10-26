@@ -9,7 +9,7 @@ export function PrevNextLine({ slug }) {
   const next = lines[(i + 1) % lines.length];
   const cell = 'group flex flex-col gap-2 py-8';
   return (
-    <nav aria-label="Other product lines" className="bg-bg">
+    <nav aria-label="Other services" className="bg-bg">
       <div className="container-site grid border-y-2 border-line-strong sm:grid-cols-2">
         <Link to={`/${prev.slug}`} className={`${cell} border-b border-line sm:border-r sm:border-b-0 sm:pr-8`}>
           <span className="caps-label inline-flex items-center gap-2 text-ink-muted">

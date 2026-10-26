@@ -1,4 +1,4 @@
-// Line drawings for the Home sketchbook (Sketchbook.jsx): one scene per product line, each drawn from designs
+// Line drawings for the Home hero (Hero.jsx, SketchStage.jsx): one scene per service, each drawn from designs
 // in the catalogue (`codes`, linked from the caption). Drawn in 0 0 800 450 (the ground line at y = 410) and
 // shown through VIEWBOX, which crops the empty sky.
 // Every object is drawn around its own origin (the middle of its base, y up is negative) and placed at `x`.
@@ -324,6 +324,21 @@ const jali = triangleJali(150, 250, 9, 7);
 const boundary = boundaryScreen(220, 120);
 const curved = curvedWall(110, 200);
 
+// A wall feature: a framed wall panel set with rows of discs (like the teal disc and tile walls in the murals photos).
+function discWall(w, h, cols, rows) {
+  const d = [`M 0 0 L 0 ${-h} L ${w} ${-h} L ${w} 0`, `M -8 ${-h} L ${w + 8} ${-h}`];
+  const cw = w / cols;
+  const rh = (h - 20) / rows;
+  for (let k = 0; k < rows; k++) {
+    let row = '';
+    for (let c = 0; c < cols; c++) row += ellipse(cw * (c + 0.5), -10 - rh * (k + 0.5), Math.min(cw, rh) * 0.34) + ' ';
+    d.push(row.trim());
+  }
+  return { d };
+}
+const discs = discWall(230, 210, 5, 5);
+
+// One scene per service (the 2026-10-24 restructure). Redrawn from the client's own photos in Phase B (TASKS.md B3).
 export const sketches = [
   {
     line: 'sculptures',
@@ -331,24 +346,19 @@ export const sketches = [
     objects: [at(112, chessKing), at(186, chessPawn), at(330, buddha), at(526, ribbon), at(690, person)],
   },
   {
-    line: 'designer-planters',
+    line: 'planters',
     codes: ['IFA-PL-001', 'IFA-PL-002', 'IFA-PL-003', 'IFA-PL-004'],
     objects: [at(112, faceted), at(256, urn), at(420, elephant), at(568, facePot), at(700, person)],
   },
   {
-    line: 'grc-products',
-    codes: ['IFA-GRC-002', 'IFA-GRC-007', 'IFA-GRC-011'],
-    objects: [at(40, pyramid), at(392, heritage), at(566, lotus), at(706, person)],
+    line: 'murals-wall-features',
+    codes: ['IFA-GRC-011', 'IFA-MU-027'],
+    objects: [at(60, discs), at(470, lotus), at(680, person)],
   },
   {
-    line: 'grc-grilles',
-    codes: ['IFA-GRL-003', 'IFA-GRL-006'],
-    objects: [at(140, jali), at(420, boundary), at(680, person)],
-  },
-  {
-    line: 'frp-products',
-    codes: ['IFA-FRP-002', 'IFA-FRP-007'],
-    objects: [at(190, spires), at(470, curved), at(632, sphere), at(718, person)],
+    line: 'customised-products',
+    codes: ['IFA-GRL-003', 'IFA-GRC-007'],
+    objects: [at(150, jali), at(400, heritage), at(620, person)],
   },
 ];
 

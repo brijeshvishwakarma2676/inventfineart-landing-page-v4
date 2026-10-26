@@ -8,7 +8,7 @@ import { lines } from '../data/lines';
 // Prerendered at /404 and served by Vercel as 404.html with a 404 status (scripts/postbuild.mjs).
 // No loader and no thrown 404 response: prerender only accepts a 200.
 export default function NotFound() {
-  const links = [...lines.map((l) => ({ to: `/${l.slug}`, num: l.num, name: l.name })), { to: '/projects', name: 'Projects' }, { to: '/contact', name: 'Contact' }];
+  const links = [...lines.map((l) => ({ to: `/${l.slug}`, num: l.num, name: l.name })), { to: '/gallery', name: 'Gallery' }, { to: '/contact', name: 'Contact' }];
   return (
     <>
       <Seo title="Page not found | Invent Fine Art" description="The page you were looking for could not be found." noindex />

@@ -3,20 +3,19 @@ import { Link } from 'react-router';
 import { ArrowRight, Pause, Play } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Eyebrow } from '../ui/SectionHeading';
-import { SketchStage } from './Sketchbook';
+import { SketchStage } from './SketchStage';
 import { sketches } from './sketches';
 import { site } from '../../data/site';
 import { lineBySlug } from '../../data/lines';
-import { useEnquiry } from '../../enquiry/EnquiryContext';
 import { useReducedMotion } from '../../motion/useReducedMotion';
 
 const SLIDE_MS = 6500;
 
 /**
  * Home hero (SITE-V4-PLAN.md §3.1), graphite: the headline block on the left, and on the right one line drawing
- * per product line (the same drawings as the Sketchbook band). The first drawing is already complete in the
+ * per service (redrawn from the client's photos in Phase B). The first drawing is already complete in the
  * prerendered page, so nothing that has painted is rubbed out; each next one draws itself line by line, every
- * 6.5 s. A ruled strip of 01–05 tabs switches the line. Pausable; under reduced motion it never advances by itself.
+ * 6.5 s. A ruled strip of 01–04 tabs switches the service. Pausable; under reduced motion it never advances by itself.
  */
 export function Hero() {
   const { hero } = site;
@@ -25,7 +24,6 @@ export function Hero() {
   const [userPaused, setPaused] = useState(false);
   const reduced = useReducedMotion();
   const paused = userPaused || reduced;
-  const { open } = useEnquiry();
   const active = slides[index];
 
   useEffect(() => {
@@ -35,21 +33,21 @@ export function Hero() {
   }, [index, paused, slides.length]);
 
   return (
-    <section aria-roledescription="carousel" aria-label="Our five product lines" className="flex flex-col bg-dark text-chalk lg:block">
+    <section aria-roledescription="carousel" aria-label="Our four services" className="flex flex-col bg-dark text-chalk lg:block">
       {/* Phones: headline, drawing, then the strip. From 1024px: headline | drawing, strip below. */}
       <div className="contents lg:grid lg:min-h-[calc(100svh-var(--header-h)-6rem)] lg:grid-cols-[minmax(2rem,1fr)_minmax(0,32.5rem)_minmax(0,46rem)_minmax(2rem,1fr)]">
         {/* Headline block */}
         <div className="flex flex-col justify-between gap-10 px-4 pt-10 pb-4 md:px-8 lg:col-[2/3] lg:px-0 lg:pt-14 lg:pr-12 lg:pb-12">
           <div className="flex flex-col gap-6">
-            <Eyebrow tone="dark">Sculptures · Planters · GRC · FRP</Eyebrow>
+            <Eyebrow tone="dark">Sculptures · Planters · Murals · FRP &amp; GRC</Eyebrow>
             <h1 className="text-[clamp(2.5rem,1.4rem+3vw,4.25rem)] leading-[0.9] text-chalk">{hero.title}</h1>
             <p className="max-w-md text-lead font-medium text-chalk-muted">{site.tagline}</p>
             <div className="flex flex-wrap gap-3">
               <Button to="/products" arrow>
                 Explore products
               </Button>
-              <Button variant="onDark" onClick={() => open()}>
-                Get a Quote
+              <Button variant="onDark" to="/gallery">
+                View gallery
               </Button>
             </div>
           </div>
@@ -77,7 +75,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Ruled strip of 01–05 tabs */}
+      {/* Ruled strip of 01–04 tabs */}
       <div className="container-site">
         <div className="grid grid-cols-[repeat(5,minmax(0,1fr))_auto] border-t-2 border-chalk">
           {slides.map((s, i) => {

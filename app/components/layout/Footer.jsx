@@ -10,7 +10,7 @@ const YEAR = new Date().getFullYear();
 
 const company = [
   { label: 'All products', to: '/products' },
-  { label: 'Projects', to: '/projects' },
+  { label: 'Gallery', to: '/gallery' },
   { label: 'About us', to: '/about' },
   { label: 'Clients', to: '/clients' },
   { label: 'FAQ', to: '/faq' },

@@ -80,25 +80,24 @@ export const lineFaqs = {
     { id: 'sc-concept', q: 'Can you make a sculpture from my concept?', a: 'Yes. From decorative sculptures to custom-designed statement pieces, we work to bring creative concepts to life. Share a sketch or a reference to start.' },
     ...common,
   ],
-  'designer-planters': [
-    { id: 'pl-material', q: 'Which materials are your planters made in?', a: 'GRC and FRP.' },
+  planters: [
+    { id: 'pl-material', q: 'Which materials are your planters made in?', a: 'FRP and GRC.' },
+    { id: 'pl-removable', q: 'Can a large planter be moved once it is planted?', a: 'Yes, with our removable planters: they stand on wheels, so even a heavy, fully planted pot can be moved.' },
     // PROVISIONAL – confirm with client (sizes, CONTENT-GAPS.md row 9)
     { id: 'pl-sizes', q: 'What sizes are available?', a: 'Small (12–18 in), medium (18–30 in) and large (30–48 in), and custom sizes to your drawing.' },
     ...common,
   ],
-  'grc-products': [
+  // Meeting 2026-10-24, L258–274: the owner's own definitions.
+  'murals-wall-features': [
+    { id: 'mu-difference', q: 'What is the difference between a mural and a wall feature?', a: 'A mural is artwork raised in relief on a wall, such as a figure or a scene. A wall feature is a set of decorative panels that covers a wall and gives it character.' },
+    { id: 'mu-design', q: 'Can you make a mural to my design?', a: 'Yes. Share your concept, a drawing or a reference photo with the wall size, and we will develop it as per your design and requirement.' },
+    ...common,
+  ],
+  'customised-products': [
     { id: 'grc-what', q: 'What is GRC?', a: 'Glassfibre Reinforced Concrete. It is used for decorative and architectural applications, including façade elements, ornamental features, cornices, columns, mouldings, cladding elements and customized architectural components.' },
-    { id: 'grc-projects', q: 'What kind of projects is GRC used on?', a: 'Residential, commercial and large-scale projects.' },
-    ...common,
-  ],
-  'grc-grilles': [
-    { id: 'grl-pattern', q: 'Can you make a grille to my own pattern?', a: 'Yes. Patterns range from traditional ornamental to contemporary geometric, and we can develop one as per your design and requirement.' },
-    { id: 'grl-where', q: 'Where are GRC grilles used?', a: 'On building façades, balconies, partitions and other architectural spaces.' },
-    ...common,
-  ],
-  'frp-products': [
     { id: 'frp-what', q: 'What is FRP?', a: 'Fibre-Reinforced Plastic. It offers versatility for a variety of decorative, architectural and project-specific applications.' },
-    { id: 'frp-start', q: 'What do you need from me to start?', a: 'The intended use, the design or a reference, the dimensions and the finish you have in mind.' },
+    { id: 'cp-rcc', q: 'Why use FRP or GRC instead of RCC?', a: 'For building elements such as chhajjas, columns and arches, FRP and GRC look right, are made faster and are lighter than RCC, while staying strong and durable.' },
+    { id: 'grl-pattern', q: 'Can you make a jaali to my own pattern?', a: 'Yes. Patterns range from traditional ornamental to contemporary geometric, and we can develop one as per your design and requirement.' },
     ...common,
   ],
 };

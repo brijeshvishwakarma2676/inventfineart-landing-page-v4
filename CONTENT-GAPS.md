@@ -1,6 +1,6 @@
 # Content gaps and provisional values
 
-As of 2026-10-18 (Phase 7). This is the **master list**: it supersedes `site-v3/CONTENT-GAPS.md`. Every value below is a stand-in. It can be built and shown, but the client must confirm or replace it before launch.
+As of 2026-10-26 (decisions Phase A; first written 2026-10-18). This is the **master list**: it supersedes `site-v3/CONTENT-GAPS.md`. Every value below is a stand-in. It can be built and shown, but the client must confirm or replace it before launch.
 
 - Find them all with `grep -rn PROVISIONAL app`. Launch is blocked until that command shows nothing (SITE-V4-PLAN.md §7).
 - Sources of truth are `../old data/raw_html/*.html`, `../old data/media/` and `../new-design.md`. The archive's own notes (`old data/pages/*.md`, `README.md`, `site_data.json`) are **not** a source. Anything found only there is provisional.
@@ -15,13 +15,13 @@ As of 2026-10-18 (Phase 7). This is the **master list**: it supersedes `site-v3/
 | 3 | Certification | "ISO 9001 Certified". The old site says ISO 9001:2008, withdrawn in 2018; ask for the current certificate | `app/data/site.js:14` |
 | 4 | Enquiry inbox | inventfineart.mum@gmail.com | `app/data/site.js:21` |
 | 5 | WhatsApp number | +91 93232 10327 | `app/data/site.js:23` |
-| 6 | Hero headline | "Sculptures, designer planters, GRC and FRP, made to your design." The alternative is v3's "Art that gives your space an identity."; the client picks at the Home mock-up | `app/data/site.js:46` |
+| 6 | Hero headline | "Sculptures, planters, murals and FRP & GRC products, made to your design." (four services, meeting 2026-10-24) | `app/data/site.js:46` |
 | 7 | Hero video | none, so the slider is used (one slide per line; picks in `site.js` `hero.slides`) | `app/data/site.js:48` |
 | 8 | Catalogue PDF | none (`/catalogue` is not built) | `app/data/site.js:66` |
-| 9 | Sizes | Planters S/M/L/Custom; the rest "Made to your size and drawing" | `app/data/lines.js:18, 38, 59, 79, 100`; `app/data/faqs.js:85` |
-| 10 | Finishes | 5 names; swatches are flat token colours | `app/data/lines.js:110` |
-| 11 | FRP banner and designs | stand-ins from `other_products` that look fibre-made (3, 6, 8, 9, 11, 12, 13, 14), flagged `provisional: true` | `app/data/lines.js:101`; `app/data/designs.js:17` |
-| 12 | GRC Grilles split | `grc_products` 4, 5, 6, 10 = grilles; plus `wall_murals` 12, 13 (jali gates) | `app/data/lines.js:80`; `app/data/designs.js:17` |
+| 9 | Sizes | Planters S/M/L/Custom; murals "Made to your wall and drawing"; the rest "Made to your size and drawing" | `app/data/lines.js:23, 57, 88, 119`; `app/data/faqs.js:85` |
+| 10 | Finishes | 5 names; swatches are flat token colours | `app/data/lines.js:144` |
+| 11 | FRP designs | stand-ins from `other_products` that look fibre-made (3, 6, 8, 9, 11, 12, 13, 14), flagged `provisional: true`; now under Customised products with no segment until the client says what each one is | `app/data/designs.js:19` |
+| 12 | GRC Grilles split | `grc_products` 4, 5, 6, 10 = jaali; `wall_murals` 12, 13 = jaali gates. Since 2026-10-26 all of them sit under Customised products (Jaali & screens, Gates) | `app/data/designs.js:23` |
 | 13 | Testimonials | none (section hidden) | `app/data/testimonials.js:2` |
 | 14 | Architect logos | none (section hidden) | `app/data/clients.js:54` |
 | 15 | Logo | wordmark only; the vector logo is needed | `app/components/ui/Logo.jsx:4` |
@@ -29,8 +29,14 @@ As of 2026-10-18 (Phase 7). This is the **master list**: it supersedes `site-v3/
 | 17 | **Factory address wording** | "Opp. Jag Mata Mandir, Wagholi Road, Nalasopara West, Thane 401203" (old contact page; "Nalasopra" spelling fixed). Nalasopara is now in Palghar district: should it say Palghar? v2 and v3 wrongly said "Vasai/Virar" | `app/data/site.js:37` |
 | 18 | **Second email** | inventfineart@gmail.com (old contact page only). Is it still in use? | `app/data/site.js:22` |
 | 19 | **Client list** | the 34 names and 28 logo brands from the old site (2017). Is the list current, and may we publish it? | `app/data/clients.js:1` |
-| 20 | **Sculpture materials** | Fibre · Metal · Stone (archive notes only, not the old site) | `app/data/lines.js:17` |
+| 20 | **Sculpture materials** | Stainless steel · Stone · Bronze · FRP (meeting L794, L874). **"RSJ"** (said for sculptures and murals) is left out until the client says what he means | `app/data/lines.js:22, 87` |
 | 21 | **Sculpture filter groups** | Figures & portraits 43 · Devotional 5 · Animals & birds 8 · Abstract & contemporary 15 · Garden & nature 5 (76), proposed by us from the photos | `app/data/designs.js:8` |
+| 23 | **4th service name** | "Customised FRP & GRC Products" (he said "customized designer products in FRP and GRC", L794; short form ours) | `app/data/lines.js:107` |
+| 24 | **Segments by eye** | Every design's segment (Facades, Jaali & screens, Gates, Murals, Wall features) is set by us from the photo. Sculptures can't be split by material yet: the material segments are listed, the filter keeps the subjects | `app/data/designs.js:19, 132` |
+| 25 | **Murals designs** | 32 new codes `IFA-MU-001…032` from `wall_murals` (moved from Projects); titles describe the photo; wm/2 and wm/24 have no segment | `app/data/designs.js:132` |
+| 26 | **Murals "Suitable for" and sizes** | Residences · Lobbies · Hotels · Commercial spaces; "Made to your wall and drawing" (ours) | `app/data/lines.js:86, 88` |
+| 27 | **GRC advantages and "Why GRC"** | our own words; topics only checked against a competitor site, no text copied. FRP advantages are from his words (L736–752) | `app/data/content.js:59` |
+| 28 | **Service photo strips** | 4 photos per service on Home, picked by us from the current photos; replaced from his WhatsApp photos in Phase B | `app/data/lines.js` `photos` |
 | 22 | **Client sectors** | not shown. Half the 34 names don't say what the business is, so grouping them would be guesswork. Ask whether the client wants the list grouped, and how | — |
 
 ## Design titles

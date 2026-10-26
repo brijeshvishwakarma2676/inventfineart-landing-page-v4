@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router';
-import { ChevronDown, Menu, Phone } from 'lucide-react';
+import { ChevronDown, Menu, MessageCircle, Phone } from 'lucide-react';
 import { Logo } from '../ui/Logo';
 import { MegaMenu } from './MegaMenu';
 import { MobileMenu } from './MobileMenu';
-import { nav, site } from '../../data/site';
-import { useEnquiry } from '../../enquiry/EnquiryContext';
+import { nav, site, whatsappLink } from '../../data/site';
 
 /**
- * The graphite header bar (SITE-V4-PLAN.md §2–3): logo · Products ▾ · Projects · About · Clients · Contact ·
- * phone · [GET A QUOTE] as an oxide block the full height of the bar. Always solid (no photo runs under it);
+ * The graphite header bar (SITE-V4-PLAN.md §2–3): logo · Products ▾ · Gallery · About · Clients · Contact ·
+ * phone · [WHATSAPP] as an oxide block the full height of the bar (no Get a Quote at the top: meeting L450–486). Always solid (no photo runs under it);
  * it hides while scrolling down and comes back on scroll up.
  */
 export function Header() {
-  const { open: openEnquiry } = useEnquiry();
   const [hidden, setHidden] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -128,22 +126,26 @@ export function Header() {
           </nav>
 
           <div className="flex items-stretch">
+            {/* No Get a Quote at the top (meeting L450–486): the phone number and WhatsApp, so a visitor reaches him directly */}
             <a
               href={`tel:${site.phones[0].tel}`}
-              className="hidden items-center gap-2 px-5 text-small font-bold tracking-label text-chalk-muted hover:text-chalk xl:inline-flex"
+              className="hidden items-center gap-2 px-5 text-small font-bold tracking-label text-chalk-muted hover:text-chalk md:inline-flex"
             >
               <Phone className="size-4" strokeWidth={2} aria-hidden="true" />
               {site.phones[0].label}
             </a>
-            <button
-              type="button"
-              onClick={() => openEnquiry()}
-              className="hidden items-center bg-oxide px-6 text-small font-bold uppercase tracking-label text-white transition-colors duration-300 hover:bg-oxide-deep sm:inline-flex"
-            >
-              Get a Quote
-            </button>
-            <a href={`tel:${site.phones[0].tel}`} className="inline-flex items-center px-2.5 sm:hidden" aria-label={`Call ${site.phones[0].label}`}>
+            <a href={`tel:${site.phones[0].tel}`} className="inline-flex min-w-11 items-center justify-center px-2.5 md:hidden" aria-label={`Call ${site.phones[0].label}`}>
               <Phone className="size-5" strokeWidth={2} />
+            </a>
+            <a
+              href={whatsappLink('Hello Invent Fine Art, I have an enquiry.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp us"
+              className="inline-flex min-w-11 items-center justify-center gap-2 bg-oxide px-3 text-small font-bold uppercase tracking-label text-white transition-colors duration-300 hover:bg-oxide-deep sm:px-6"
+            >
+              <MessageCircle className="size-5" strokeWidth={2} aria-hidden="true" />
+              <span className="hidden sm:inline">WhatsApp</span>
             </a>
             <button
               type="button"

@@ -130,7 +130,7 @@ export default function Styleguide() {
             </div>
             <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
               <span className="caps-label text-ink-muted">Body 16→17</span>
-              <p className="max-w-[68ch]">{lineBySlug['grc-products'].intro[1]}</p>
+              <p className="max-w-[68ch]">{lineBySlug['customised-products'].intro[1]}</p>
             </div>
             <div className="grid gap-2 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
               <span className="caps-label text-ink-muted">Small 14</span>
@@ -139,7 +139,7 @@ export default function Styleguide() {
             <div className="grid gap-3 border-t border-line pt-4 md:grid-cols-[10rem_1fr] md:gap-8">
               <span className="caps-label text-ink-muted">caps-label</span>
               <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3">
-                <span className="caps-label text-oxide-deep">01 / 05 · Sculptures</span>
+                <span className="caps-label text-oxide-deep">01 / 04 · Sculptures</span>
                 <span className="caps-label text-oxide-deep">IFA-SC-012</span>
                 <span className="caps-label text-ink-muted">Suitable for</span>
               </div>
@@ -197,7 +197,7 @@ export default function Styleguide() {
               {[
                 ['Designs', `${designs.length}: ${dots(lines.map((l) => `${l.num}\u00a0${l.name} ${designsFor(l.slug).length}`))}`],
                 ['Sculpture groups', dots(sculptureGroups.map((g) => `${g.name} ${designs.filter((d) => d.group === g.slug).length}`))],
-                ['Projects', `${projects.length}: ${dots(projectGroups.map((g) => `${g.name} ${projects.filter((p) => p.group === g.slug).length}`))}`],
+                ['Gallery', `${projects.length}: ${dots(projectGroups.map((g) => `${g.name} ${projects.filter((p) => p.group === g.slug).length}`))}`],
                 ['Clients', `${clientLogos.length} logo brands · ${clientNames.length} names from the old site`],
               ].map(([k, v]) => (
                 <div key={k} className="grid gap-1 border-b border-line py-3 sm:grid-cols-[11rem_1fr] sm:gap-6">

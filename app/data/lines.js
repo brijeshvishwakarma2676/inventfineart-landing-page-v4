@@ -1,6 +1,9 @@
-// The five product lines, numbered 01–05 everywhere (SITE-V4-PLAN.md §2.5, §3).
-// `tagline` and `intro` are VERBATIM from ../new-design.md; `suitableFor` uses only the brief's own words.
-// Materials: only GRC and FRP are named in the sources; anything else is PROVISIONAL.
+// The four services, numbered 01–04 everywhere (client meeting 2026-10-24: ../decision.txt, L220–234 for the order,
+// L794 for the final four; SITE-V4-DEV-DECISIONS-PLAN.md §1.3). Was five lines: GRC Products, GRC Grilles and FRP
+// Products are now one service, "Customised FRP & GRC Products"; Murals & wall features is new.
+// Copy: the brief's own words (../new-design.md) where it has them, otherwise the owner's words from the meeting.
+// `segments`: what the service covers, from the meeting. A design's `segment` (designs.js) files it under one.
+// `legacy`: old line URLs that now redirect here (vercel.json); the enquiry form maps old ?service= values with it.
 
 export const lines = [
   {
@@ -11,99 +14,130 @@ export const lines = [
     tagline: 'Art That Gives Your Space a Distinctive Identity',
     intro: [
       'Discover sculptural creations that bring character, elegance, and artistic expression to your surroundings. From decorative sculptures to custom-designed statement pieces, we work to bring creative concepts to life.',
+      // Meeting L794, L874. "RSJ" left out until the client explains it (TASKS.md 0.7).
+      'We make sculptures in stainless steel, stone, bronze and FRP.',
       'Suitable for residences, gardens, hotels, commercial spaces, and architectural projects.',
     ],
     suitableFor: ['Residences', 'Gardens', 'Hotels', 'Commercial spaces', 'Architectural projects'],
-    materials: ['Fibre', 'Metal', 'Stone'], // PROVISIONAL – confirm with client (archive notes only, not the old site)
+    materials: ['Stainless steel', 'Stone', 'Bronze', 'FRP'], // meeting L794, L874
     sizes: 'Made to your size and drawing', // PROVISIONAL – confirm with client
+    // Sculpture segments are materials; the existing photos aren't labelled by material yet, so the page lists them
+    // and keeps the subject filter (designs.js sculptureGroups) until labelled photos arrive.
+    segments: [
+      { slug: 'stainless-steel', name: 'Stainless steel sculptures' },
+      { slug: 'stone', name: 'Stone sculptures' },
+      { slug: 'bronze', name: 'Bronze sculptures' },
+      { slug: 'frp', name: 'FRP sculptures' },
+    ],
+    segmentsAreMaterials: true,
+    // Home services card: 4 photos (meeting L32–34). Stand-ins until the client's photos arrive (TASKS.md B4).
+    photos: ['gallery/sculptures/15', 'gallery/sculptures/20', 'gallery/sculptures/84', 'gallery/sculptures/80'],
     banner: { image: 'gallery/sculptures/15', position: '50% 18%' },
     seo: {
-      title: 'Sculptures for Homes, Gardens & Hotels | Invent Fine Art',
+      title: 'Sculptures in Steel, Stone, Bronze & FRP | Invent Fine Art',
       description:
-        'Decorative and custom statement sculptures for residences, gardens, hotels and commercial spaces, by Invent Fine Art, Mumbai.',
+        'Decorative and custom statement sculptures in stainless steel, stone, bronze and FRP for residences, gardens, hotels and commercial spaces, by Invent Fine Art, Mumbai.',
     },
+    legacy: [],
   },
   {
-    slug: 'designer-planters',
+    slug: 'planters',
     code: 'PL',
     num: '02',
-    name: 'Designer Planters',
+    name: 'Planters',
     tagline: 'Where Nature Meets Design',
     intro: [
       'Enhance your surroundings with decorative planters designed to complement contemporary and traditional environments. Our range can suit residential landscapes, balconies, gardens, hospitality spaces, and commercial properties.',
+      // Meeting L794: FRP and GRC planters, and three of the owner's own designs.
+      'We make planters in FRP and GRC, including our own designs: removable planters on wheels, partition creeper planters that grow into a natural green partition, and FRP tray flower beds.',
       'Explore different styles, shapes, sizes, and customization options to find the right fit for your space.',
     ],
     suitableFor: ['Residential landscapes', 'Balconies', 'Gardens', 'Hospitality spaces', 'Commercial properties'],
-    materials: ['GRC', 'FRP'], // old services.html: "planters … made in GRC & FRP material"
+    materials: ['FRP', 'GRC'], // old services.html: "planters … made in GRC & FRP material"; meeting L794
     sizes: 'Small 12–18 in · Medium 18–30 in · Large 30–48 in · Custom', // PROVISIONAL – confirm with client
+    segments: [
+      { slug: 'frp-planters', name: 'FRP pots & planters', text: 'Pots and planters in fibre (FRP).' },
+      { slug: 'grc-planters', name: 'GRC pots & planters', text: 'Pots and planters in GRC.' },
+      { slug: 'removable', name: 'Removable planters', text: 'Planters on wheels, so even a heavy, fully planted pot can be moved.' },
+      { slug: 'partition-creeper', name: 'Partition creeper planters', text: 'A planter with a trellis: creepers climb it and grow into a natural partition.' },
+      { slug: 'tray-flower-beds', name: 'Tray flower beds', text: 'Large, shallow FRP trays for flowering plants, easy to move.' },
+    ],
+    // Home services card: 4 photos (meeting L32–34). Stand-ins until the client's photos arrive (TASKS.md B4).
+    photos: ['gallery/planters/3', 'gallery/planters/1', 'gallery/planters/2', 'gallery/planters/4'],
     banner: { image: 'gallery/planters/3', position: '50% 45%' },
     seo: {
-      title: 'Designer Planters for Homes, Hotels & Landscapes | Invent Fine Art',
+      title: 'FRP & GRC Planters, Removable & Creeper Planters | Invent Fine Art',
       description:
-        'Decorative designer planters in contemporary and traditional styles for gardens, balconies, hotels and commercial properties. Custom sizes and finishes.',
+        'Designer planters in FRP and GRC: pots, removable planters on wheels, partition creeper planters and tray flower beds for homes, hotels and commercial spaces.',
     },
+    legacy: ['designer-planters'],
   },
   {
-    slug: 'grc-products',
-    code: 'GRC',
+    slug: 'murals-wall-features',
+    code: 'MU',
     num: '03',
-    name: 'GRC Products',
-    tagline: 'Architectural Creativity Meets Modern Craftsmanship',
+    name: 'Murals & Wall Features',
+    tagline: 'Art for Your Walls',
     intro: [
-      'Discover Glassfibre Reinforced Concrete (GRC) products designed to add character, detail, and visual appeal to architectural spaces.',
-      'GRC offers versatility for decorative and architectural applications, including façade elements, ornamental features, cornices, columns, mouldings, cladding elements, and customized architectural components, depending on the product range.',
-      'Our focus is on bringing together design, functionality, and architectural aesthetics to meet the requirements of residential, commercial, and large-scale projects.',
+      // Meeting L258–274: what a mural and a wall feature are, in the owner's words.
+      'A mural is artwork raised in relief on a wall: a figure, a scene or a pattern. A wall feature is a set of decorative panels that covers a wall and gives it character.',
+      'We make both to your design, in steel and in mixed media, for homes, lobbies and commercial spaces.', // meeting L794
     ],
-    suitableFor: ['Façades', 'Residential projects', 'Commercial projects', 'Large-scale projects'],
-    materials: ['GRC'],
-    sizes: 'Made to your size and drawing', // PROVISIONAL – confirm with client
-    banner: { image: 'gallery/grc_products/1', position: '50% 55%' },
+    suitableFor: ['Residences', 'Lobbies', 'Hotels', 'Commercial spaces'], // PROVISIONAL – confirm with client
+    materials: ['Steel', 'Mixed media'], // meeting L794 ("RSJ" left out until confirmed)
+    sizes: 'Made to your wall and drawing', // PROVISIONAL – confirm with client
+    segments: [
+      { slug: 'murals', name: 'Murals', text: 'Relief artwork on a wall, such as a figure or a scene.' },
+      { slug: 'wall-features', name: 'Wall features', text: 'Decorative panels that cover a wall.' },
+    ],
+    // Home services card: 4 photos (meeting L32–34). Stand-ins until the client's photos arrive (TASKS.md B4).
+    photos: ['gallery/wall_murals/32', 'gallery/wall_murals/33', 'gallery/wall_murals/5', 'gallery/wall_murals/14'],
+    banner: { image: 'gallery/wall_murals/32', position: '50% 50%' },
     seo: {
-      title: 'GRC Façade Elements & Architectural Products | Invent Fine Art',
+      title: 'Wall Murals & Wall Features in Mumbai | Invent Fine Art',
       description:
-        'Glassfibre Reinforced Concrete (GRC) façade elements, cornices, columns, mouldings and cladding for residential, commercial and large-scale projects.',
+        'Relief wall murals and decorative wall features in steel and mixed media, made to your design for homes, lobbies, hotels and commercial spaces.',
     },
+    legacy: [],
   },
   {
-    slug: 'grc-grilles',
-    code: 'GRL',
+    slug: 'customised-products',
+    code: 'CP',
     num: '04',
-    name: 'GRC Grilles',
-    tagline: 'Distinctive Patterns. Timeless Architectural Appeal.',
-    intro: [
-      'Enhance building façades, balconies, partitions, and other architectural spaces with decorative GRC grilles.',
-      'Available design possibilities can range from traditional ornamental patterns to contemporary geometric styles, helping create visually distinctive architectural features while addressing project-specific requirements.',
-    ],
-    suitableFor: ['Building façades', 'Balconies', 'Partitions', 'Architectural spaces'],
-    materials: ['GRC'],
-    sizes: 'Made to your size and drawing', // PROVISIONAL – confirm with client
-    banner: { image: 'gallery/wall_murals/13', position: '50% 50%' }, // PROVISIONAL – confirm with client (jali gate filed under murals)
-    seo: {
-      title: 'GRC Jali & Grilles Manufacturer in Mumbai | Invent Fine Art',
-      description:
-        'Decorative GRC jali and grilles for façades, balconies and partitions, from traditional ornamental to contemporary geometric patterns.',
-    },
-  },
-  {
-    slug: 'frp-products',
-    code: 'FRP',
-    num: '05',
-    name: 'FRP Products',
+    name: 'Customised FRP & GRC Products', // PROVISIONAL – confirm with client (short name, meeting L1918)
     tagline: 'Creative Solutions. Customized to Your Requirements.',
     intro: [
       'Fibre-Reinforced Plastic (FRP) offers versatility for a variety of decorative, architectural, and project-specific applications.',
-      'We develop product solutions based on the intended use, design, dimensions, finish, and project requirements, helping clients explore suitable options for their spaces.',
-      'Share your concept with us to discuss the most appropriate design and finish.',
+      'Discover Glassfibre Reinforced Concrete (GRC) products designed to add character, detail, and visual appeal to architectural spaces.',
+      // Meeting L794–938: the customised range, in the owner's words.
+      'We make reception and console tables, garden benches, fins that hide ducting, jaali and screens, chhajjas, columns, pillars and arches, and façade elements in FRP and GRC, as per your design and requirement.',
+      // Meeting L736–752: why FRP and GRC for building elements.
+      'In building elements FRP and GRC replace RCC: they look right, are made faster, are lighter, and stay strong and durable.',
     ],
-    suitableFor: ['Decorative applications', 'Architectural applications', 'Project-specific applications'],
-    materials: ['FRP'],
+    suitableFor: ['Residential projects', 'Commercial projects', 'Large-scale projects'],
+    materials: ['FRP', 'GRC'],
     sizes: 'Made to your size and drawing', // PROVISIONAL – confirm with client
-    banner: { image: 'gallery/other_products/11', position: '50% 50%' }, // PROVISIONAL – confirm with client (no FRP photos yet)
+    segments: [
+      { slug: 'reception-tables', name: 'Reception tables' },
+      { slug: 'console-tables', name: 'Console tables' },
+      { slug: 'utility', name: 'Utility products' },
+      { slug: 'garden-benches', name: 'Garden benches' },
+      { slug: 'fins', name: 'Fins', text: 'FRP fins that hide ducting and pipes, or work as fencing.' },
+      { slug: 'jaali-screens', name: 'Jaali & screens' },
+      { slug: 'chhajja', name: 'Chhajja', text: 'Chhajjas in FRP and GRC, as per your requirement.' },
+      { slug: 'columns-arches', name: 'Columns, pillars & arches' },
+      { slug: 'facades', name: 'Façades' },
+      { slug: 'gates', name: 'Gates' },
+    ],
+    // Home services card: 4 photos (meeting L32–34). Stand-ins until the client's photos arrive (TASKS.md B4).
+    photos: ['gallery/grc_products/1', 'gallery/grc_products/5', 'gallery/grc_products/11', 'gallery/other_products/8'],
+    banner: { image: 'gallery/grc_products/1', position: '50% 55%' },
     seo: {
-      title: 'FRP Products, Custom Made | Invent Fine Art',
+      title: 'Custom FRP & GRC Products: Jaali, Façades, Chhajja | Invent Fine Art',
       description:
-        'Custom Fibre-Reinforced Plastic (FRP) products for decorative, architectural and project-specific applications, made to your design, size and finish.',
+        'Custom FRP and GRC products: jaali and screens, façade elements, chhajjas, columns and arches, fins, garden benches and reception tables, made to your design.',
     },
+    legacy: ['grc-products', 'grc-grilles', 'frp-products'],
   },
 ];
 
@@ -116,36 +150,9 @@ export const finishes = [
   { name: 'Custom colour', tone: 'line' },
 ];
 
-// Typology tiles on each product page (SITE-V4-PLAN.md §3.2). Names and text use only the brief's own words;
-// each image is a real photo from that line.
-export const typologies = {
-  sculptures: [
-    { name: 'Decorative sculptures', text: 'Sculptural creations that bring character, elegance, and artistic expression to your surroundings.', image: 'gallery/sculptures/84' },
-    { name: 'Custom statement pieces', text: 'Custom-designed statement pieces that bring creative concepts to life.', image: 'gallery/sculptures/80' },
-  ],
-  'designer-planters': [
-    { name: 'Contemporary', text: 'Planters designed to complement contemporary environments.', image: 'gallery/planters/1' },
-    { name: 'Traditional', text: 'Planters designed to complement traditional environments.', image: 'gallery/planters/3' },
-    { name: 'Custom sizes & finishes', text: 'Different styles, shapes, sizes, and customization options.', image: 'gallery/planters/4' },
-  ],
-  'grc-products': [
-    { name: 'Façade elements', text: 'Façade elements that add character, detail, and visual appeal.', image: 'gallery/grc_products/1' },
-    { name: 'Ornamental features', text: 'Ornamental features for decorative applications.', image: 'gallery/grc_products/13' },
-    { name: 'Cornices, columns & mouldings', text: 'Cornices, columns and mouldings for architectural spaces.', image: 'gallery/grc_products/11' },
-    { name: 'Cladding & custom components', text: 'Cladding elements and customized architectural components.', image: 'gallery/grc_products/7' },
-  ],
-  'grc-grilles': [
-    { name: 'Traditional ornamental', text: 'Traditional ornamental patterns.', image: 'gallery/wall_murals/13' },
-    { name: 'Contemporary geometric', text: 'Contemporary geometric styles.', image: 'gallery/grc_products/5' },
-  ],
-  'frp-products': [
-    { name: 'Decorative', text: 'FRP for decorative applications.', image: 'gallery/other_products/3' },
-    { name: 'Architectural', text: 'FRP for architectural applications.', image: 'gallery/other_products/11' },
-    { name: 'Project-specific', text: 'Solutions based on the intended use, design, dimensions, and finish.', image: 'gallery/other_products/6' },
-  ],
-};
-
 export const lineBySlug = Object.fromEntries(lines.map((l) => [l.slug, l]));
 /** A line name inside a sentence: lower case, but acronyms stay ("GRC products", "designer planters"). */
 export const inSentence = (name) => name.split(' ').map((w) => (/^[A-Z]{2,}$/.test(w) ? w : w.toLowerCase())).join(' ');
 export const lineSlugs = lines.map((l) => l.slug);
+/** The current service for a slug, including the old line slugs (designer-planters, grc-products…). */
+export const serviceFor = (slug) => lineBySlug[slug] ?? lines.find((l) => l.legacy.includes(slug));

@@ -1,6 +1,6 @@
 # Invent Fine Art — website v4
 
-A marketing and catalogue site for Invent Fine Art, which makes sculptures, designer planters, GRC products, GRC grilles and FRP products in Mumbai.
+A marketing and catalogue site for Invent Fine Art, Mumbai. Four services (since 2026-10-26): Sculptures, Planters, Murals & Wall Features, and Customised FRP & GRC Products. The owner's decisions are in `SITE-V4-DEV-DECISIONS-PLAN.md`; the work list is `TASKS.md`.
 
 **Source of truth: `docs/SITE-V4-PLAN.md`.** If this file and the plan disagree, the plan wins. Change the plan first, then the code. v4 inherits the v3 rules in `../SITE-V3-SPEC.md` unless the plan says otherwise. Product copy comes from `docs/new-design.md`, word for word.
 
@@ -90,9 +90,10 @@ PHASE 5
    - Never import `gsap`, `gsap/ScrollTrigger` or `lenis` statically. They arrive through `useMotion()` (`app/motion/motion.js`), which loads them when the browser is idle and returns null until then (and always under reduced motion). Everything must work with native scrolling while it is null.
    - Mark elements with `data-reveal="up" | "stagger" | "clip"`; `useReveal` (run once in `root.jsx`) animates the ones below the fold.
 7. After any visual change, run `npm run shots` and look at the screenshots (360, 768, 1024, 1440) before calling it done.
-8. No features outside the plan. Ideas go in `BACKLOG.md`.
-9. Don't modify `../frontend`, `../frontend-demo`, `../site-v3` or `../old data`. They're read-only references.
-10. **Commits and PRs never include `Co-Authored-By: Claude` or any AI tag.**
+8. The header has **no Get a Quote** (owner's decision): phone + WhatsApp at the top; enquiry forms at the end of pages and on Enquire buttons. Old line slugs (`designer-planters`, `grc-grilles`…) live only in `legacy` in `lines.js`, `vercel.json` redirects and `serviceFor()`.
+9. No features outside the plan. Ideas go in `BACKLOG.md`.
+10. Don't modify `../frontend`, `../frontend-demo`, `../site-v3` or `../old data`. They're read-only references.
+11. **Commits and PRs never include `Co-Authored-By: Claude` or any AI tag.**
 
 ## Commands
 - `npm run dev`: dev server (http://localhost:5173)
@@ -108,7 +109,7 @@ PHASE 5
 app/
   root.jsx            document shell, providers, header/footer
   routes.js           route list (every entry is prerendered)
-  routes/             one file per page; category.jsx serves all five product lines
+  routes/             one file per page; category.jsx serves all four services; projects.jsx is /gallery
   components/ui/      Button, Section/Container, SectionHeading, Plate, Img, Logo, Seo…
   components/layout/  Header, MegaMenu, MobileMenu, Footer, FloatingWhatsApp
   components/sections/ page sections

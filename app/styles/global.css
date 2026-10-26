@@ -174,7 +174,7 @@ html.lenis body {
   }
 }
 
-/* Home sketchbook (Sketchbook.jsx): line drawings that draw themselves. Every path has pathLength="1", so one
+/* Home hero line drawings (SketchStage.jsx) and card hover drawings: they draw themselves. Every path has pathLength="1", so one
    dash is the whole line; the undrawn offset (1.02) sits just past the start, so round caps leave no dot.
    Rubbing out waits until the drawing has faded (0.7s). Strokes are thicker on phones, where the drawing is small. */
 .sketch path {

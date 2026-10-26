@@ -50,11 +50,15 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
   check('Esc closes the mega menu', (await trigger.getAttribute('aria-expanded')) === 'false');
   check('focus returns to the Products button', await page.evaluate(() => document.activeElement?.getAttribute('aria-controls') === 'mega-menu'));
 
-  // Header Get a Quote → panel; focus inside; Tab stays inside; Esc closes and restores focus.
-  const quote = page.locator('header button', { hasText: 'Get a Quote' });
+  // No Get a Quote at the top (meeting 2026-10-24): the header offers the phone and WhatsApp instead.
+  check('header has no Get a Quote', (await page.locator('header', { hasText: 'Get a Quote' }).count()) === 0);
+  check('header has the phone and WhatsApp', (await page.locator('header a[href^="tel:"]').count()) > 0 && (await page.locator('header a[href*="wa.me"]').count()) > 0);
+
+  // Footer Get a Quote (end of the page) → panel; focus inside; Tab stays inside; Esc closes and restores focus.
+  const quote = page.locator('footer button', { hasText: 'Get a Quote' });
   await quote.click();
   await page.waitForTimeout(200);
-  check('header Get a Quote opens the panel', await panelOpen(page));
+  check('footer Get a Quote opens the panel', await panelOpen(page));
   check('focus moves into the panel', await focusIn(page, panel));
   for (let i = 0; i < 40; i++) await page.keyboard.press('Tab');
   check('Tab stays inside the panel', await focusIn(page, panel));
@@ -101,11 +105,6 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
   await page.keyboard.press('Escape');
   await page.waitForTimeout(600);
 
-  // Footer CTA band → panel.
-  await page.locator('footer button', { hasText: 'Get a Quote' }).click();
-  await page.waitForTimeout(200);
-  check('footer Get a Quote opens the panel', await panelOpen(page));
-  await page.keyboard.press('Escape');
   check('no page errors (desktop)', errors.length === 0, errors.join(' | '));
   await ctx.close();
 }
@@ -115,7 +114,7 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
   const page = await ctx.newPage();
   await page.goto(`${BASE}/styleguide`, { waitUntil: 'networkidle' });
-  await page.locator('header button', { hasText: 'Get a Quote' }).click();
+  await page.locator('footer button', { hasText: 'Get a Quote' }).click();
   await page.waitForTimeout(200);
   check('motion on: focus moves into the panel', await focusIn(page, panel));
   await page.keyboard.press('Escape');
@@ -171,16 +170,16 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 
-  await page.goto(`${BASE}/projects?type=water-features`, { waitUntil: 'networkidle' });
-  check('projects: ?type= selects the tab', (await page.getAttribute('button[aria-pressed="true"]', 'aria-pressed').catch(() => null)) && (await page.textContent('button[aria-pressed="true"]'))?.includes('Water features'));
+  await page.goto(`${BASE}/gallery?type=water-features`, { waitUntil: 'networkidle' });
+  check('gallery: ?type= selects the tab', (await page.getAttribute('button[aria-pressed="true"]', 'aria-pressed').catch(() => null)) && (await page.textContent('button[aria-pressed="true"]'))?.includes('Water features'));
   const shownProjects = await page.$$eval('main ul.columns-2 > li', (els) => els.filter((el) => el.offsetParent !== null).length);
-  check('projects: the filter shows only that group', shownProjects === 18, String(shownProjects));
-  await page.goto(`${BASE}/projects?img=wall_murals-9`, { waitUntil: 'networkidle' });
+  check('gallery: the filter shows only that group', shownProjects === 18, String(shownProjects));
+  await page.goto(`${BASE}/gallery?img=wall_murals-9`, { waitUntil: 'networkidle' });
   await page.waitForSelector('.yarl__root', { timeout: 5000 }).catch(() => {});
-  check('projects: ?img= opens that photo', (await page.locator('.yarl__root').count()) > 0);
+  check('gallery: ?img= opens that photo', (await page.locator('.yarl__root').count()) > 0);
 
   await page.goto(`${BASE}/contact?service=grc-grilles`, { waitUntil: 'networkidle' });
-  check('contact: ?service= ticks the line', await page.isChecked('main input[value="grc-grilles"]').catch(() => false));
+  check('contact: an old ?service=grc-grilles link ticks Customised products', await page.isChecked('main input[value="customised-products"]').catch(() => false));
   await page.goto(`${BASE}/contact?code=IFA-SC-012`, { waitUntil: 'networkidle' });
   check('contact: ?code= fills in the design', (await page.inputValue('main input[readonly]').catch(() => '')) === 'IFA-SC-012');
   await page.click('main button:has-text("Show office on the map")');
@@ -222,10 +221,12 @@ const focusIn = (page, sel) => page.evaluate((s) => !!document.querySelector(s)?
 
   await page.tap('button[aria-label="Open menu"]');
   await page.waitForTimeout(200);
-  await page.locator(`${menu} button`, { hasText: 'Get a Quote' }).tap();
+  check('menu: WhatsApp pinned at the bottom (no Get a Quote)', (await page.locator(`${menu} a[href*="wa.me"]`, { hasText: 'WhatsApp' }).count()) === 1 && (await page.locator(menu, { hasText: 'Get a Quote' }).count()) === 0);
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(600);
+  await page.locator('button[aria-label="Enquire about Sculptures"]').first().tap();
   await page.waitForTimeout(300);
-  check('menu Get a Quote closes the menu', await page.$eval(menu, (el) => el.inert));
-  check('menu Get a Quote opens the panel', await panelOpen(page));
+  check('a service Enquire opens the panel on the phone', await panelOpen(page));
   const { sw, iw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: window.innerWidth }));
   check('no horizontal scroll with the panel open', sw <= iw, `${sw} > ${iw}`);
   await shot(page, 'panel-360');
